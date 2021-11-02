@@ -32,7 +32,7 @@ const Navigation = () => {
                 <Link to='/settings' className={styled.navigation_item} >
                     <SettingsLogo />
                 </Link>
-                <Link className={styled.navigation_item} >
+                <Link to='/exit' className={styled.navigation_item} >
                     <LogOutLogo />
                 </Link>
             </div>

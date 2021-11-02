@@ -1,0 +1,13 @@
+.groups_section {
+    padding: 20px;
+}
+
+
+.groups_section_item {
+    color: #fff;
+    padding: 5px;
+    background: rgba(16, 18, 27, 0.39);
+    border-radius: 5px;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
