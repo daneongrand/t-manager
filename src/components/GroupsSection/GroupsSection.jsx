@@ -3,11 +3,18 @@ import KeywordsSection from '../KeywordsSection/KeywordsSection';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
 import DndSection from '../UI/dnd/DndSection';
+import { ReactComponent as AddLogo } from '../../img/add-logo.svg'
 import styled from './GroupsSection.module.css'
 
 
 const GroupsSection = ({ title, id, groups, prefixDroppableId }) => {
     const [display, setDisplay] = useState('group')
+
+
+    const changeDisplay = e => {
+        console.log(e)
+    }
+
 
     console.log(display)
     return (

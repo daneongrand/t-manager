@@ -5,8 +5,6 @@ import { v4 } from 'uuid'
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';
 import MinusPhraseSection from '../components/MinusPhraseSection/MinusPhraseSection';
-// import constructorItems from '../store/constructorItems';
-// import { observer } from 'mobx-react-lite';
 const Constructor = () => {
     const data_keywords = {
         id: v4(),

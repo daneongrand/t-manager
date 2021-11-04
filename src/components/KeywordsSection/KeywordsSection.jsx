@@ -6,6 +6,9 @@ import styled from './KeywordsSection.module.css'
 
 const KeywordsSection = ({title, id, data, prefixDroppableId}) => {
 
+    
+
+
     return (
         <section className={styled.keywords_section}>
 

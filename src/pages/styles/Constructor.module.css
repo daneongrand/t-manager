@@ -8,7 +8,19 @@
 .constructor > *:first-child {
     grid-column-start: 2;
 }
-
+/* 
 .constructor > * {
     border: 1px solid red;
+} */
+
+
+@media screen and (max-width: 800px) {
+    .constructor {
+        grid-template-columns: 100%;
+        grid-template-rows: 90vh 90vh 90vh;
+    }
+
+    .constructor > *:first-child {
+        grid-column-start: 1;
+    }
 }
