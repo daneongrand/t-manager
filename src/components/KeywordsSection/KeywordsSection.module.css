@@ -64,7 +64,23 @@
 .keywords_section_article {
     height: 90%;
     width: 100%;
+    overflow: scroll;
 }
+
+.keywords_section_article::-webkit-scrollbar {
+    width: 5px;
+    height: 100%;
+}
+
+.keywords_section_article::-webkit-scrollbar-thumb {
+    background: rgba(24, 29, 49, 1);
+    border-radius: 9em;
+    box-shadow: inset 1px 1px 10px #f3faf7;
+}
+.keywords_section:hover .keywords_section_article::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%);
+}
+
 
 .keywords_section_header {
     display: flex;
