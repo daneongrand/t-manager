@@ -4,7 +4,7 @@ import DndDroppable from '../UI/dnd/DndDroppable';
 import styled from './MinusPhraseSection.module.css'
 
 
-const MinusPhraseSection = ({title, id, data}) => {
+const MinusPhraseSection = ({title, id, data, prefixDroppableId}) => {
     return (
         <section className={styled.minus_phrase_section}>
 
@@ -14,7 +14,7 @@ const MinusPhraseSection = ({title, id, data}) => {
 
 
             <DndDroppable
-                droppableId={"DroppableId-" + id}
+                droppableId={prefixDroppableId + id}
                 type="KEYWORDS"
                 className={styled.minus_phrase_section_article}
             >
@@ -27,7 +27,7 @@ const MinusPhraseSection = ({title, id, data}) => {
                             key={item.id}
                         >
                             <div>
-                                { item.minusPhrase }
+                                { item.keyword }
                             </div>
                         </DndDraggableItem>
                     ))

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
 import DndSection from '../UI/dnd/DndSection';
 import styled from './KeywordsSection.module.css'
 
-const KeywordsSection = ({title, id, data}) => {
+const KeywordsSection = ({title, id, data, prefixDroppableId}) => {
+
     return (
         <section className={styled.keywords_section}>
 
@@ -13,7 +14,7 @@ const KeywordsSection = ({title, id, data}) => {
             </header>
 
             <DndDroppable 
-                droppableId={"DroppableId-" + id}
+                droppableId={prefixDroppableId + id}
                 type="KEYWORDS" 
                 className={styled.keywords_section_article}
             >
