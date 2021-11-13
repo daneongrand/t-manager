@@ -4,6 +4,8 @@ import DndDroppable from '../UI/dnd/DndDroppable';
 import DndSection from '../UI/dnd/DndSection';
 import styled, { keyframes } from 'styled-components';
 import styles from './KeywordsSection.module.css'
+import KeywordItem from './KeywordItem';
+import AddIcon from '../UI/icons/AddIcon';
 
 
 const KeywordsSection = ({title, keywords}) => {
@@ -72,12 +74,20 @@ const KeywordsSection = ({title, keywords}) => {
     `
 
 
+    const Header = styled.header`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    `
+
+
     return (
         <Section>
 
-            <header className={styles.keywords_section_header}>
+            <Header>
                 {title}
-            </header>
+                <AddIcon width="24" height="24" color="#fff" />
+            </Header>
 
             <DndDroppable 
                 droppableId="droppableId-keywords"
@@ -92,9 +102,7 @@ const KeywordsSection = ({title, keywords}) => {
                             index={index}
                             className={styles.keywords_section_item}
                         >
-                            <Keyword>
-                                {item.keyword}
-                            </Keyword>
+                            <KeywordItem {...item} key={item.id} />
                         </DndDraggableItem>
                     ))
                 }
