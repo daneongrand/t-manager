@@ -1,39 +1,47 @@
 import React from 'react';
 import styled from './Navigation.module.css'
 import { Link } from 'react-router-dom'
-import {ReactComponent as ProfileLogo} from '../../../img/profile-logo.svg'
-import {ReactComponent as ConstructorLogo} from '../../../img/constructor-logo.svg'
-import {ReactComponent as CampaignsLogo} from '../../../img/campaign-logo.svg'
-import {ReactComponent as AnalyticsLogo} from '../../../img/analytics-logo.svg'
-import {ReactComponent as SettingsLogo} from '../../../img/settings-logo.svg'
-import {ReactComponent as LogOutLogo} from '../../../img/logout-logo.svg'
+import ProfileLogo from '../icons/ProfileLogo';
+import ConstructorLogo from '../icons/ConstructorLogo'
+import CampaignsLogo from '../icons/CampaignsLogo'
+import AnalyticsLogo from '../icons/AnalyticsLogo'
+import SettingsLogo from '../icons/SettingsLogo'
+import LogOutLogo from '../icons/LogOutLogo'
 
 const Navigation = () => {
+
+    const iconConfig = {
+        width: "24",
+        height: "24",
+        color: "#fff"
+    }
+
+
     return (
         <nav className={styled.navigation}>
             <div className={styled.navigation_profile}>
                 <Link to='/profile' className={styled.navigation_item} >
-                    <ProfileLogo />
+                    <ProfileLogo {...iconConfig} />
                 </Link>
             </div>
             <div className={styled.navigation_tools}>
                 <Link to='/constructor' className={styled.navigation_item} >
-                    <ConstructorLogo />
+                    <ConstructorLogo {...iconConfig} />
                 </Link>
                 <Link to='/campaigns' className={styled.navigation_item} >
-                    <CampaignsLogo />
+                    <CampaignsLogo {...iconConfig} />
                 </Link>
                 <Link to='/analytics' className={styled.navigation_item} >
-                    <AnalyticsLogo />
+                    <AnalyticsLogo {...iconConfig} />
                 </Link>
                 
             </div>
             <div className={styled.navigation_settings}>
                 <Link to='/settings' className={styled.navigation_item} >
-                    <SettingsLogo />
+                    <SettingsLogo {...iconConfig} />
                 </Link>
                 <Link to='/exit' className={styled.navigation_item} >
-                    <LogOutLogo />
+                    <LogOutLogo {...iconConfig} />
                 </Link>
             </div>
         </nav>

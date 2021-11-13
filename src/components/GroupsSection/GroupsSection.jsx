@@ -7,19 +7,12 @@ import { ReactComponent as AddLogo } from '../../img/add-logo.svg'
 import styled from './GroupsSection.module.css'
 
 
-const GroupsSection = ({ title, id, groups, prefixDroppableId }) => {
-    const [display, setDisplay] = useState('group')
+const GroupsSection = ({ title, id, groups }) => {
+    
 
-
-    const changeDisplay = e => {
-        console.log(e)
-    }
-
-
-    console.log(display)
     return (
         <section className={styled.groups_section}>
-            <header className={styled.groups_section_header}>
+            {/* <header className={styled.groups_section_header}>
                 {title}
             </header>
 
@@ -41,7 +34,7 @@ const GroupsSection = ({ title, id, groups, prefixDroppableId }) => {
                         </DndDraggableItem>
                     ))
                 }
-            </DndDroppable>
+            </DndDroppable> */}
         </section>
     );
 };
