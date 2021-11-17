@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from './Navigation.module.css'
 import { Link } from 'react-router-dom'
-import ProfileLogo from '../icons/ProfileLogo';
-import ConstructorLogo from '../icons/ConstructorLogo'
-import CampaignsLogo from '../icons/CampaignsLogo'
-import AnalyticsLogo from '../icons/AnalyticsLogo'
-import SettingsLogo from '../icons/SettingsLogo'
-import LogOutLogo from '../icons/LogOutLogo'
+import {ProfileLogo, ConstructorLogo, CampaignsLogo, AnalyticsLogo, SettingsLogo, LogOutLogo} from '../icons/Icons'
 
 const Navigation = () => {
 

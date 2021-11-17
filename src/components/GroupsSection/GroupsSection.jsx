@@ -3,20 +3,23 @@ import KeywordsSection from '../KeywordsSection/KeywordsSection';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
 import DndSection from '../UI/dnd/DndSection';
+import Section from '../UI/section/Section';
 import styled from './GroupsSection.module.css'
+import KeywordsSectionIntoGroups from './KeywordsSectionIntoGroups';
 
 
-const GroupsSection = ({ title, id, groups }) => {
+const GroupsSection = ({ title, groups }) => {
+    
     
 
     return (
-        <section className={styled.groups_section}>
-            {/* <header className={styled.groups_section_header}>
+        <Section borderColor="linear-gradient(var(--rotate), #00FF29 0%, #1FD94C 22.96%, #48A700 49.56%, #178900 71.63%, #025801 100%)">
+            <header className={styled.groups_section_header}>
                 {title}
             </header>
 
             <DndDroppable
-                droppableId={prefixDroppableId + id}
+                droppableId='droppableId-groups'
                 type="GROUPS"
                 className={styled.groups_section_article}
                 
@@ -29,12 +32,12 @@ const GroupsSection = ({ title, id, groups }) => {
                             index={index}
                             className={styled.groups_section_item}
                         >
-                            <KeywordsSection {...item.keywords} prefixDroppableId="groups-keywords$" />
+                            <KeywordsSectionIntoGroups {...item} />
                         </DndDraggableItem>
                     ))
                 }
-            </DndDroppable> */}
-        </section>
+            </DndDroppable>
+        </Section>
     );
 };
 

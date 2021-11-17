@@ -8,76 +8,148 @@ import MinusPhraseSection from '../components/MinusPhraseSection/MinusPhraseSect
 const Constructor = () => {
     const data_keywords = [
             {
-                id: v4(),
-                keyword: 'Крутые какашки'
+                keywordId: v4(),
+                keyword: 'Крутые какашки',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Классные какашки'
+                keywordId: v4(),
+                keyword: 'Классные какашки',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Как покакать крутыми какашками клева крута четка покекал смотреть'
+                keywordId: v4(),
+                keyword: 'Как покакать крутыми какашками клева крута четка покекал смотреть',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Невероятный успех какашек читать'
+                keywordId: v4(),
+                keyword: 'Невероятный успех какашек читать',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
+                keywordId: v4(),
+                keyword: 'Почему все говорят о какашках',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Классные какашки'
+                keywordId: v4(),
+                keyword: 'Классные какашки',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Как покакать крутыми какашками'
+                keywordId: v4(),
+                keyword: 'Как покакать крутыми какашками',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Невероятный успех какашек читать'
+                keywordId: v4(),
+                keyword: 'Невероятный успех какашек читать',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
+                keywordId: v4(),
+                keyword: 'Почему все говорят о какашках',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Классные какашки'
+                keywordId: v4(),
+                keyword: 'Классные какашки',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Классные какашки'
+                keywordId: v4(),
+                keyword: 'Классные какашки',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Как покакать крутыми какашками'
+                keywordId: v4(),
+                keyword: 'Как покакать крутыми какашками',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Невероятный успех какашек читать'
+                keywordId: v4(),
+                keyword: 'Невероятный успех какашек читать',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
+                keywordId: v4(),
+                keyword: 'Почему все говорят о какашках',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Как покакать крутыми какашками'
+                keywordId: v4(),
+                keyword: 'Как покакать крутыми какашками',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Невероятный успех какашек читать'
+                keywordId: v4(),
+                keyword: 'Невероятный успех какашек читать',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
+                keywordId: v4(),
+                keyword: 'Почему все говорят о какашках',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             },
             {
-                id: v4(),
-                keyword: 'Немножечко говнеца'
+                keywordId: v4(),
+                keyword: 'Немножечко говнеца',
+                ams: '1К-10К',
+                competition: 'Средняя',
+                lowRange: '42.12',
+                highRange: '285.78'
             }
         ]
     
@@ -212,8 +284,6 @@ const Constructor = () => {
     }
 
 
-    const [groups, setGroups] = useState(data_groups)
-    const [minusPhrases, setMinusPhrases] = useState(data_minusPhrases)
 
 
     // const getData = (droppableId) => {
@@ -347,8 +417,8 @@ const Constructor = () => {
             // onDragEnd={handleOnDragEnd}
             className={styled.constructor}
         >
-            <KeywordsSection title="Ключевые слова" keywords={data_keywords} prefixDroppableId="keywords$" />
-            {/* <GroupsSection title="Группы" groups={data_groups} /> */}
+            <KeywordsSection title="Ключевые слова" keywords={data_keywords} />
+            <GroupsSection title="Группы" groups={data_groups} />
             {/* <MinusPhraseSection title="Минус-фразы" {...minusPhrases} prefixDroppableId="minusPhrases$" /> */}
         </DndSection>
     );
