@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import './App.css';
-import Navigation from './components/UI/navigation/Navigation';
+import styled from 'styled-components';
+import Navigation from './components/Navigation/Navigation';
 import Profile from './pages/Profile'
 import Campaigns from './pages/Campaigns'
 import Constructor from './pages/Constructor'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
 
+
+
 function App() {
   return (
     <Router>
       <Navigation />
-
-
       <Switch>
         <Route path='/profile'>
           <Profile />

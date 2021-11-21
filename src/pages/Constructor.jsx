@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
-import styled from './styles/Constructor.module.css'
 import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import { v4 } from 'uuid'
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';
 import MinusPhraseSection from '../components/MinusPhraseSection/MinusPhraseSection';
+import styled from 'styled-components'
+
+const ConstructorContainer = styled(DndSection)`
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 50px repeat(3, calc((100% - 50px) / 3));
+    grid-template-rows: 90vh;
+    & > *:first-child {
+        grid-column-start: 2;
+    }
+    @media ${props => props.theme.media.tablet} {
+        grid-template-columns: 100%;
+        grid-template-rows: 90vh 90vh 90vh;
+        & > *:first-child {
+            grid-column-start: 1;
+        }
+    }
+`
+
+
 const Constructor = () => {
     const data_keywords = [
             {
@@ -208,80 +228,28 @@ const Constructor = () => {
         }
     ]
     
-    const data_minusPhrases = {
-        id: v4(),
-        data: [
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-            {
-                id: v4(),
-                keyword: 'Почему все говорят о какашках'
-            },
-
-            {
-                id: v4(),
-                keyword: 'Немножечко говнеца'
-            }
-        ]
-    }
+    const data_minusPhrases = [
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках'
+        },
+    ]
 
 
 
@@ -413,14 +381,13 @@ const Constructor = () => {
     // }
 
     return (
-        <DndSection 
+        <ConstructorContainer 
             // onDragEnd={handleOnDragEnd}
-            className={styled.constructor}
         >
-            <KeywordsSection title="Ключевые слова" keywords={data_keywords} />
-            <GroupsSection title="Группы" groups={data_groups} />
-            {/* <MinusPhraseSection title="Минус-фразы" {...minusPhrases} prefixDroppableId="minusPhrases$" /> */}
-        </DndSection>
+                <KeywordsSection title="Ключевые слова" keywords={data_keywords} />
+                <GroupsSection title="Группы" groups={data_groups} />
+                <MinusPhraseSection title="Минус-фразы" minusPhrases={data_minusPhrases}/>
+        </ConstructorContainer>
     );
 }
 
