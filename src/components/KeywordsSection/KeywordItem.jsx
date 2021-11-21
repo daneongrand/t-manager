@@ -1,7 +1,62 @@
 import React, { useState } from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 import {OpenAnalytics, AddIcon, AddMinusPhrase, DeleteKeyword} from '../UI/icons/Icons'
 
+const Keyword = styled.div`
+    background-color: ${props => props.theme.colors.dark_blue};
+    border-radius: 10px;
+    padding: 6px 18px;
+    margin-bottom: 5px;
+`
+const KeywordHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+const KeywordBody = styled.div`
+    overflow: hidden;
+    height: ${props => props.open ? '100%' : '0'};
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 5px;
+`
+
+
+const KeywordBodyItem = styled.div`
+    display: flex;
+    justify-content: space-between;
+    color: white;
+`
+
+const KeywordBodyItemProperty = styled.div`
+`
+
+const KeywrodBodyItemValue = styled.div`
+`
+
+const Text = styled.p`
+    color: white;
+    margin: 0;
+`
+
+const ButtonsList = styled.ul`
+    margin: 0;
+    display: flex;
+`
+
+const ButtonItem = styled.li`
+    padding: 0;
+    list-style-type: none;
+`
+
+const Button = styled.button`
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+    border: 0;
+`
 const KeywordItem = ({keyword, ams, competition, lowRange, highRange}) => {
     const iconConfig = {
         width: "24",
@@ -19,62 +74,6 @@ const KeywordItem = ({keyword, ams, competition, lowRange, highRange}) => {
 
 
 
-    const Keyword = styled.div`
-        background-color: #0A1026;
-        border-radius: 10px;
-        padding: 6px 18px;
-        margin-bottom: 5px;
-    `
-    const KeywordHeader = styled.div`
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    `
-
-    const KeywordBody = styled.div`
-        overflow: hidden;
-        height: ${props => props.open ? '100%' : '0'};
-        display: grid;
-        grid-template-rows: repeat(4, 1fr);
-        grid-gap: 5px;
-        transition: all .5s;
-    `
-
-
-    const KeywordBodyItem = styled.div`
-        display: flex;
-        justify-content: space-between;
-        color: white;
-    `
-
-    const KeywordBodyItemProperty = styled.div`
-    `
-
-    const KeywrodBodyItemValue = styled.div`
-    `
-
-    const Text = styled.p`
-        color: white;
-        margin: 0;
-    `
-
-    const ButtonsList = styled.ul`
-        margin: 0;
-        display: flex;
-    `
-
-    const ButtonItem = styled.li`
-        padding: 0;
-        list-style-type: none;
-    `
-
-    const Button = styled.button`
-        cursor: pointer;
-        padding: 0;
-        outline: none;
-        background-color: transparent;
-        border: 0;
-    `
 
 
     return (

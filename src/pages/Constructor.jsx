@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import { v4 } from 'uuid'
 import GroupsSection from '../components/GroupsSection/GroupsSection';

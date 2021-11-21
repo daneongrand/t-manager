@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'normalize.css';
-import styled, {createGlobalStyle, ThemeProvider} from 'styled-components';
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import { Helmet } from 'react-helmet';
 import App from './App';
 
@@ -26,7 +26,7 @@ const GlobalStyled = createGlobalStyle`
 
 const theme = {
   colors: {
-    black: ""
+    dark_blue: "#0A1026"
   },
   media: {
     tablet: "(max-width: 800px)"

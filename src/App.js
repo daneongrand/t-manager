@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import styled from 'styled-components';
 import Navigation from './components/Navigation/Navigation';
 import Profile from './pages/Profile'
 import Campaigns from './pages/Campaigns'

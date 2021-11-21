@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import KeywordsSection from '../KeywordsSection/KeywordsSection';
+import React from 'react';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
-import DndSection from '../UI/dnd/DndSection';
 import Section from '../UI/section/Section';
 import KeywordsSectionIntoGroups from './KeywordsSectionIntoGroups';
 import styled from 'styled-components'
@@ -32,8 +30,9 @@ const Article = styled(DndDroppable)`
 const Group = styled(DndDraggableItem)`
     color: #fff;
     padding: 5px;
-    background: rgba(16, 18, 27, 0.39);
-    border-radius: 5px;
+    background: ${props => props.theme.colors.dark_blue};
+    border-radius: 10px;
+    padding: 20px 18px;
     max-width: 100%;
     margin-bottom: 5px;
 `
@@ -53,8 +52,8 @@ const GroupsSection = ({ title, groups }) => {
                 {
                     groups.map((item, index) => (
                         <Group
-                            key={item.id}
-                            draggableId={item.id} 
+                            key={item.groupId}
+                            draggableId={item.groupId} 
                             index={index}
                         >
                             <KeywordsSectionIntoGroups {...item} />

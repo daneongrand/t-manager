@@ -29,7 +29,7 @@ const Article = styled(DndDroppable)`
 const MinusPhrases = styled(DndDraggableItem)`
     color: #fff;
     padding: 5px;
-    background: rgba(16, 18, 27, 0.39);
+    background: ${props => props.theme.colors.dark_blue};
     border-radius: 5px;
     max-width: 100%;
     margin-bottom: 5px;

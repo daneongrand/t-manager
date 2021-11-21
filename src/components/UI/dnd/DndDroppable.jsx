@@ -1,6 +1,6 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import DndSection from './DndSection';
+
 
 const DndDroppable = ({children, droppableId, type, className,}) => {
     return (

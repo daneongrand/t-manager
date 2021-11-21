@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
-import DndSection from '../UI/dnd/DndSection';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import KeywordItem from './KeywordItem';
 import { AddIcon } from '../UI/icons/Icons'
 import Section from '../UI/section/Section';
+import Kitty from '../../img/Sleeping-Kitty.svg'
 
 const Header = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-`
-
-const Keyword = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 18px;
+    height: 5%;
 `
 
 const Article = styled(DndDroppable)`
@@ -34,15 +29,43 @@ const Article = styled(DndDroppable)`
     }
 `
 
+const EmptyArticle = styled.article`
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
 
+const Title = styled.h1`
+    color: black;
+    font-size: 20px;
+`
+
+const Img = styled.img`
+    width: 100%;
+    max-height: 100%;
+`
 
 const KeywordsSection = ({title, keywords}) => {
+
+    if (!keywords.length) {
+        return (
+            <Section borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)" >
+                <EmptyArticle>
+                    <Title> Ключевых слов пока нет :( </Title>
+                    <Img src={Kitty}></Img>
+                </EmptyArticle>
+            </Section>
+        )
+    }
 
     return (
         <Section borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)">
             <Header>
                 {title}
-                <AddIcon width="24" height="24" color="white" />
+                <AddIcon width="40" height="40" color="white" />
             </Header>
 
             <Article 
@@ -52,6 +75,7 @@ const KeywordsSection = ({title, keywords}) => {
                 {
                     keywords.map((item, index) => (
                         <DndDraggableItem
+                            key={item.keywordId}
                             draggableId={item.keywordId}
                             index={index}
                         >
