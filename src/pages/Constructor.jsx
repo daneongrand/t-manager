@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { reorder, moveIntoGroup } from '../redux/actions';
 import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';
@@ -25,15 +26,18 @@ const ConstructorContainer = styled(DndSection)`
 `
 
 
-const Constructor = ({keywords, groups, minusPhrases}) => {    
+const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup}) => {    
     
     const handleOnDragEnd = result => {
         const {source, destination} = result
         if (!destination) return
 
-        if (source.droppableId == destination.droppableId) {
+        if (source.droppableId === destination.droppableId) {
+            reorder(source, destination)
+        } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
+            moveIntoGroup(source, destination)
         }
-        console.log(source, destination)
+
     }
 
 
@@ -49,7 +53,6 @@ const Constructor = ({keywords, groups, minusPhrases}) => {
 }
 
 const MapStateToProps = state => {
-    console.log(state)
     return {
        keywords: state.constructors.keywords,
        groups: state.constructors.groups,
@@ -57,4 +60,10 @@ const MapStateToProps = state => {
     }
 }
 
-export default connect(MapStateToProps, null)(Constructor);
+const MapDispatchToProps = {
+    reorder,
+    moveIntoGroup
+}
+
+
+export default connect(MapStateToProps, MapDispatchToProps)(Constructor);

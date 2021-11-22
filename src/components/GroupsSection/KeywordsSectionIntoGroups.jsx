@@ -34,7 +34,8 @@ const KeywordsSectionIntoGroups = ({groupId, groupName, groupKeywords}) => {
 
             <Main>
                 <DndDroppable
-                    droppableId={'droppableId-' + groupId}                
+                    droppableId={groupId}      
+                    type="KEYWORDS"         
                 >
                     {
                         groupKeywords.map((item, index) => (

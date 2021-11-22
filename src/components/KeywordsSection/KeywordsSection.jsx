@@ -69,7 +69,7 @@ const KeywordsSection = ({title, keywords}) => {
             </Header>
 
             <Article 
-                droppableId="droppableId-keywords"
+                droppableId="keywords"
                 type="KEYWORDS"
             >
                 {

@@ -46,7 +46,7 @@ const GroupsSection = ({ title, groups }) => {
             </Header>
 
             <Article
-                droppableId='droppableId-groups'
+                droppableId='groups'
                 type="GROUPS"
             >
                 {

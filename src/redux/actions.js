@@ -1,8 +1,22 @@
-import { REORDER } from "./types";
+import { MOVE_INTO_GROUP, REORDER } from "./types";
 
-export function reorder(object) {
+export function reorder(source, destination) {
     return {
         type: REORDER,
-        payload: object
+        payload: {
+            source, 
+            destination
+        }
+    }
+}
+
+
+export function moveIntoGroup(source, destination) {
+    return {
+        type: MOVE_INTO_GROUP,
+        payload: {
+            source,
+            destination
+        }
     }
 }

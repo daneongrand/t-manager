@@ -45,7 +45,7 @@ const MinusPhraseSection = ({title, minusPhrases}) => {
 
 
             <Article
-                droppableId='droppableId-minusPhrases'
+                droppableId='minusPhrases'
                 type="KEYWORDS"
             >
                 {
