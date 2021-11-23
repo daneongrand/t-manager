@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components'
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
@@ -22,7 +23,7 @@ const Keyword = styled.div`
     margin-bottom: 5px;
 `
 
-const KeywordsSectionIntoGroups = ({groupId, groupName, groupKeywords}) => {
+const KeywordsSectionIntoGroups = ({groupId, groupName, groupKeywords, color}) => {
     
 
 
@@ -43,6 +44,7 @@ const KeywordsSectionIntoGroups = ({groupId, groupName, groupKeywords}) => {
                                 key={item.keywordId}
                                 draggableId={item.keywordId}
                                 index={index}
+                                isDraggingColor={ (!color) ? "#05EB00" : color }
                             >
                                 <Keyword>
                                     {item.keyword} 
@@ -56,4 +58,11 @@ const KeywordsSectionIntoGroups = ({groupId, groupName, groupKeywords}) => {
     );
 };
 
-export default KeywordsSectionIntoGroups;
+
+const MapStateToProps = state => {
+    return {
+        color: state.dnd.color
+    }
+}
+
+export default connect(MapStateToProps ,null)(KeywordsSectionIntoGroups);

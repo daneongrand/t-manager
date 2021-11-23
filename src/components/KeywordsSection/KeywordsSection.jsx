@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
 import styled from 'styled-components';
@@ -48,8 +49,8 @@ const Img = styled.img`
     max-height: 100%;
 `
 
-const KeywordsSection = ({title, keywords}) => {
-
+const KeywordsSection = ({title, keywords, color}) => {
+    console.log('COLOR', color)
     if (!keywords.length) {
         return (
             <Section borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)" >
@@ -78,6 +79,7 @@ const KeywordsSection = ({title, keywords}) => {
                             key={item.keywordId}
                             draggableId={item.keywordId}
                             index={index}
+                            isDraggingColor={ (!color) ? "#00EEFD" : color }
                         >
                             <KeywordItem {...item} />
                         </DndDraggableItem>
@@ -88,6 +90,10 @@ const KeywordsSection = ({title, keywords}) => {
     );
 };
 
+const MapStateToProps = state => {
+    return {
+        color: state.dnd.color
+    }
+}
 
-
-export default KeywordsSection;
+export default connect(MapStateToProps, null)(KeywordsSection);

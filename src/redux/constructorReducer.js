@@ -250,13 +250,13 @@ export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case REORDER: {
             const { source, destination } = action.payload
-            console.log(source, destination)
+            // console.log(source, destination)
             if ((source.droppableId === 'keywords') || (source.droppableId === 'groups') || (source.droppableId === 'minusPhrases') ) {
-                console.log(source.droppableId)
+                // console.log(source.droppableId)
                 const list = state[`${source.droppableId}`]
                     const [ removed ] = list.splice(source.index, 1)
                     list.splice(destination.index, 0, removed)
-                    console.log(list)
+                    // console.log(list)
                     return {
                         ...state,
                         [`${source.droppableId}`]: [
@@ -273,14 +273,14 @@ export const constructorReducer = (state = initialState, action) => {
                     }
                 })
                 groups.splice(indexGroup, 1)
-                console.log(group)
+                // console.log(group)
                 const list = group.groupKeywords
                 const [ removed ] = list.splice(source.index, 1)
                 group.groupKeywords = list
                 list.splice(destination.index, 0, removed)
                 groups.splice(indexGroup, 0, group)
 
-                console.log(groups)
+                // console.log(groups)
 
                 return {
                     ...state,
@@ -293,7 +293,7 @@ export const constructorReducer = (state = initialState, action) => {
 
         case MOVE_INTO_GROUP: {
             const { source, destination } = action.payload
-            console.log(source, destination)
+            // console.log(source, destination)
 
             const sourceList = state.keywords
 

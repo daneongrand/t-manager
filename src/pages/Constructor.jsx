@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reorder, moveIntoGroup } from '../redux/actions';
+import { reorder, moveIntoGroup, switchColor } from '../redux/actions';
 import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';
@@ -26,7 +26,7 @@ const ConstructorContainer = styled(DndSection)`
 `
 
 
-const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup}) => {    
+const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor}) => {    
     
     const handleOnDragEnd = result => {
         const {source, destination} = result
@@ -41,9 +41,16 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup}) =
     }
 
 
+    const handleOnDragUpdate = result => {
+        const { destination } = result
+        switchColor(destination)         
+    }
+
+
     return (
         <ConstructorContainer 
             onDragEnd={handleOnDragEnd}
+            onDragUpdate={handleOnDragUpdate}
         > 
                 <KeywordsSection title="Ключевые слова" keywords={keywords} />
                 <GroupsSection title="Группы" groups={groups} />
@@ -62,7 +69,8 @@ const MapStateToProps = state => {
 
 const MapDispatchToProps = {
     reorder,
-    moveIntoGroup
+    moveIntoGroup,
+    switchColor
 }
 
 

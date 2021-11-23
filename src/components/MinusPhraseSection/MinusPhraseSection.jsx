@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
 import Section from '../UI/section/Section'
@@ -35,7 +36,7 @@ const MinusPhrases = styled(DndDraggableItem)`
     margin-bottom: 5px;
 `
 
-const MinusPhraseSection = ({title, minusPhrases}) => {
+const MinusPhraseSection = ({title, minusPhrases, color}) => {
     return (
         <Section borderColor="linear-gradient(var(--rotate),  #970000 0%, #A40347 28.65%, #8C0075 55.73%, #8C1C8C 73.96%, #DB01FF 100%)">
 
@@ -54,6 +55,7 @@ const MinusPhraseSection = ({title, minusPhrases}) => {
                             draggableId={item.keywordId}
                             index={index}
                             key={item.keywordId}
+                            isDraggingColor={(!color) ? "#EB0000" : color}
                         >
                             <div>
                                 { item.keyword }
@@ -67,4 +69,10 @@ const MinusPhraseSection = ({title, minusPhrases}) => {
     );
 };
 
-export default MinusPhraseSection;
+const MapStateToProps = state => {
+    return {
+        color: state.dnd.color
+    }
+}
+
+export default connect(MapStateToProps, null)(MinusPhraseSection);
