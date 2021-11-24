@@ -17,19 +17,12 @@ const BackgrounBlur = styled.div`
     align-items: center;
 `
 
-const Content = styled.div`
-    width: 200px;
-    height: 200px;
-    background-color: white;
-`
 
-
-const Modal = () => {
-
+const Modal = ({children}) => {
 
     return (
         <BackgrounBlur>
-            <Content></Content>
+            {children}
         </BackgrounBlur>
     );
 };

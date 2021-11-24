@@ -1,4 +1,4 @@
-import { MOVE_COLOR, MOVE_INTO_GROUP, REORDER } from "./types";
+import { MOVE_COLOR, MOVE_INTO_GROUP, REORDER, SELECT_KEYWORD, TOGGLE_MODAL } from "./types";
 
 export function reorder(source, destination) {
     return {
@@ -26,6 +26,21 @@ export function switchColor(destination) {
         type: MOVE_COLOR,
         payload: {
             destination
+        }
+    }
+}
+
+export function toggleModal() {
+    return {
+        type: TOGGLE_MODAL
+    }
+}
+
+export function selectKeyword(source) {
+    return {
+        type: SELECT_KEYWORD,
+        payload: {
+            source
         }
     }
 }

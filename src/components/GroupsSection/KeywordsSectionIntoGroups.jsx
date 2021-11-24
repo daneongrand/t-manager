@@ -24,8 +24,6 @@ const Keyword = styled.div`
 `
 
 const KeywordsSectionIntoGroups = ({groupId, groupName, groupKeywords, color}) => {
-    
-
 
     return (
         <Section>
@@ -59,10 +57,5 @@ const KeywordsSectionIntoGroups = ({groupId, groupName, groupKeywords, color}) =
 };
 
 
-const MapStateToProps = state => {
-    return {
-        color: state.dnd.color
-    }
-}
 
-export default connect(MapStateToProps ,null)(KeywordsSectionIntoGroups);
+export default KeywordsSectionIntoGroups;

@@ -1,5 +1,5 @@
 import {v4} from 'uuid'
-import { MOVE, MOVE_INTO_GROUP, REORDER } from './types'
+import { MOVE, MOVE_INTO_GROUP, REORDER, SELECT_KEYWORD } from './types'
 
 const initialState = {
     keywords: [
@@ -243,7 +243,8 @@ const initialState = {
             keywordId: v4(),
             keyword: 'Почему все говорят о какашках5'
         },
-    ]
+    ],
+    selectedWord: []
 }
 
 export const constructorReducer = (state = initialState, action) => {
@@ -320,6 +321,18 @@ export const constructorReducer = (state = initialState, action) => {
                 groups: [
                     ...groups
                 ]
+            }
+        }
+
+        case SELECT_KEYWORD: {
+            console.log(action.payload.source)
+            const index = action.payload.source
+            const keyword = state.keywords[index].keyword
+            const words = keyword.split(' ')
+            console.log(words)
+            return {
+                ...state,
+                selectedWord: words
             }
         }
             
