@@ -1,5 +1,5 @@
 import {v4} from 'uuid'
-import { MOVE, MOVE_INTO_GROUP, REORDER, SELECT_KEYWORD } from './types'
+import { ADD_INTO_MINUSPHRASES, ADD_WORD, DELETE_WORD, MOVE, MOVE_INTO_GROUP, REORDER, SELECT_KEYWORD, SELECT_WORD } from './types'
 
 const initialState = {
     keywords: [
@@ -244,7 +244,12 @@ const initialState = {
             keyword: 'Почему все говорят о какашках5'
         },
     ],
-    selectedWord: []
+    selectedWord: {
+        keyword: '',
+        isGroups: false
+    },
+    selectedWords: [],
+    deletedWord: []
 }
 
 export const constructorReducer = (state = initialState, action) => {
@@ -325,15 +330,94 @@ export const constructorReducer = (state = initialState, action) => {
         }
 
         case SELECT_KEYWORD: {
-            console.log(action.payload.source)
-            const index = action.payload.source
-            const keyword = state.keywords[index].keyword
-            const words = keyword.split(' ')
-            console.log(words)
+            console.log(action.payload)
+            if (action.payload.source.droppableId === 'keywords') {
+                const index = action.payload.source.index
+                const keyword = state.keywords[index]
+                const words = keyword.keyword.split(' ')
+                console.log(words)
+                return {
+                    ...state,
+                    selectedWord: {
+                        isGroups: false,
+                        keyword: keyword
+                    },
+                    selectedWords: words
+                }
+            } else {             
+                const groupId = action.payload.source.droppableId
+                const index = action.payload.source.index
+                const group = state.groups.find(item => item.groupId === groupId)
+                const keyword = group.groupKeywords[index]
+                const words = keyword.keyword.split(' ')
+                return {
+                    ...state,
+                    selectedWord: {
+                        isGroups: true,
+                        group: group,
+                        keyword: keyword
+                    },
+                    selectedWords: words
+                }
+            }
+        }
+
+        case ADD_WORD: {
+            console.log(state)
+            return {
+                ...state, 
+                deletedWord: [
+                    ...state.deletedWord,
+                    action.payload.word
+                ]
+            }
+        }
+
+        case DELETE_WORD: {
+
+            const deletedWord = state.deletedWord
+            const newDeletedWord = deletedWord.filter(item => item !== action.payload.word)
+ 
+            return {
+                ...state, 
+                deletedWord: [
+                    ...newDeletedWord
+                ]
+            }
+        }
+
+        case ADD_INTO_MINUSPHRASES: {
+            const deletedWord = state.deletedWord
+            const selectedWord = state.selectedWord.keyword
+            const minusPhrases = deletedWord.map(item => {
+                return {
+                    keywordId: v4(),
+                    keyword: item 
+                }
+            })
+            
+
+            if (state.selectedWord.isGroups) {
+                console.log('true')
+                console.log(state.selectedWord)
+                
+            } else {
+                console.log('false')
+            }
+
+            console.log(selectedWord)
+
+
             return {
                 ...state,
-                selectedWord: words
+                deletedWord: [],
+                minusPhrases: [
+                    selectedWord,
+                    ...minusPhrases,
+                    ...state.minusPhrases
+                ]
             }
+            
         }
             
         default:

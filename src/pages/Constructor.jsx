@@ -28,7 +28,7 @@ const ConstructorContainer = styled(DndSection)`
 `
 
 
-const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor, toggleModal, modalIsOpen, selectKeyword, selectedWord}) => {    
+const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor, toggleModal, modalIsOpen, selectKeyword, selectedWords}) => {    
     
     const handleOnDragEnd = result => {
         const {source, destination} = result
@@ -38,8 +38,8 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
             reorder(source, destination)
         } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
             moveIntoGroup(source, destination)
-        } else if (source.droppableId === 'keywords' && destination.droppableId === 'minusPhrases') {
-            selectKeyword(source.index)
+        } else if ((source.droppableId !== 'minusPhrases' || source.droppableId === 'keywords') && destination.droppableId === 'minusPhrases') {
+            selectKeyword(source)
             toggleModal()
         }
 
@@ -64,7 +64,7 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
             </ConstructorContainer>
             {
                 modalIsOpen && <Modal>
-                    <KeywordModal words={selectedWord} />
+                    <KeywordModal words={selectedWords} />
                 </Modal>
             }
         </>
@@ -77,7 +77,7 @@ const MapStateToProps = state => {
        groups: state.constructors.groups,
        minusPhrases: state.constructors.minusPhrases,
        modalIsOpen: state.modal.isOpen,
-       selectedWord: state.constructors.selectedWord
+       selectedWords: state.constructors.selectedWords
     }
 }
 
