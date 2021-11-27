@@ -244,25 +244,23 @@ const initialState = {
             keyword: 'Почему все говорят о какашках5'
         },
     ],
-    selectedWord: {
-        keyword: '',
-        isGroups: false
+    selectedKeyword: {
+        isGroup: false,
+        keyword: null,
+        newList: null
     },
     selectedWords: [],
-    deletedWord: []
+    deletedWords: []
 }
 
 export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case REORDER: {
             const { source, destination } = action.payload
-            // console.log(source, destination)
             if ((source.droppableId === 'keywords') || (source.droppableId === 'groups') || (source.droppableId === 'minusPhrases') ) {
-                // console.log(source.droppableId)
                 const list = state[`${source.droppableId}`]
                     const [ removed ] = list.splice(source.index, 1)
                     list.splice(destination.index, 0, removed)
-                    // console.log(list)
                     return {
                         ...state,
                         [`${source.droppableId}`]: [
@@ -279,14 +277,12 @@ export const constructorReducer = (state = initialState, action) => {
                     }
                 })
                 groups.splice(indexGroup, 1)
-                // console.log(group)
                 const list = group.groupKeywords
                 const [ removed ] = list.splice(source.index, 1)
                 group.groupKeywords = list
                 list.splice(destination.index, 0, removed)
                 groups.splice(indexGroup, 0, group)
 
-                // console.log(groups)
 
                 return {
                     ...state,
@@ -299,7 +295,6 @@ export const constructorReducer = (state = initialState, action) => {
 
         case MOVE_INTO_GROUP: {
             const { source, destination } = action.payload
-            // console.log(source, destination)
 
             const sourceList = state.keywords
 
@@ -330,44 +325,60 @@ export const constructorReducer = (state = initialState, action) => {
         }
 
         case SELECT_KEYWORD: {
-            console.log(action.payload)
-            if (action.payload.source.droppableId === 'keywords') {
-                const index = action.payload.source.index
-                const keyword = state.keywords[index]
-                const words = keyword.keyword.split(' ')
-                console.log(words)
+            const { droppableId, index } = action.payload.source
+            if(droppableId === 'keywords') {
+                const newKeywordList = state.keywords
+                const selected = newKeywordList[index]
+                const words = selected.keyword.split(' ')
+                newKeywordList.splice(index, 1)
                 return {
                     ...state,
-                    selectedWord: {
-                        isGroups: false,
-                        keyword: keyword
+                    selectedKeyword: {
+                        isGroup: false,
+                        keyword: selected,
+                        newList: [
+                            ...newKeywordList
+                        ]
                     },
-                    selectedWords: words
+                    selectedWords: [
+                        ...words
+                    ]
                 }
-            } else {             
-                const groupId = action.payload.source.droppableId
-                const index = action.payload.source.index
-                const group = state.groups.find(item => item.groupId === groupId)
-                const keyword = group.groupKeywords[index]
-                const words = keyword.keyword.split(' ')
+            } else {
+                let indexGroup
+                const newGroupsList = state.groups
+                const selectedGroup = newGroupsList.find((item, index) => {
+                    if(item.groupId === droppableId) {
+                        indexGroup = index
+                        return item
+                    }
+                })
+                const selected = selectedGroup.groupKeywords[index]
+                const words = selected.keyword.split(' ')
+                const [ removeGroup ] = newGroupsList.splice(indexGroup, 1)
+                removeGroup.groupKeywords.splice(index, 1)
+                newGroupsList.splice(indexGroup, 0, removeGroup)
                 return {
                     ...state,
-                    selectedWord: {
-                        isGroups: true,
-                        group: group,
-                        keyword: keyword
+                    selectedKeyword: {
+                        isGroup: true,
+                        keyword: selected,
+                        newList: [
+                            ...newGroupsList
+                        ]
                     },
-                    selectedWords: words
+                    selectedWords: [
+                        ...words
+                    ]
                 }
             }
         }
 
         case ADD_WORD: {
-            console.log(state)
             return {
                 ...state, 
-                deletedWord: [
-                    ...state.deletedWord,
+                deletedWords: [
+                    ...state.deletedWords,
                     action.payload.word
                 ]
             }
@@ -375,49 +386,68 @@ export const constructorReducer = (state = initialState, action) => {
 
         case DELETE_WORD: {
 
-            const deletedWord = state.deletedWord
-            const newDeletedWord = deletedWord.filter(item => item !== action.payload.word)
+            const deletedWord = state.deletedWords
+            const newDeletedWords = deletedWord.filter(item => item !== action.payload.word)
  
             return {
                 ...state, 
-                deletedWord: [
-                    ...newDeletedWord
+                deletedWords: [
+                    ...newDeletedWords
                 ]
             }
         }
 
         case ADD_INTO_MINUSPHRASES: {
-            const deletedWord = state.deletedWord
-            const selectedWord = state.selectedWord.keyword
-            const minusPhrases = deletedWord.map(item => {
+            const deletedWords = state.deletedWords
+            const selectedKeyword = state.selectedKeyword
+            const newMinusPhrase = state.selectedKeyword.keyword
+            const newMinusPhrases = deletedWords.map(item => {
                 return {
                     keywordId: v4(),
                     keyword: item 
                 }
             })
-            
 
-            if (state.selectedWord.isGroups) {
-                console.log('true')
-                console.log(state.selectedWord)
-                
+
+            if (selectedKeyword.isGroup) {
+                return {
+                    ...state,
+                    groups: [
+                        ...selectedKeyword.newList
+                    ],
+                    selectedKeyword: {
+                        isGroup: false,
+                        keyword: null,
+                        newList: null
+                    },
+                    deletedWords: [],
+                    minusPhrases: [
+                        newMinusPhrase,
+                        ...newMinusPhrases,
+                        ...state.minusPhrases
+                    ]
+                }
             } else {
-                console.log('false')
+                return {
+                    ...state,
+                    keywords: [
+                        ...selectedKeyword.newList
+                    ],
+                    selectedKeyword: {
+                        isGroup: false,
+                        keyword: null,
+                        newList: null
+                    },
+                    deletedWords: [],
+                    minusPhrases: [
+                        newMinusPhrase,
+                        ...newMinusPhrases,
+                        ...state.minusPhrases
+                    ]
+                }
             }
 
-            console.log(selectedWord)
-
-
-            return {
-                ...state,
-                deletedWord: [],
-                minusPhrases: [
-                    selectedWord,
-                    ...minusPhrases,
-                    ...state.minusPhrases
-                ]
-            }
-            
+  
         }
             
         default:

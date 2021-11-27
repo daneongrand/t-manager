@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
 import { addWord, deleteWord, addIntoMinusPhrases, toggleModal } from '../../redux/actions';
+import { v4 } from 'uuid'
 import styled from 'styled-components'
 import Section from '../UI/section/Section';
 
@@ -45,7 +46,7 @@ const KeywordModal = ({words, addWord, deleteWord, addIntoMinusPhrases, toggleMo
         <KeywordModalContainer>
             {
                 words.map(item => (
-                    <Word onClick={selectWord}> {item} </Word>
+                    <Word key={v4()} onClick={selectWord}> {item} </Word>
                 ))
             }
             <ButtonsContainer>
@@ -60,9 +61,6 @@ const KeywordModal = ({words, addWord, deleteWord, addIntoMinusPhrases, toggleMo
 };
 
 
-const MapStateToProps = state => {
-    
-}
 
 const MapDispatchToProps = {
     addWord, 
@@ -71,4 +69,4 @@ const MapDispatchToProps = {
     toggleModal
 }
 
-export default connect(MapStateToProps, MapDispatchToProps)(KeywordModal);
+export default connect(null, MapDispatchToProps)(KeywordModal);
