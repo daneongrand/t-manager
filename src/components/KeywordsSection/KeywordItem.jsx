@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups } from '../../redux/actions';
 import styled from 'styled-components';
 import {OpenAnalytics, AddIcon, AddMinusPhrase, DeleteKeyword} from '../UI/icons/Icons'
 
@@ -57,7 +59,7 @@ const Button = styled.button`
     background-color: transparent;
     border: 0;
 `
-const KeywordItem = ({keyword, ams, competition, lowRange, highRange}) => {
+const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups}) => {
     const iconConfig = {
         width: "24",
         height: "24",
@@ -84,22 +86,38 @@ const KeywordItem = ({keyword, ams, competition, lowRange, highRange}) => {
                 </Text>
                 <ButtonsList>
                     <ButtonItem>
-                        <Button onClick={openInfo}>
+                        <Button 
+                            onClick={openInfo}
+                        >
                             <OpenAnalytics {...iconConfig} />
                         </Button>
                     </ButtonItem>
                     <ButtonItem>
-                        <Button>
+                        <Button
+                            onClick={() => {
+                                toggleModalGroups()
+                            }}
+                        >
                             <AddIcon {...iconConfig} />
                         </Button>
                     </ButtonItem>
                     <ButtonItem>
-                        <Button>
+                        <Button
+                            onClick={() => {
+                                selectKeyword({
+                                    droppableId: 'keywords',
+                                    index: index
+                                })
+                                toggleModalMinusPhrases()
+                            }}
+                        >
                             <AddMinusPhrase {...iconConfig} />
                         </Button>
                     </ButtonItem>
                     <ButtonItem>
-                        <Button>
+                        <Button
+                            onClick={() => deleteKeyword(keywordId)}
+                        >
                             <DeleteKeyword {...iconConfig} />
                         </Button>
                     </ButtonItem>
@@ -143,4 +161,11 @@ const KeywordItem = ({keyword, ams, competition, lowRange, highRange}) => {
     );
 };
 
-export default KeywordItem;
+const MapDispatchToProps = {
+    selectKeyword,
+    deleteKeyword,
+    toggleModalMinusPhrases, 
+    toggleModalGroups
+}
+
+export default connect(null, MapDispatchToProps)(KeywordItem);

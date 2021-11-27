@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reorder, moveIntoGroup, switchColor, toggleModal, selectKeyword } from '../redux/actions';
+import { reorder, moveIntoGroup, switchColor, toggleModalMinusPhrases, selectKeyword } from '../redux/actions';
 import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';
@@ -8,6 +8,7 @@ import MinusPhraseSection from '../components/MinusPhraseSection/MinusPhraseSect
 import styled from 'styled-components'
 import Modal from '../components/UI/modal/Modal';
 import KeywordModal from '../components/KeywordModal/KeywordModal';
+import GroupsModal from '../components/GroupsSection/GroupsModal';
 
 const ConstructorContainer = styled(DndSection)`
     display: grid;
@@ -28,7 +29,7 @@ const ConstructorContainer = styled(DndSection)`
 `
 
 
-const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor, toggleModal, modalIsOpen, selectKeyword, selectedWords}) => {    
+const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor, toggleModalMinusPhrases, modalMinusPhrasesIsOpen, selectKeyword, selectedWords, modalGroupsIsOpen}) => {    
     
     const handleOnDragEnd = result => {
         const {source, destination} = result
@@ -40,7 +41,7 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
             moveIntoGroup(source, destination)
         } else if ((source.droppableId !== 'minusPhrases' || source.droppableId === 'keywords') && destination.droppableId === 'minusPhrases') {
             selectKeyword(source)
-            toggleModal()
+            toggleModalMinusPhrases()
         }
 
     }
@@ -63,8 +64,13 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
                     <MinusPhraseSection title="Минус-фразы" minusPhrases={minusPhrases}/>
             </ConstructorContainer>
             {
-                modalIsOpen && <Modal>
+                modalMinusPhrasesIsOpen && <Modal>
                     <KeywordModal words={selectedWords} />
+                </Modal>
+            }
+            {
+                modalGroupsIsOpen && <Modal>
+                    <GroupsModal groups={groups} />
                 </Modal>
             }
         </>
@@ -76,7 +82,8 @@ const MapStateToProps = state => {
        keywords: state.constructors.keywords,
        groups: state.constructors.groups,
        minusPhrases: state.constructors.minusPhrases,
-       modalIsOpen: state.modal.isOpen,
+       modalMinusPhrasesIsOpen: state.constructors.modalMinusPhrasesIsOpen,
+       modalGroupsIsOpen: state.constructors.modalGroupsIsOpen,
        selectedWords: state.constructors.selectedWords
     }
 }
@@ -85,7 +92,7 @@ const MapDispatchToProps = {
     reorder,
     moveIntoGroup,
     switchColor,
-    toggleModal,
+    toggleModalMinusPhrases,
     selectKeyword
 }
 

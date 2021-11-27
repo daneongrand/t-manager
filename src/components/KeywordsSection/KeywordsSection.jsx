@@ -81,7 +81,7 @@ const KeywordsSection = ({title, keywords, color}) => {
                             index={index}
                             isDraggingColor={ (!color) ? "#00EEFD" : color }
                         >
-                            <KeywordItem {...item} />
+                            <KeywordItem index={index} {...item} />
                         </DndDraggableItem>
                     ))
                 }

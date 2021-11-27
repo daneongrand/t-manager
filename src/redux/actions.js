@@ -1,13 +1,14 @@
 import {
     ADD_INTO_MINUSPHRASES,
     ADD_WORD,
+    DELETE_KEYWORD,
     DELETE_WORD,
     MOVE_COLOR, 
     MOVE_INTO_GROUP, 
     REORDER, 
     SELECT_KEYWORD, 
-    SELECT_WORD, 
-    TOGGLE_MODAL 
+    TOGGLE_MODAL_GROUPS, 
+    TOGGLE_MODAL_MINUSPHRASES
 } from "./types";
 
 
@@ -41,9 +42,15 @@ export function switchColor(destination) {
     }
 }
 
-export function toggleModal() {
+export function toggleModalMinusPhrases() {
     return {
-        type: TOGGLE_MODAL
+        type: TOGGLE_MODAL_MINUSPHRASES
+    }
+}
+
+export function toggleModalGroups() {
+    return {
+        type: TOGGLE_MODAL_GROUPS
     }
 }
 
@@ -78,5 +85,16 @@ export function deleteWord(word) {
 export function addIntoMinusPhrases() {
     return {
         type: ADD_INTO_MINUSPHRASES
+    }
+}
+
+
+
+export function deleteKeyword(keywordId) {
+    return {
+        type: DELETE_KEYWORD,
+        payload: {
+            keywordId
+        }
     }
 }

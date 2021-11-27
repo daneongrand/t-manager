@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
-import { addWord, deleteWord, addIntoMinusPhrases, toggleModal } from '../../redux/actions';
+import { addWord, deleteWord, addIntoMinusPhrases, toggleModalMinusPhrases } from '../../redux/actions';
 import { v4 } from 'uuid'
 import styled from 'styled-components'
 import Section from '../UI/section/Section';
@@ -26,7 +26,7 @@ const Word = styled.span`
 `
 
 
-const KeywordModal = ({words, addWord, deleteWord, addIntoMinusPhrases, toggleModal}) => {
+const KeywordModal = ({words, addWord, deleteWord, addIntoMinusPhrases, toggleModalMinusPhrases}) => {
 
     const selectWord = (e) => {
         console.log(e.target.style.boxShadow)
@@ -43,7 +43,9 @@ const KeywordModal = ({words, addWord, deleteWord, addIntoMinusPhrases, toggleMo
 
 
     return (
-        <KeywordModalContainer>
+        <KeywordModalContainer
+            onKeyDown={e => console.log(e)}
+        >
             {
                 words.map(item => (
                     <Word key={v4()} onClick={selectWord}> {item} </Word>
@@ -52,9 +54,9 @@ const KeywordModal = ({words, addWord, deleteWord, addIntoMinusPhrases, toggleMo
             <ButtonsContainer>
                 <Button onClick={() => {
                     addIntoMinusPhrases()
-                    toggleModal()
+                    toggleModalMinusPhrases()
                 }}>Добавить</Button> 
-                <Button onClick={toggleModal}>Отмена</Button> 
+                <Button onClick={toggleModalMinusPhrases}>Отмена</Button> 
             </ButtonsContainer>
         </KeywordModalContainer>
     );
@@ -66,7 +68,7 @@ const MapDispatchToProps = {
     addWord, 
     deleteWord,
     addIntoMinusPhrases,
-    toggleModal
+    toggleModalMinusPhrases
 }
 
 export default connect(null, MapDispatchToProps)(KeywordModal);

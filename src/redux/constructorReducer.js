@@ -1,5 +1,5 @@
 import {v4} from 'uuid'
-import { ADD_INTO_MINUSPHRASES, ADD_WORD, DELETE_WORD, MOVE, MOVE_INTO_GROUP, REORDER, SELECT_KEYWORD, SELECT_WORD } from './types'
+import { ADD_INTO_MINUSPHRASES, ADD_WORD, DELETE_KEYWORD, DELETE_WORD, MOVE, MOVE_INTO_GROUP, REORDER, SELECT_KEYWORD, SELECT_WORD, TOGGLE_MODAL, TOGGLE_MODAL_GROUPS, TOGGLE_MODAL_MINUSPHRASES } from './types'
 
 const initialState = {
     keywords: [
@@ -250,7 +250,9 @@ const initialState = {
         newList: null
     },
     selectedWords: [],
-    deletedWords: []
+    deletedWords: [],
+    modalMinusPhrasesIsOpen: false,
+    modalGroupsIsOpen: false
 }
 
 export const constructorReducer = (state = initialState, action) => {
@@ -325,12 +327,14 @@ export const constructorReducer = (state = initialState, action) => {
         }
 
         case SELECT_KEYWORD: {
+            console.log(action.payload)
             const { droppableId, index } = action.payload.source
             if(droppableId === 'keywords') {
-                const newKeywordList = state.keywords
+                const newKeywordList = JSON.parse(JSON.stringify(state.keywords))
                 const selected = newKeywordList[index]
                 const words = selected.keyword.split(' ')
                 newKeywordList.splice(index, 1)
+                console.log(state.keywords)
                 return {
                     ...state,
                     selectedKeyword: {
@@ -346,7 +350,7 @@ export const constructorReducer = (state = initialState, action) => {
                 }
             } else {
                 let indexGroup
-                const newGroupsList = state.groups
+                const newGroupsList = JSON.parse(JSON.stringify(state.groups))
                 const selectedGroup = newGroupsList.find((item, index) => {
                     if(item.groupId === droppableId) {
                         indexGroup = index
@@ -450,6 +454,43 @@ export const constructorReducer = (state = initialState, action) => {
   
         }
             
+        case DELETE_KEYWORD: {
+            const keywordId = action.payload.keywordId
+            const newKeywordsList = state.keywords.filter(item => item.keywordId !== keywordId)
+            return {
+                ...state,
+                keywords: newKeywordsList
+            }
+        }
+
+        case TOGGLE_MODAL_MINUSPHRASES: {
+            if (state.modalMinusPhrasesIsOpen) {
+                return {
+                    ...state,
+                    selectedKeyword: {
+                        isGroup: false,
+                        keyword: null,
+                        newList: null
+                    },
+                    selectedWords: [],
+                    deletedWords: [],
+                    modalMinusPhrasesIsOpen: !state.modalMinusPhrasesIsOpen
+                }
+            } else {
+                return {
+                    ...state,
+                    modalMinusPhrasesIsOpen: !state.modalMinusPhrasesIsOpen
+                }
+            }
+        }
+
+        case TOGGLE_MODAL_GROUPS: {
+            return {
+                ...state,
+                modalGroupsIsOpen: !state.modalGroupsIsOpen
+            }
+        }
+
         default:
             return state
     }
