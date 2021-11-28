@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { addWord, deleteWord, addIntoMinusPhrases, toggleModalMinusPhrases } from '../../redux/actions';
 import { v4 } from 'uuid'
 import styled from 'styled-components'
-import Section from '../UI/section/Section';
+// import Section from '../UI/section/Section';
+import { Section } from '../UI/section/Section';
 
 const KeywordModalContainer = styled(Section)`
 `

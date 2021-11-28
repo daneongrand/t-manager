@@ -1,16 +1,7 @@
-import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
+import { spin } from '../animation/animations';
 
-const spin = keyframes`
-    0% {
-        --rotate: 0deg;
-    }
-    100% {
-        --rotate: 360deg;
-    }
-`
-
-const SectionContainer = styled.section`
+export const Section = styled.section`
     @property --rotate {
         syntax: "<angle>";
         initial-value: 0deg;
@@ -56,14 +47,3 @@ const SectionContainer = styled.section`
         animation: ${spin} 5s linear infinite;
     }
 `
-
-const Section = ({borderColor, children}) => {
-
-    return (
-        <SectionContainer borderColor={borderColor}>
-            {children}
-        </SectionContainer>
-    );
-};
-
-export default Section;

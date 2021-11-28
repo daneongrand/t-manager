@@ -5,7 +5,8 @@ import DndDroppable from '../UI/dnd/DndDroppable';
 import styled from 'styled-components';
 import KeywordItem from './KeywordItem';
 import { AddIcon } from '../UI/icons/Icons'
-import Section from '../UI/section/Section';
+// import Section from '../UI/section/Section';
+import { Section } from '../UI/section/Section';
 import Kitty from '../../img/Sleeping-Kitty.svg'
 
 const Header = styled.header`
@@ -50,7 +51,6 @@ const Img = styled.img`
 `
 
 const KeywordsSection = ({title, keywords, color}) => {
-    console.log('COLOR', color)
     if (!keywords.length) {
         return (
             <Section borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)" >

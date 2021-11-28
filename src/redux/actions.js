@@ -6,7 +6,9 @@ import {
     MOVE_COLOR, 
     MOVE_INTO_GROUP, 
     REORDER, 
+    SELECT_GROUP, 
     SELECT_KEYWORD, 
+    SELECT_KEYWORD_FOR_MOVE, 
     TOGGLE_MODAL_GROUPS, 
     TOGGLE_MODAL_MINUSPHRASES
 } from "./types";
@@ -96,5 +98,24 @@ export function deleteKeyword(keywordId) {
         payload: {
             keywordId
         }
+    }
+}
+
+export function selectGroup(group) {
+    return {
+        type: SELECT_GROUP,
+        payload: {
+            group
+        }
+    }
+}
+
+
+export function selectKeywordForMove (source) {
+    return {
+        type: SELECT_KEYWORD_FOR_MOVE,
+        payload: {
+            source
+        } 
     }
 }

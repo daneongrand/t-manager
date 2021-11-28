@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
-import Section from '../UI/section/Section'
+// import Section from '../UI/section/Section'
+import { Section } from '../UI/section/Section';
 import styled from 'styled-components'
 
 const Header = styled.header`

@@ -38,6 +38,7 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
         if (source.droppableId === destination.droppableId) {
             reorder(source, destination)
         } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
+            console.log(source, destination)
             moveIntoGroup(source, destination)
         } else if ((source.droppableId !== 'minusPhrases' || source.droppableId === 'keywords') && destination.droppableId === 'minusPhrases') {
             selectKeyword(source)

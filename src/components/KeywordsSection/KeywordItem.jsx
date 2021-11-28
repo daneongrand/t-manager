@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups } from '../../redux/actions';
+import { deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove } from '../../redux/actions';
 import styled from 'styled-components';
 import {OpenAnalytics, AddIcon, AddMinusPhrase, DeleteKeyword} from '../UI/icons/Icons'
 
@@ -59,7 +59,7 @@ const Button = styled.button`
     background-color: transparent;
     border: 0;
 `
-const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups}) => {
+const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
     const iconConfig = {
         width: "24",
         height: "24",
@@ -95,6 +95,10 @@ const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, hig
                     <ButtonItem>
                         <Button
                             onClick={() => {
+                                selectKeywordForMove({
+                                    droppableId: 'keywords',
+                                    index: index
+                                })
                                 toggleModalGroups()
                             }}
                         >
@@ -165,7 +169,8 @@ const MapDispatchToProps = {
     selectKeyword,
     deleteKeyword,
     toggleModalMinusPhrases, 
-    toggleModalGroups
+    toggleModalGroups,
+    selectKeywordForMove
 }
 
 export default connect(null, MapDispatchToProps)(KeywordItem);

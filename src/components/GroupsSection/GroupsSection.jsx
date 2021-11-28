@@ -1,9 +1,11 @@
 import React from 'react';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
-import Section from '../UI/section/Section';
+// import Section from '../UI/section/Section';
 import KeywordsSectionIntoGroups from './KeywordsSectionIntoGroups';
 import styled from 'styled-components'
+import { Section } from '../UI/section/Section';
+
 
 const Header = styled.header`
     display: flex;

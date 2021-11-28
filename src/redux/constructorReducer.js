@@ -1,5 +1,17 @@
 import {v4} from 'uuid'
-import { ADD_INTO_MINUSPHRASES, ADD_WORD, DELETE_KEYWORD, DELETE_WORD, MOVE, MOVE_INTO_GROUP, REORDER, SELECT_KEYWORD, SELECT_WORD, TOGGLE_MODAL, TOGGLE_MODAL_GROUPS, TOGGLE_MODAL_MINUSPHRASES } from './types'
+import {
+    ADD_INTO_MINUSPHRASES,
+    ADD_WORD,
+    DELETE_KEYWORD,
+    DELETE_WORD,
+    MOVE_INTO_GROUP,
+    REORDER,
+    SELECT_KEYWORD,
+    TOGGLE_MODAL_GROUPS,
+    TOGGLE_MODAL_MINUSPHRASES,
+    SELECT_GROUP,
+    SELECT_KEYWORD_FOR_MOVE
+} from './types'
 
 const initialState = {
     keywords: [
@@ -252,7 +264,8 @@ const initialState = {
     selectedWords: [],
     deletedWords: [],
     modalMinusPhrasesIsOpen: false,
-    modalGroupsIsOpen: false
+    modalGroupsIsOpen: false,
+    selectedGroup: {}
 }
 
 export const constructorReducer = (state = initialState, action) => {
@@ -275,8 +288,8 @@ export const constructorReducer = (state = initialState, action) => {
                 const group = groups.find((item, index) => {
                     if (item.groupId === source.droppableId) {
                         indexGroup = index
-                        return item
                     }
+                    return item
                 })
                 groups.splice(indexGroup, 1)
                 const list = group.groupKeywords
@@ -297,33 +310,27 @@ export const constructorReducer = (state = initialState, action) => {
 
         case MOVE_INTO_GROUP: {
             const { source, destination } = action.payload
-
-            const sourceList = state.keywords
-
-            let groups = state.groups
-            let indexGroup
-            const group = groups.find((item, index) => {
+            const keywordList = JSON.parse(JSON.stringify(state.keywords))
+            const groupsList = JSON.parse(JSON.stringify(state.groups))
+            const [ removeKeyword ] = keywordList.splice(source.index, 1)
+            let groupIndex
+            const removeGroup = groupsList.find((item, index) => {
                 if (item.groupId === destination.droppableId) {
-                    indexGroup = index
+                    groupIndex = index
                     return item
                 }
             })
-            groups.splice(indexGroup, 1)
-            const destinationList = group.groupKeywords
-            const [ removed ] = sourceList.splice(source.index, 1)
-            group.groupKeywords = destinationList
-            destinationList.splice(destination.index, 0, removed)
-            groups.splice(indexGroup, 0, group)
-
+            removeGroup.groupKeywords.splice(destination.index, 0, removeKeyword)
             return {
-                ...state,
+                ...state, 
                 keywords: [
-                    ...sourceList
+                    ...keywordList
                 ],
                 groups: [
-                    ...groups
+                    ...groupsList
                 ]
             }
+
         }
 
         case SELECT_KEYWORD: {
@@ -354,8 +361,8 @@ export const constructorReducer = (state = initialState, action) => {
                 const selectedGroup = newGroupsList.find((item, index) => {
                     if(item.groupId === droppableId) {
                         indexGroup = index
-                        return item
                     }
+                    return item
                 })
                 const selected = selectedGroup.groupKeywords[index]
                 const words = selected.keyword.split(' ')
@@ -485,11 +492,53 @@ export const constructorReducer = (state = initialState, action) => {
         }
 
         case TOGGLE_MODAL_GROUPS: {
-            return {
-                ...state,
-                modalGroupsIsOpen: !state.modalGroupsIsOpen
+            if (!state.modalGroupsIsOpen) {
+                return {
+                    ...state,
+                    modalGroupsIsOpen: !state.modalGroupsIsOpen
+                }
+            } else {
+                return {
+                    ...state,
+                    modalGroupsIsOpen: !state.modalGroupsIsOpen,
+                    selectedKeyword: {
+                        isGroup: false,
+                        keyword: null,
+                        newList: null 
+                    },
+                    selectedGroup: {}
+                }
             }
         }
+
+
+        case SELECT_KEYWORD_FOR_MOVE: {
+            console.log(action.payload)
+            return {
+                ...state,
+                selectedKeyword: {
+                    isGroup: false,
+                    newList: [],
+                    keyword: {
+                        droppableId: action.payload.source.droppableId,
+                        index: action.payload.source.index
+                    }
+                }
+            }
+        }
+
+        case SELECT_GROUP: {
+            console.log(action.payload)
+            console.log(state.selectedKeyword)
+            return {
+                ...state, 
+                selectedGroup: {
+                    index: action.payload.group.index,
+                    droppableId: action.payload.group.droppableId,
+                }
+            }
+        }
+
 
         default:
             return state
