@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authRoutes, publicRoutes } from './routes';
 import Navigation from './components/Navigation/Navigation';
 import Profile from './pages/Profile'
 import Campaigns from './pages/Campaigns'
@@ -7,31 +9,37 @@ import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
 
 
-
-function App() {
+function App({ isAuth }) {
+  console.log(isAuth)
   return (
     <Router>
-      <Navigation />
+      {
+        isAuth && <Navigation />
+      }
       <Switch>
-        <Route path='/profile'>
-          <Profile />
-        </Route>
-        <Route path='/campaigns'>
-          <Campaigns />
-        </Route>
-        <Route exact path='/constructor'>
-          <Constructor />
-        </Route>
-        <Route path='/analytics'>
-          <Analytics />
-        </Route>
-        <Route path='/settings'>
-          <Settings />
-        </Route>
-        <Route></Route>
+        {
+          isAuth && authRoutes.map(({ path, component }) => {
+            return (
+              <Route key={path} path={path} component={component} exact />
+            )
+          } )
+        }
+        {
+          publicRoutes.map(({ path, component }) => {
+            return (
+              <Route key={path} path={path} component={component} exact />
+            )
+          })
+        }
       </Switch>
     </Router>
   );
 }
 
-export default App;
+const MapStateToProps = state => {
+  return {
+    isAuth: state.user.isAuth
+  }
+}
+
+export default connect(MapStateToProps, null)(App);
