@@ -33,10 +33,12 @@ const GlobalStyled = createGlobalStyle`
 
 const theme = {
   colors: {
-    dark_blue: "#0A1026"
+    dark_blue: "#0A1026",
+    blue: "#4255D4"
   },
   media: {
-    tablet: "(max-width: 800px)"
+    tablet: "(max-width: 800px)",
+    mobile: "(max-width: 420px)"
   }
 }
 
