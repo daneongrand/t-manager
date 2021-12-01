@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../redux/actions';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -109,7 +111,8 @@ const StyledParagraph = styled.p`
     }
 `
 
-const LoginForm = () => {
+const LoginForm = ({authorizate}) => {
+
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
@@ -133,7 +136,9 @@ const LoginForm = () => {
                 onChange={e => setPassword(e.target.value)}
             />
             <SubmitContainer>
-                <Submit />
+                <Submit 
+                    onClick={() => authorizate(login, password)}
+                />
                 <StyledLink>Забыли пароль?</StyledLink>
             </SubmitContainer>
             <ParagraphContainer>
@@ -144,4 +149,8 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+const MapDispatchToProps = {
+    authorizate: login
+}
+
+export default connect(null, MapDispatchToProps)(LoginForm);

@@ -1,14 +1,18 @@
+import AuthService from "../services/AuthService";
 import {
     ADD_INTO_MINUSPHRASES,
     ADD_WORD,
     DELETE_KEYWORD,
     DELETE_WORD,
+    LOGIN,
     MOVE_COLOR, 
     MOVE_INTO_GROUP, 
     REORDER, 
     SELECT_GROUP, 
     SELECT_KEYWORD, 
     SELECT_KEYWORD_FOR_MOVE, 
+    SIGNUP, 
+    SIGNUP_ERROR, 
     TOGGLE_MODAL_GROUPS, 
     TOGGLE_MODAL_MINUSPHRASES
 } from "./types";
@@ -117,5 +121,25 @@ export function selectKeywordForMove (source) {
         payload: {
             source
         } 
+    }
+}
+
+export function login(login, password) {
+    return async dispatch => {
+        const response = await AuthService.login(login, password)
+        dispatch({ type: LOGIN, payload: response })
+    }
+}
+
+export function signup(firstName, lastName, nickName, email, password) {
+    return async dispatch => {
+        try {
+            const response = await AuthService.signup(firstName, lastName, nickName, email, password)
+            const data = response.json()
+            return dispatch({type: SIGNUP, payload: data})
+        } catch (e) {
+            
+            return dispatch({type: SIGNUP_ERROR, payload: e})
+        }
     }
 }

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { signup } from '../../redux/actions';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -32,13 +34,18 @@ const Input = styled.input`
     outline: none;
     background-color: transparent;
     border: 0;
-    border-bottom: 3px solid ${props => props.theme.colors.blue};
+    border-bottom: 3px solid ${props => (props.valid) ? props.theme.colors.blue : props.theme.colors.danger};
     color: white;
     font-size: 24px;
-    margin-top: 10px;
     &::placeholder {
         font-size: 20px;
     }
+
+`
+
+const InputContainer = styled.section`
+    width: 100%;
+    margin-top: 10px;
 `
 
 const Submit = styled.input.attrs(props => ({
@@ -61,7 +68,16 @@ const Submit = styled.input.attrs(props => ({
     }
 `
 
-const SignUpForm = () => {
+const Warning = styled.p`
+    margin: 5px 0px 0px 5px; 
+    color: ${props => props.theme.colors.danger};
+    font-size: 12px;
+    text-align: left;
+`
+
+
+
+const SignUpForm = ({ registration }) => {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -70,48 +86,101 @@ const SignUpForm = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+
+    const [validConfirmPassword, setValidConfirmPassword] = useState(true)
+
+    
+    useEffect(() => {
+        if (confirmPassword !== password) {
+            console.log('Пароль не совпадает')
+            setValidConfirmPassword(false)
+        } else {
+            console.log('Пароль совпадает')
+            setValidConfirmPassword(true)
+        }
+    }, [confirmPassword])
+
+
+
     return (
         <Form>
             <Title>Регистрация</Title>
-            <Input 
-                type="text"     
-                placeholder="Имя"
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)} 
+            <InputContainer>
+                <Input 
+                    type="text"     
+                    placeholder="Имя*"
+                    valid
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)} 
+                />
+            </InputContainer>
+            <InputContainer>
+                <Input 
+                    type="text"     
+                    placeholder="Фамилия*"
+                    valid
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)} 
+                />
+            </InputContainer>
+            <InputContainer>
+                <Input 
+                    type="text"     
+                    placeholder="Никнейм*"
+                    valid
+                    value={nickName}
+                    onChange={e => setNickName(e.target.value)} 
+                />
+            </InputContainer>
+            <InputContainer>
+                <Input 
+                    type="email"    
+                    placeholder="Email*"
+                    valid
+                    value={email}
+                    onChange={e => setEmail(e.target.value)} 
+                />
+            </InputContainer>
+            <InputContainer>
+                <Input 
+                    type="password"     
+                    placeholder="Пароль*"
+                    valid
+                    value={password}
+                    onChange={e => {
+                        setPassword(e.target.value)
+                    }} 
+                />
+            </InputContainer>
+            <InputContainer>
+                <Input 
+                    type="password"     
+                    placeholder="Повторите пароль"
+                    value={confirmPassword}
+                    valid={validConfirmPassword}
+                    onChange={e => {
+                        setConfirmPassword(e.target.value)
+                    }} 
+                />
+                <Warning>
+                    {
+                        (!validConfirmPassword) && 'Пароль не совпадает'
+                    }
+                </Warning>
+            </InputContainer>
+            <Submit 
+                onClick={e => {
+                    e.preventDefault()
+                    const res = registration(firstName, lastName, nickName, email, password)
+                    
+                }}
             />
-            <Input 
-                type="text"     
-                placeholder="Фамилия"
-                value={lastName}
-                onChange={e => setLastName(e.target.value)} 
-            />
-            <Input 
-                type="text"     
-                placeholder="Никнейм"
-                value={nickName}
-                onChange={e => setNickName(e.target.value)} 
-            />
-            <Input 
-                type="email"    
-                placeholder="Email"
-                value={email}
-                onChange={e => setEmail(e.target.value)} 
-            />
-            <Input 
-                type="password"     
-                placeholder="Пароль"
-                value={password}
-                onChange={e => setPassword(e.target.value)} 
-            />
-            <Input 
-                type="password"     
-                placeholder="Повторите пароль"
-                value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)} 
-            />
-            <Submit />
         </Form>
     );
 };
 
-export default SignUpForm;
+const MapDispatchToProps = {
+    registration: signup
+}
+
+export default connect(null, MapDispatchToProps)(SignUpForm);
