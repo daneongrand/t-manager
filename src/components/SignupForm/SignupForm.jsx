@@ -75,9 +75,17 @@ const Warning = styled.p`
     text-align: left;
 `
 
+const LogoutError = styled.section`
+    padding: 20px;
+    border: 1px solid ${props => props.theme.colors.danger};
+    border-radius: 0px 30px 30px 30px;
+    background-color: rgba(235, 0, 0, .15);
+    color: ${props => props.theme.colors.danger};
+`
 
 
-const SignUpForm = ({ registration }) => {
+
+const SignUpForm = ({ registration, signupError }) => {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -100,11 +108,17 @@ const SignUpForm = ({ registration }) => {
         }
     }, [confirmPassword])
 
-
+    const signUp = async (e) => {
+        e.preventDefault()
+        registration(firstName, lastName, nickName, email, password)
+    }
 
     return (
         <Form>
             <Title>Регистрация</Title>
+            {
+                (signupError) && <LogoutError>  {signupError} </LogoutError>
+            }
             <InputContainer>
                 <Input 
                     type="text"     
@@ -169,11 +183,7 @@ const SignUpForm = ({ registration }) => {
                 </Warning>
             </InputContainer>
             <Submit 
-                onClick={e => {
-                    e.preventDefault()
-                    const res = registration(firstName, lastName, nickName, email, password)
-                    
-                }}
+                onClick={signUp}
             />
         </Form>
     );
@@ -183,4 +193,10 @@ const MapDispatchToProps = {
     registration: signup
 }
 
-export default connect(null, MapDispatchToProps)(SignUpForm);
+const MapStateToProps = state => {
+    return {
+        signupError: state.user.signupError
+    }
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(SignUpForm);

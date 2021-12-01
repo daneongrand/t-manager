@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { logout } from '../../redux/actions';
 import { Link } from 'react-router-dom'
 import {ProfileLogo, ConstructorLogo, CampaignsLogo, AnalyticsLogo, SettingsLogo, LogOutLogo} from '../UI/icons/Icons'
 
@@ -74,7 +76,7 @@ const SettingsContainer = styled.div`
 
 
 
-const Navigation = () => {
+const Navigation = ({logout}) => {
 
     const iconConfig = {
         width: "24",
@@ -106,7 +108,7 @@ const Navigation = () => {
                     <NavigationItem to='/settings'>
                         <SettingsLogo {...iconConfig} />
                     </NavigationItem>
-                    <NavigationItem to='/exit'>
+                    <NavigationItem onClick={logout} to='/login'>
                         <LogOutLogo {...iconConfig} />
                     </NavigationItem>
                 
@@ -115,4 +117,8 @@ const Navigation = () => {
     );
 };
 
-export default Navigation;
+const MapDispatchToProps = {
+    logout
+}
+
+export default connect(null, MapDispatchToProps)(Navigation);

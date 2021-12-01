@@ -1,7 +1,10 @@
-import { LOGIN, SIGNUP, SIGNUP_ERROR } from "./types"
+import { LOGIN, LOGIN_ERROR, LOGOUT, SIGNUP, SIGNUP_ERROR } from "./types"
 
 const initialState = {
-    isAuth: false
+    isAuth: false,
+    loading: false,
+    loginError: '',
+    signupError: ''
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -9,17 +12,41 @@ export const userReducer = (state = initialState, action) => {
         
         case LOGIN: {
             console.log(action.payload)
-            return state
+            return {
+                ...state,
+                isAuth: true
+            }
+        }
+
+        case LOGIN_ERROR: {
+            console.log(action.payload)
+            return {
+                ...state,
+                loginError: action.payload.data.message
+            }
         }
 
         case SIGNUP: {
             console.log(action.payload)
-            return state
+            return {
+                ...state,
+                isAuth: true
+            }
         }
 
         case SIGNUP_ERROR: {
             console.log(action.payload)
-            return state
+            return {
+                ...state,
+                signupError: action.payload.data.message
+            }
+        }
+
+        case LOGOUT: {
+            return {
+                ...state,
+                isAuth: false
+            }
         }
 
         default: {

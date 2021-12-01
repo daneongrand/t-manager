@@ -1,3 +1,4 @@
+import axios from "axios";
 import AuthService from "../services/AuthService";
 import {
     ADD_INTO_MINUSPHRASES,
@@ -5,6 +6,8 @@ import {
     DELETE_KEYWORD,
     DELETE_WORD,
     LOGIN,
+    LOGIN_ERROR,
+    LOGOUT,
     MOVE_COLOR, 
     MOVE_INTO_GROUP, 
     REORDER, 
@@ -126,20 +129,57 @@ export function selectKeywordForMove (source) {
 
 export function login(login, password) {
     return async dispatch => {
-        const response = await AuthService.login(login, password)
-        dispatch({ type: LOGIN, payload: response })
+        try {
+            const { data } = await AuthService.login(login, password)
+            localStorage.setItem('accessToken', data.accessToken)
+            dispatch({
+                type: LOGIN,
+                payload: data
+            })
+        } catch (e) {
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: e.response
+            })
+        }
     }
 }
 
 export function signup(firstName, lastName, nickName, email, password) {
     return async dispatch => {
         try {
-            const response = await AuthService.signup(firstName, lastName, nickName, email, password)
-            const data = response.json()
-            return dispatch({type: SIGNUP, payload: data})
+            const { data } = await AuthService.signup(firstName, lastName, nickName, email, password)
+            localStorage.setItem('accessToken', data.accessToken)
+            dispatch({
+                type: SIGNUP,
+                payload: data
+            })
         } catch (e) {
-            
-            return dispatch({type: SIGNUP_ERROR, payload: e})
+            dispatch({
+                type: SIGNUP_ERROR,
+                payload: e.response
+            })
         }
+    }
+}
+
+export function logout() {
+    return async dispatch => {
+        const response = await AuthService.logout()
+        localStorage.removeItem('accessToken')
+        dispatch({
+            type: LOGOUT
+        })
+    }
+}
+
+export function checkAuth() {
+    return async dispatch => {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user/refresh`, {withCredentials: true})
+        localStorage.setItem('accessToken', data.accessToken)
+        dispatch({
+            type: LOGIN,
+            payload: data
+        })
     }
 }

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { checkAuth } from './redux/actions';
 import { authRoutes, publicRoutes } from './routes';
 import Navigation from './components/Navigation/Navigation';
 import Profile from './pages/Profile'
@@ -7,10 +8,21 @@ import Campaigns from './pages/Campaigns'
 import Constructor from './pages/Constructor'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
+import { useEffect } from 'react';
 
 
-function App({ isAuth }) {
+function App({ isAuth, checkAuth }) {
+
   console.log(isAuth)
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      checkAuth()
+    }
+  }, [])
+
+
+
   return (
     <Router>
       {
@@ -42,4 +54,8 @@ const MapStateToProps = state => {
   }
 }
 
-export default connect(MapStateToProps, null)(App);
+const MapDispatchToProps = {
+  checkAuth
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(App);

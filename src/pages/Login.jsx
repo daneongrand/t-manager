@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import LoginForm from '../components/LoginForm/LoginForm';
+import { CAMPAIGN_ROUTE } from '../utils/constRoutes';
 
 const Main = styled.main`
     width: 100%;
@@ -14,7 +17,16 @@ const Main = styled.main`
     }
 `
 
-const Login = () => {
+const Login = ({isAuth}) => {
+    
+    let history = useHistory()
+
+    useEffect(() => {
+        if (isAuth) {
+            history.push(CAMPAIGN_ROUTE)
+        }
+    })
+
     return (
         <Main>
             <LoginForm />
@@ -22,4 +34,10 @@ const Login = () => {
     );
 };
 
-export default Login;
+const MapStateToProps = state => {
+    return {
+        isAuth: state.user.isAuth
+    }
+}
+
+export default connect(MapStateToProps, null)(Login);

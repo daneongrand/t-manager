@@ -111,11 +111,21 @@ const StyledParagraph = styled.p`
     }
 `
 
-const LoginForm = ({authorizate}) => {
+const LoginError = styled.section`
+    padding: 20px;
+    border: 1px solid ${props => props.theme.colors.danger};
+    border-radius: 0px 30px 30px 30px;
+    background-color: rgba(235, 0, 0, .15);
+    color: ${props => props.theme.colors.danger};
+`
+
+
+const LoginForm = ({authorizate, loginError}) => {
 
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+
 
 
     return (
@@ -123,6 +133,9 @@ const LoginForm = ({authorizate}) => {
             <Title>
                 Авторизация
             </Title>
+            {
+                (loginError) && <LoginError>{loginError}</LoginError>
+            }
             <Input 
                 type="email" 
                 placeholder="Ваш nickname или email"
@@ -153,4 +166,10 @@ const MapDispatchToProps = {
     authorizate: login
 }
 
-export default connect(null, MapDispatchToProps)(LoginForm);
+const MapStateToProps = state => {
+    return {
+        loginError: state.user.loginError
+    }
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(LoginForm);
