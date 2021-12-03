@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { login } from '../../redux/actions';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { CAMPAIGN_ROUTE } from '../../utils/constRoutes';
 
 const Form = styled.form`
     width: 490px;
@@ -126,6 +128,8 @@ const LoginForm = ({authorizate, loginError}) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
 
+    const history = useHistory()
+
 
 
     return (
@@ -150,7 +154,10 @@ const LoginForm = ({authorizate, loginError}) => {
             />
             <SubmitContainer>
                 <Submit 
-                    onClick={() => authorizate(login, password)}
+                    onClick={async () => {
+                        authorizate(login, password)
+                        history.push(CAMPAIGN_ROUTE)
+                    }}
                 />
                 <StyledLink>Забыли пароль?</StyledLink>
             </SubmitContainer>

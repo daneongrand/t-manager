@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { signup } from '../../redux/actions';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
+import { CAMPAIGN_ROUTE } from '../../utils/constRoutes';
 
 const Form = styled.form`
     width: 490px;
@@ -85,7 +87,9 @@ const LogoutError = styled.section`
 
 
 
-const SignUpForm = ({ registration, signupError }) => {
+const SignUpForm = ({ signup, signupError }) => {
+
+    const history = useHistory()
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -108,13 +112,15 @@ const SignUpForm = ({ registration, signupError }) => {
         }
     }, [confirmPassword])
 
-    const signUp = async (e) => {
-        e.preventDefault()
-        registration(firstName, lastName, nickName, email, password)
-    }
+    
 
     return (
-        <Form>
+        <Form
+            onSubmit={() => {
+                signup(firstName, lastName, nickName, email, password)
+                history.push(CAMPAIGN_ROUTE)
+            }}
+        >
             <Title>Регистрация</Title>
             {
                 (signupError) && <LogoutError>  {signupError} </LogoutError>
@@ -182,15 +188,13 @@ const SignUpForm = ({ registration, signupError }) => {
                     }
                 </Warning>
             </InputContainer>
-            <Submit 
-                onClick={signUp}
-            />
+            <Submit />
         </Form>
     );
 };
 
 const MapDispatchToProps = {
-    registration: signup
+    signup
 }
 
 const MapStateToProps = state => {

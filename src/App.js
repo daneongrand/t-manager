@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 import { checkAuth } from './redux/actions';
 import { authRoutes, publicRoutes } from './routes';
 import Navigation from './components/Navigation/Navigation';
-import Profile from './pages/Profile'
-import Campaigns from './pages/Campaigns'
-import Constructor from './pages/Constructor'
-import Analytics from './pages/Analytics'
-import Settings from './pages/Settings'
 import { useEffect } from 'react';
 
 

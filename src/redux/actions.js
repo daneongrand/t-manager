@@ -136,6 +136,7 @@ export function login(login, password) {
                 type: LOGIN,
                 payload: data
             })
+            
         } catch (e) {
             dispatch({
                 type: LOGIN_ERROR,
