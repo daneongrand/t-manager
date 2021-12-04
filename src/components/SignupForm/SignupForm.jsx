@@ -116,9 +116,14 @@ const SignUpForm = ({ signup, signupError }) => {
 
     return (
         <Form
-            onSubmit={() => {
-                signup(firstName, lastName, nickName, email, password)
-                history.push(CAMPAIGN_ROUTE)
+            onSubmit={async (e) => {
+                e.preventDefault()
+                try {
+                    await signup(firstName, lastName, nickName, email, password)
+                    history.push(CAMPAIGN_ROUTE)
+                } catch (e) {
+
+                }
             }}
         >
             <Title>Регистрация</Title>

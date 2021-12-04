@@ -20,6 +20,7 @@ export const userReducer = (state = initialState, action) => {
             console.log(action.payload)
             return {
                 ...state,
+                loginError: '',
                 isAuth: true
             }
         }
@@ -36,6 +37,7 @@ export const userReducer = (state = initialState, action) => {
             console.log(action.payload)
             return {
                 ...state,
+                signupError: '',
                 isAuth: true
             }
         }

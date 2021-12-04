@@ -130,10 +130,20 @@ const LoginForm = ({authorizate, loginError}) => {
 
     const history = useHistory()
 
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        try {
+            await authorizate(login, password)
+            history.push(CAMPAIGN_ROUTE)
+        } catch (e) {
 
+        }
+    }
 
     return (
-        <Form>
+        <Form
+            onSubmit={handleLogin}
+        >
             <Title>
                 Авторизация
             </Title>
@@ -141,7 +151,7 @@ const LoginForm = ({authorizate, loginError}) => {
                 (loginError) && <LoginError>{loginError}</LoginError>
             }
             <Input 
-                type="email" 
+                type="text" 
                 placeholder="Ваш nickname или email"
                 value={login}
                 onChange={e => setLogin(e.target.value)}
@@ -153,12 +163,7 @@ const LoginForm = ({authorizate, loginError}) => {
                 onChange={e => setPassword(e.target.value)}
             />
             <SubmitContainer>
-                <Submit 
-                    onClick={async () => {
-                        authorizate(login, password)
-                        history.push(CAMPAIGN_ROUTE)
-                    }}
-                />
+                <Submit />
                 <StyledLink>Забыли пароль?</StyledLink>
             </SubmitContainer>
             <ParagraphContainer>
@@ -174,6 +179,7 @@ const MapDispatchToProps = {
 }
 
 const MapStateToProps = state => {
+    console.log(state)
     return {
         loginError: state.user.loginError
     }

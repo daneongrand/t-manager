@@ -1,5 +1,7 @@
 import axios from "axios"
+import { useHistory } from "react-router"
 import AuthService from "../services/AuthService"
+import { CAMPAIGN_ROUTE } from "../utils/constRoutes"
 import {
     LOGIN,
     LOGIN_ERROR,
@@ -17,13 +19,15 @@ export function login(login, password) {
                 type: LOGIN,
                 payload: data
             })
-            
+            return Promise.resolve()            
         } catch (e) {
             dispatch({
                 type: LOGIN_ERROR,
                 payload: e.response
             })
+            return Promise.reject()
         }
+
     }
 }
 
@@ -36,11 +40,13 @@ export function signup(firstName, lastName, nickName, email, password) {
                 type: SIGNUP,
                 payload: data
             })
+            return Promise.resolve()
         } catch (e) {
             dispatch({
                 type: SIGNUP_ERROR,
                 payload: e.response
             })
+            return Promise.reject()
         }
     }
 }
