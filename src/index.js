@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { Helmet } from 'react-helmet';
 import App from './App';
 import { applyMiddleware, compose, createStore } from 'redux';
-import { rootReducer } from './redux/rootReducer';
+import { rootReducer } from './reducers/rootReducer';
 import { Provider } from 'react-redux';
 
 const store = createStore(rootReducer, compose(

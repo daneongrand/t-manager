@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { checkAuth } from './redux/actions';
+import { checkAuth } from './actions/userActions';
 import { authRoutes, publicRoutes } from './routes';
 import Navigation from './components/Navigation/Navigation';
 import { useEffect } from 'react';

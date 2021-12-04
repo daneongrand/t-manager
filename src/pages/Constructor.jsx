@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reorder, moveIntoGroup, switchColor, toggleModalMinusPhrases, selectKeyword } from '../redux/actions';
+import { reorder, moveIntoGroup, toggleModalMinusPhrases, selectKeyword } from '../actions/constructorActions';
+import { switchColor } from '../actions/dndActions';
 import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';

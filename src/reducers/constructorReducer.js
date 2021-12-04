@@ -11,7 +11,7 @@ import {
     TOGGLE_MODAL_MINUSPHRASES,
     SELECT_GROUP,
     SELECT_KEYWORD_FOR_MOVE
-} from './types'
+} from '../utils/constTypes'
 
 const initialState = {
     keywords: [

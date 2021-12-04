@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { signup } from '../../redux/actions';
+import { signup } from '../../actions/userActions';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
 import { CAMPAIGN_ROUTE } from '../../utils/constRoutes';

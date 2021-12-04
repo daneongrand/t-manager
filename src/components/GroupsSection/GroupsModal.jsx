@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectGroup, moveIntoGroup, toggleModalGroups } from '../../redux/actions';
+import { selectGroup, moveIntoGroup, toggleModalGroups } from '../../actions/constructorActions';
 import styled from 'styled-components';
 import { Section } from '../UI/section/Section';
-import GroupsSection from './GroupsSection';
-
 
 const GroupContainer = styled(Section)`
     width: 40%;

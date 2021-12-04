@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { login } from '../../redux/actions';
+import { login } from '../../actions/userActions';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CAMPAIGN_ROUTE } from '../../utils/constRoutes';

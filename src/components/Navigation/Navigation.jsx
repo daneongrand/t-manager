@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { logout } from '../../redux/actions';
+import { logout } from '../../actions/userActions';
 import { Link } from 'react-router-dom'
 import {ProfileLogo, ConstructorLogo, CampaignsLogo, AnalyticsLogo, SettingsLogo, LogOutLogo} from '../UI/icons/Icons'
 

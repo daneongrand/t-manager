@@ -1,4 +1,10 @@
-import { LOGIN, LOGIN_ERROR, LOGOUT, SIGNUP, SIGNUP_ERROR } from "./types"
+import {
+    LOGIN,
+    LOGIN_ERROR,
+    LOGOUT,
+    SIGNUP,
+    SIGNUP_ERROR 
+} from "../utils/constTypes"
 
 const initialState = {
     isAuth: false,

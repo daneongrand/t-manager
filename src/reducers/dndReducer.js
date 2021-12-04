@@ -1,4 +1,4 @@
-import { MOVE_COLOR } from "./types"
+import { MOVE_COLOR } from "../utils/constTypes"
 
 const initialState = {
     color: null
