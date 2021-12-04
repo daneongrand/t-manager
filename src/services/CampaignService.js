@@ -6,8 +6,4 @@ export default class CampaignService {
         return $api.get('campaign/')
     }
 
-    static async create(campaignName) {
-        return $api.post('campaign/', { campaignName })
-    }
-
 }

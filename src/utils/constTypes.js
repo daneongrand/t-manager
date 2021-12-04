@@ -18,3 +18,5 @@ export const SIGNUP = 'user/signup'
 export const SIGNUP_ERROR = 'user/signup_error'
 export const LOGIN_ERROR = 'user/login_error'
 export const LOGOUT = 'user/logout'
+
+export const GET_ALL_CAMPAIGNS = 'campaign/getAll'
