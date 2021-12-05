@@ -6,4 +6,8 @@ export default class CampaignService {
         return $api.get('campaign/')
     }
 
+    static async rename(campaignId, campaignName) {
+        return $api.put(`campaign/${campaignId}`, {campaignName})
+    }
+
 }

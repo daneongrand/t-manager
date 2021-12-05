@@ -1,6 +1,7 @@
 import {
     GET_ALL_CAMPAIGNS, 
     HIDE_LOADER, 
+    RENAME_CAMPAIGN, 
     SHOW_LOADER 
 } from "../utils/constTypes"
 
@@ -26,13 +27,18 @@ export const campaignsReducer = (state = initialState, action) => {
         }
 
         case GET_ALL_CAMPAIGNS: {
-            console.log(action.payload)
+            const campaigns = action.payload
             return {
                 ...state,
                 campaigns: [
-                    ...action.payload
+                    ...campaigns
                 ]
             }
+        }
+
+        case RENAME_CAMPAIGN: {
+            console.log(action.payload)
+            return state
         }
 
         default: {

@@ -20,3 +20,4 @@ export const LOGIN_ERROR = 'user/login_error'
 export const LOGOUT = 'user/logout'
 
 export const GET_ALL_CAMPAIGNS = 'campaign/getAll'
+export const RENAME_CAMPAIGN = 'campaign/rename_campaign'

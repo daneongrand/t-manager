@@ -7,6 +7,44 @@ const Svg = styled.svg.attrs({
     xmlnsXlink: 'http://www.w3.org/1999/xlink',
 })``
 
+
+export const Chevron = ({ width, height, color }) => {
+    return (
+        <Svg 
+            width={width}
+            height={height} 
+            viewBox={`0 0 ${width} ${height}`} 
+        >
+            <path d="M7.41 8.58997L12 13.17L16.59 8.58997L18 9.99997L12 16L6 9.99997L7.41 8.58997Z" fill={color} />
+        </Svg>
+    ) 
+}
+
+export const Check = ({ width, height, color }) => {
+    return (
+        <Svg 
+            width={width}
+            height={height} 
+            viewBox={`0 0 ${width} ${height}`} 
+        >
+            <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 6.99997L19.59 5.58997L9 16.17Z" fill={color} />
+        </Svg>
+    )
+}
+
+export const Edit = ({ width, height, color }) => {
+    return (
+        <Svg
+            width={width}
+            height={height} 
+            viewBox={`0 0 ${width} ${height}`}
+        >
+            <path d="M0 14.2505V18H3.74948L14.8079 6.94154L11.0585 3.19206L0 14.2505ZM17.7075 4.04194C18.0975 3.65199 18.0975 3.02208 17.7075 2.63213L15.3679 0.292459C14.9779 -0.0974865 14.348 -0.0974865 13.9581 0.292459L12.1283 2.12221L15.8778 5.87168L17.7075 4.04194Z" fill={color}/>
+        </Svg>
+
+    )
+}
+
 export const AddIcon = ({width, height, color}) => {
     return (
             <Svg
