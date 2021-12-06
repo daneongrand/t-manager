@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getAll, showLoader, hideLoader } from '../actions/campaignsActions';
 import styled from 'styled-components';
 import CampaignsItem from '../components/CampaignsSection/CampaignsItem';
+import AddCampaign from '../components/CampaignsSection/AddCampaign';
+import AddCampaignForm from '../components/CampaignsSection/AddCampaignForm';
 
 const Main = styled.main`
     width: 100%;
     height: 100%;
     display: grid;
-    align-items: center;
+    align-items: start;
     justify-content: center;
+    grid-template-rows: 100px auto;
 `
 const CampaignsSection = styled.section`
     width: 500px;
@@ -17,7 +20,12 @@ const CampaignsSection = styled.section`
 
 
 const Campaigns = ({ campaigns, getAll, isLoading }) => {
-    console.log(isLoading)
+
+    const [ addCampaignToggle, setAddCampaignToggle ] = useState(false)
+
+    const handleAddCampaignToggle = () => {
+        setAddCampaignToggle(!addCampaignToggle)
+    }
 
     useEffect(() => {
         getAll()
@@ -25,6 +33,15 @@ const Campaigns = ({ campaigns, getAll, isLoading }) => {
     
     return (
         <Main>
+            {
+                (addCampaignToggle)
+                    ? <AddCampaignForm 
+                        onSubmitOk={handleAddCampaignToggle}
+                    /> 
+                    : <AddCampaign 
+                        onClick={handleAddCampaignToggle}
+                    />
+            }
             {
                 (isLoading)
                     ? <h1> Loading </h1>
@@ -48,7 +65,8 @@ const MapStateToProps = state => {
 const MapDispatchToProps = {
     getAll,
     showLoader,
-    hideLoader
+    hideLoader,
+
 }
 
 export default connect(MapStateToProps, MapDispatchToProps)(Campaigns);

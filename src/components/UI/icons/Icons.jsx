@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components'
 
 const Svg = styled.svg.attrs({
-    version: '1.1', 
     xmlns: 'http://www.w3.org/2000/svg', 
     xmlnsXlink: 'http://www.w3.org/1999/xlink',
 })``
@@ -13,7 +12,7 @@ export const Chevron = ({ width, height, color }) => {
         <Svg 
             width={width}
             height={height} 
-            viewBox={`0 0 ${width} ${height}`} 
+            viewBox={`0 0 24 24`} 
         >
             <path d="M7.41 8.58997L12 13.17L16.59 8.58997L18 9.99997L12 16L6 9.99997L7.41 8.58997Z" fill={color} />
         </Svg>
@@ -25,7 +24,7 @@ export const Check = ({ width, height, color }) => {
         <Svg 
             width={width}
             height={height} 
-            viewBox={`0 0 ${width} ${height}`} 
+            viewBox={`0 0 24 24`} 
         >
             <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 6.99997L19.59 5.58997L9 16.17Z" fill={color} />
         </Svg>
@@ -37,7 +36,7 @@ export const Edit = ({ width, height, color }) => {
         <Svg
             width={width}
             height={height} 
-            viewBox={`0 0 ${width} ${height}`}
+            viewBox={`0 0 18 18`}
         >
             <path d="M0 14.2505V18H3.74948L14.8079 6.94154L11.0585 3.19206L0 14.2505ZM17.7075 4.04194C18.0975 3.65199 18.0975 3.02208 17.7075 2.63213L15.3679 0.292459C14.9779 -0.0974865 14.348 -0.0974865 13.9581 0.292459L12.1283 2.12221L15.8778 5.87168L17.7075 4.04194Z" fill={color}/>
         </Svg>
@@ -108,9 +107,9 @@ export const ConstructorLogo = ({width, height, color}) => {
 export const DeleteKeyword = ({width, height, color}) => {
     return (
         <Svg
-            width={width + 'px'}
-            heigth={height + 'px'}
-            viewBox={`0 0 ${width} ${height}`}
+            width={width}
+            height={height}
+            viewBox={`0 0 24 24`}
         >
             <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8.46 11.88L9.87 10.47L12 12.59L14.12 10.47L15.53 11.88L13.41 14L15.53 16.12L14.12 17.53L12 15.41L9.88 17.53L8.47 16.12L10.59 14L8.46 11.88ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z" fill={color}/>
         </Svg>

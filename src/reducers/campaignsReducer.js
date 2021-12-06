@@ -1,4 +1,6 @@
 import {
+    CREATE_CAMPAIGN,
+    DELETE_CAMPAIGN,
     GET_ALL_CAMPAIGNS, 
     HIDE_LOADER, 
     RENAME_CAMPAIGN, 
@@ -28,6 +30,28 @@ export const campaignsReducer = (state = initialState, action) => {
 
         case GET_ALL_CAMPAIGNS: {
             const campaigns = action.payload
+            return {
+                ...state,
+                campaigns: [
+                    ...campaigns
+                ]
+            }
+        }
+
+        case CREATE_CAMPAIGN: {
+            const campaign = action.payload
+            return {
+                ...state,
+                campaigns: [
+                    campaign,
+                    ...state.campaigns
+                ]
+            }
+        }
+
+        case DELETE_CAMPAIGN: {
+            const deletedCampaignId = action.payload
+            const campaigns = state.campaigns.filter(item => item.id !== +deletedCampaignId)
             return {
                 ...state,
                 campaigns: [

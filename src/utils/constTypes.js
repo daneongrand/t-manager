@@ -21,3 +21,5 @@ export const LOGOUT = 'user/logout'
 
 export const GET_ALL_CAMPAIGNS = 'campaign/getAll'
 export const RENAME_CAMPAIGN = 'campaign/rename_campaign'
+export const CREATE_CAMPAIGN = 'campaign/create_campaign'
+export const DELETE_CAMPAIGN = 'campaign/delete_campaign'

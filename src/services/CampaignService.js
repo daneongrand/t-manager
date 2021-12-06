@@ -10,4 +10,12 @@ export default class CampaignService {
         return $api.put(`campaign/${campaignId}`, {campaignName})
     }
 
+    static async create(campaignName) {
+        return $api.post(`campaign/`, {campaignName})
+    }
+
+    static async delete(campaignId) {
+        return $api.delete(`campaign/${campaignId}`)
+    }
+
 }

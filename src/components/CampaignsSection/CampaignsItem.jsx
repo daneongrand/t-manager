@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { rename } from '../../actions/campaignsActions';
+import { rename, deleteCampaign } from '../../actions/campaignsActions';
 import styled from 'styled-components';
 import { Check, Chevron, DeleteKeyword, Edit } from '../UI/icons/Icons';
 
@@ -10,6 +10,8 @@ const ItemAccordion = styled.article`
     border-radius: 10px;
     padding: 25px 20px;
     color: white;
+    margin-bottom: 10px;
+    box-sizing: border-box;
     `
     
 const ItemSummary = styled.div`
@@ -20,9 +22,12 @@ const ItemSummary = styled.div`
 `
 
 const ItemDetails = styled.div`
-    transition: 1s;
-    height: ${props => props.height};
-    visibility: ${props => (props.visibility) ? "none" : "hidden"};
+    overflow: hidden;
+    max-height: 0px;
+    &[aria-expanded='true'] {
+        transition: max-height 1s;
+        max-height: 100px;
+    }
 `
 
 const CampaignName = styled.p`
@@ -39,17 +44,18 @@ const Input = styled.input`
 `
 
 const Button = styled.button`
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    background-color: transparent;  
-    border: 0;
+    padding: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
 `
 
-const CampaignsItem = ({ campaignName, id, rename }) => {
+const CampaignsItem = ({ campaignName, id, rename, deleteCampaign }) => {
 
     const [ isChanging, setIsChanging ] = useState(false)
     const [ name, setName ] = useState(campaignName)
@@ -75,42 +81,35 @@ const CampaignsItem = ({ campaignName, id, rename }) => {
                                 rename(id, name)
                             }}
                         >
-                            <Check width="20" height="20" color="white" />
+                            <Check width="24" height="24" color="white" />
                         </Button>
                         : <Button
                         onClick={() => setIsChanging(!isChanging)}
                         >
-                            <Edit width="20" height="20" color="white" />
+                            <Edit width="18" height="18" color="white" />
                         </Button>
                 }
-                {
-                    (isOpen)
-                        ? <Button onClick={() => setIsOpen(false)}>
-                            <Chevron width="20" height="20" color="white" />
-                        </Button>
-                        : <Button onClick={() => setIsOpen(true)}>
-                        <Chevron width="20" height="20" color="white" />
-                        </Button>
-                }
-                <Button>
-                    <DeleteKeyword width="20" height="20" color="white" />
+                <Button onClick={() => setIsOpen(!isOpen)}>
+                    <Chevron width="24" height="24" color="white" />
+                </Button>
+                <Button
+                    onClick={() => deleteCampaign(id)}
+                >
+                    <DeleteKeyword width="24" height="24" color="white" />
                 </Button>
             </ItemSummary>
             {
-                (isOpen)
-                    ? <ItemDetails height="100%" visibility>
-                        sdfffffffffffff
-                    </ItemDetails>
-                    : <ItemDetails height="0">
-                        sdfffffffffffff
-                    </ItemDetails>
+                <ItemDetails aria-expanded={isOpen}>
+                    test
+                </ItemDetails>
             }
         </ItemAccordion>
     );
 };
 
 const MapDispatchToProps = {
-    rename
+    rename,
+    deleteCampaign
 }
 
 export default connect(null, MapDispatchToProps)(CampaignsItem);

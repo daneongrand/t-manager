@@ -1,5 +1,5 @@
 import CampaignService from "../services/CampaignService"
-import { GET_ALL_CAMPAIGNS, HIDE_LOADER, RENAME_CAMPAIGN, SHOW_LOADER } from "../utils/constTypes"
+import { CREATE_CAMPAIGN, DELETE_CAMPAIGN, GET_ALL_CAMPAIGNS, HIDE_LOADER, RENAME_CAMPAIGN, SHOW_LOADER } from "../utils/constTypes"
 
 export function getAll () {
     return async dispatch => {
@@ -9,16 +9,13 @@ export function getAll () {
             })
             const { data } = await CampaignService.getAll()
             const campaigns = data.campaigns
-            setTimeout(() => {
-                dispatch({
-                    type: GET_ALL_CAMPAIGNS,
-                    payload: campaigns
-                })
-                dispatch({
-                    type: HIDE_LOADER
-                })
-            }, 5000)
-            
+            dispatch({
+                type: GET_ALL_CAMPAIGNS,
+                payload: campaigns
+            })
+            dispatch({
+                type: HIDE_LOADER
+            })
         } catch (e) {
             return Promise.reject()
         }
@@ -35,10 +32,15 @@ export function getOne () {
     }
 }
 
-export function create () {
+export function create (campaignName) {
     return async dispatch => {
         try {
-
+            const { data } = await CampaignService.create(campaignName)
+            const { campaign } = data
+            dispatch({
+                type: CREATE_CAMPAIGN,
+                payload: campaign
+            })
         } catch (e) {
             
         }
@@ -58,6 +60,22 @@ export function rename (campaignId, campaignName) {
         }
     }
 }
+
+export function deleteCampaign (campaignId) {
+    return async dispatch => {
+        try {
+            const { data } = await CampaignService.delete(campaignId)
+            const { deletedCampaignId } = data
+            dispatch({
+                type: DELETE_CAMPAIGN,
+                payload: deletedCampaignId
+            })
+        } catch (e) {
+
+        }
+    }
+}
+
 
 export function showLoader () {
     return {
