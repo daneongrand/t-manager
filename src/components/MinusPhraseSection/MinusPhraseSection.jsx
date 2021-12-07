@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
 // import Section from '../UI/section/Section'
 import { Section } from '../UI/section/Section';
 import styled from 'styled-components'
+import MinusPhrasesTabs from './MinusPhrasesTabs';
+import MinusPhrasesTabsItem from './MinusPhrasesTabsItem';
 
 const Header = styled.header`
     display: flex;
     justify-content: center;
     color: #fff;
-    font-size: 22px;
     height: 10%;
 `
 const Article = styled(DndDroppable)`
@@ -38,33 +39,57 @@ const MinusPhrases = styled(DndDraggableItem)`
 `
 
 const MinusPhraseSection = ({title, minusPhrases, color}) => {
+
+    const [ toggleTabs, setToggleTabs ] = useState('minusPhrases')
+
     return (
         <Section borderColor="linear-gradient(var(--rotate),  #970000 0%, #A40347 28.65%, #8C0075 55.73%, #8C1C8C 73.96%, #DB01FF 100%)">
 
             <Header>
-                {title}
+                <MinusPhrasesTabs>
+                    <MinusPhrasesTabsItem
+                        value="minusPhrases"
+                        selectedItem={toggleTabs}
+                        selectItem={(value) => setToggleTabs(value)}
+                    >
+                        Минус-слова
+                    </MinusPhrasesTabsItem>
+                    <MinusPhrasesTabsItem
+                        value="downloadAll"
+                        selectedItem={toggleTabs}
+                        selectItem={(value) => setToggleTabs(value)}
+                    >
+                        Выгрузить все
+                    </MinusPhrasesTabsItem>
+                </MinusPhrasesTabs>
             </Header>
 
 
-            <Article
-                droppableId='minusPhrases'
-                type="KEYWORDS"
-            >
-                {
-                    minusPhrases.map((item, index) => (
-                        <MinusPhrases
-                            draggableId={item.keywordId}
-                            index={index}
-                            key={item.keywordId}
-                            isDraggingColor={(!color) ? "#EB0000" : color}
-                        >
-                            <div>
-                                { item.keyword }
-                            </div>
-                        </MinusPhrases>
-                    ))
-                }
-            </Article>
+            {
+                (toggleTabs === 'minusPhrases')
+                    ? <Article
+                        droppableId='minusPhrases'
+                        type="KEYWORDS"
+                    >
+                        {
+                            minusPhrases.map((item, index) => (
+                                <MinusPhrases
+                                    draggableId={item.keywordId}
+                                    index={index}
+                                    key={item.keywordId}
+                                    isDraggingColor={(!color) ? "#EB0000" : color}
+                                >
+                                    <div>
+                                        { item.keyword }
+                                    </div>
+                                </MinusPhrases>
+                            ))
+                        }
+                    </Article>
+                    : <h1>Download All</h1>
+
+            }
+
 
         </Section>
     );

@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import DndDroppable from '../UI/dnd/DndDroppable';
 // import Section from '../UI/section/Section';
 import KeywordsSectionIntoGroups from './KeywordsSectionIntoGroups';
 import styled from 'styled-components'
 import { Section } from '../UI/section/Section';
+import GroupsTabs from './GroupsTabs';
+import GroupsTabsItem from './GroupsTabsItem';
 
 
 const Header = styled.header`
     display: flex;
     width: 100%;
-    height: 40px;
+    margin-bottom: 10px;
     justify-content: space-between;
 `
 
@@ -41,28 +43,67 @@ const Group = styled(DndDraggableItem)`
 
 const GroupsSection = ({ title, groups }) => {
 
+    const [ toggleTabs, setToggleTabs ] = useState('groups')
+
     return (
         <Section borderColor="linear-gradient(var(--rotate), #00FF29 0%, #1FD94C 22.96%, #48A700 49.56%, #178900 71.63%, #025801 100%)">
             <Header>
-                {title}
+                <GroupsTabs>
+                    <GroupsTabsItem 
+                        value="groups"
+                        selectedItem={toggleTabs}
+                        selectItem={(value) => setToggleTabs(value)}
+                    >
+                        Группы
+                    </GroupsTabsItem>
+                    <GroupsTabsItem 
+                        value="download"
+                        selectedItem={toggleTabs}
+                        selectItem={(value) => setToggleTabs(value)}
+                    >
+                        Выгрузить
+                    </GroupsTabsItem>
+                    <GroupsTabsItem 
+                        value="downloadAll"
+                        selectedItem={toggleTabs}
+                        selectItem={(value) => setToggleTabs(value)}
+                    >
+                        Выгрузить все
+                    </GroupsTabsItem>
+                </GroupsTabs>
             </Header>
 
-            <Article
-                droppableId='groups'
-                type="GROUPS"
-            >
-                {
-                    groups.map((item, index) => (
-                        <Group
-                            key={item.groupId}
-                            draggableId={item.groupId} 
-                            index={index}
-                        >
-                            <KeywordsSectionIntoGroups {...item} />
-                        </Group>
-                    ))
-                }
-            </Article>
+            {
+                (toggleTabs === 'groups') && <Article
+                    droppableId='groups'
+                    type="GROUPS"
+                >
+                    {
+                        groups.map((item, index) => (
+                            <Group
+                                key={item.groupId}
+                                draggableId={item.groupId} 
+                                index={index}
+                            >
+                                <KeywordsSectionIntoGroups {...item} />
+                            </Group>
+                        ))
+                    }
+                </Article>
+            }
+
+            {
+                (toggleTabs === 'download') && <article>
+                    download
+                </article>
+            }
+            
+            {
+                (toggleTabs === 'downloadAll') && <article>
+                    downloadAll
+                </article>
+            }
+
         </Section>
     );
 };

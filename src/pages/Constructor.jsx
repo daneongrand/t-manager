@@ -15,6 +15,7 @@ const ConstructorContainer = styled(DndSection)`
     display: grid;
     width: 100%;
     height: 100%;
+    grid-template-rows: 5vw 95vw;
     grid-template-columns: 50px repeat(3, calc((100% - 50px) / 3));
     grid-template-rows: 90vh;
     & > *:first-child {
@@ -27,6 +28,10 @@ const ConstructorContainer = styled(DndSection)`
             grid-column-start: 1;
         }
     }
+`
+
+const Header = styled.header`
+
 `
 
 
@@ -57,6 +62,9 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
 
     return (
         <>
+            {/* <Header>
+                123
+            </Header>
             <ConstructorContainer 
                 onDragEnd={handleOnDragEnd}
                 onDragUpdate={handleOnDragUpdate}
@@ -74,7 +82,7 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
                 modalGroupsIsOpen && <Modal>
                     <GroupsModal groups={groups} />
                 </Modal>
-            }
+            } */}
         </>
     );
 }
