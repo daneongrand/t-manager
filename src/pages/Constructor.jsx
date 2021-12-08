@@ -11,27 +11,34 @@ import Modal from '../components/UI/modal/Modal';
 import KeywordModal from '../components/KeywordModal/KeywordModal';
 import GroupsModal from '../components/GroupsSection/GroupsModal';
 
-const ConstructorContainer = styled(DndSection)`
-    display: grid;
+
+
+const ConstructorMain = styled.main`
     width: 100%;
     height: 100%;
-    grid-template-rows: 5vw 95vw;
-    grid-template-columns: 50px repeat(3, calc((100% - 50px) / 3));
-    grid-template-rows: 90vh;
-    & > *:first-child {
-        grid-column-start: 2;
-    }
+    display: grid;
+    grid-template-rows: 10vh 90vh;
     @media ${props => props.theme.media.tablet} {
-        grid-template-columns: 100%;
-        grid-template-rows: 90vh 90vh 90vh;
-        & > *:first-child {
-            grid-column-start: 1;
-        }
+        grid-template-rows: 10vh repeat(3, 90vh);   
     }
 `
 
-const Header = styled.header`
+const ConstructorHeader = styled.header`
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid red;
+`
 
+const ConstructorSection = styled(DndSection)`
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    @media ${props => props.theme.media.tablet} {
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(3, 90vh);
+    }
 `
 
 
@@ -61,18 +68,19 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
 
 
     return (
-        <>
-            {/* <Header>
-                123
-            </Header>
-            <ConstructorContainer 
+        <ConstructorMain>
+            <ConstructorHeader>
+
+            </ConstructorHeader>
+
+            <ConstructorSection
                 onDragEnd={handleOnDragEnd}
                 onDragUpdate={handleOnDragUpdate}
-            > 
-                    <KeywordsSection title="Ключевые слова" keywords={keywords} />
-                    <GroupsSection title="Группы" groups={groups} />
-                    <MinusPhraseSection title="Минус-фразы" minusPhrases={minusPhrases}/>
-            </ConstructorContainer>
+            >
+                <KeywordsSection title="Ключевые слова" keywords={keywords} />
+                <GroupsSection groups={groups} />
+                <MinusPhraseSection minusPhrases={minusPhrases} />
+            </ConstructorSection>
             {
                 modalMinusPhrasesIsOpen && <Modal>
                     <KeywordModal words={selectedWords} />
@@ -82,8 +90,8 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
                 modalGroupsIsOpen && <Modal>
                     <GroupsModal groups={groups} />
                 </Modal>
-            } */}
-        </>
+            }
+        </ConstructorMain>
     );
 }
 

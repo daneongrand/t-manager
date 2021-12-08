@@ -7,19 +7,19 @@ export const Section = styled.section`
         initial-value: 0deg;
         inherits: false;
     }
-    position: relative;
-    margin: 30px;
     background: rgba(24, 29, 49, 1);
+    position: relative; 
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 10px;
     &::before {
         content: '';
-        top: -4px;
+        position: absolute;
         left: -4px;
-        position: absolute; 
-        width: calc(100% + 8px);
-        height: calc(100% + 8px);
-        border-radius: 8px;
+        top: -4px;
+        right: -4px;
+        bottom: -4px;
+        
+        border-radius: 10px;
         z-index: -1;
         background: inherit;
         transition: .3s;
@@ -31,7 +31,7 @@ export const Section = styled.section`
         height: 100%;
         left: 0;
         right: 0;
-        top: 10%;
+        top: 5%;
         z-index: -1;
         transition: .3s;
     }

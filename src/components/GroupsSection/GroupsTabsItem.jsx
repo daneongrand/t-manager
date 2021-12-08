@@ -3,16 +3,19 @@ import styled from 'styled-components'
 
 const TabsItem = styled.li`
     list-style-type: none;
+    height: 100%;
     justify-self: center;
 `
 
 const Button = styled.button`
+    font-weight: 800;
+    font-size: 18px;
     white-space: nowrap;
     cursor: pointer;
     background-color: transparent;
     border: 0;
+    height: 100%;
     color: ${props => (props.isSelected) ? "white" : "#ccc"};
-    padding: 10px 10px;
     border-bottom: ${props => (props.isSelected) ? '2px solid white' : 'none'};
 `
 

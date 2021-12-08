@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import {ProfileLogo, ConstructorLogo, CampaignsLogo, AnalyticsLogo, SettingsLogo, LogOutLogo} from '../UI/icons/Icons'
 
 const NavigationContainer = styled.nav`
-    position: fixed;
     display: grid;
     grid-template-rows: 20% 60% 20%;
     width: 50px;
@@ -14,6 +13,7 @@ const NavigationContainer = styled.nav`
     background: rgba(24, 29, 49);
     
     @media ${props => props.theme.media.tablet} {
+        position: fixed;
         bottom: 0;
         width: 100%;
         height: 50px;

@@ -1,25 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DndDraggableItem from '../UI/dnd/DndDraggableItem';
-import DndDroppable from '../UI/dnd/DndDroppable';
 import styled from 'styled-components';
 import KeywordItem from './KeywordItem';
-import { AddIcon } from '../UI/icons/Icons'
-// import Section from '../UI/section/Section';
 import { Section } from '../UI/section/Section';
-import Kitty from '../../img/Sleeping-Kitty.svg'
+import { Droppable } from 'react-beautiful-dnd';
+import { AddIcon } from '../UI/icons/Icons';
 
 const Header = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 5%;
 `
 
-const Article = styled(DndDroppable)`
-    height: 90%;
-    width: 100%;
+const Footer = styled.footer`
+`
+
+const StyledSection = styled(Section)`
+    align-self: center;
+    justify-self: center;
+    width: 90%;
+    min-height: 90%;
+    max-height: 90%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 40px 1fr 30px;
+`
+
+
+const KeywordsList = styled.ul`
     overflow: scroll;
+    padding: 0;
+    margin: 0;
     &::-webkit-scrollbar {
         width: 5px;
         height: 100%;
@@ -31,62 +42,76 @@ const Article = styled(DndDroppable)`
     }
 `
 
-const EmptyArticle = styled.article`
-    max-width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+const Button = styled.button`
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    & {
+        path {
+            transition: .5s;
+        }
+    }
+    &:hover {
+        path {
+            fill: ${props => props.fillHover};
+        }
+    }
 `
 
 const Title = styled.h1`
-    color: black;
+    color: white;
     font-size: 20px;
 `
 
-const Img = styled.img`
-    width: 100%;
-    max-height: 100%;
-`
 
 const KeywordsSection = ({title, keywords, color}) => {
-    if (!keywords.length) {
-        return (
-            <Section borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)" >
-                <EmptyArticle>
-                    <Title> Ключевых слов пока нет :( </Title>
-                    <Img src={Kitty}></Img>
-                </EmptyArticle>
-            </Section>
-        )
-    }
-
+    
     return (
-        <Section borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)">
+        <StyledSection
+            as="article"
+            borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)"
+        >
             <Header>
-                {title}
-                <AddIcon width="40" height="40" color="white" />
+                <Title>Ключевые слова</Title>
+                <Button
+                    fillHover="#00EEFD"
+                >
+                    <AddIcon width="100%" height="100%" fill="white" />
+                </Button>
             </Header>
 
-            <Article 
+            <Droppable
                 droppableId="keywords"
                 type="KEYWORDS"
             >
                 {
-                    keywords.map((item, index) => (
-                        <DndDraggableItem
-                            key={item.keywordId}
-                            draggableId={item.keywordId}
-                            index={index}
-                            isDraggingColor={ (!color) ? "#00EEFD" : color }
+                    (provided, snapshot) => (
+                        <KeywordsList
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
                         >
-                            <KeywordItem index={index} {...item} />
-                        </DndDraggableItem>
-                    ))
+                            {
+                                keywords.map((item, index) => (
+                                    <KeywordItem 
+                                        key={item.keywordId} 
+                                        index={index} 
+                                        {...item} 
+                                    />
+                                ))
+                            }
+                        </KeywordsList>
+                    )
                 }
-            </Article>
-        </Section>
+            </Droppable>
+            
+            <Footer>
+                footer
+            </Footer>
+
+        </StyledSection>
     );
 };
 

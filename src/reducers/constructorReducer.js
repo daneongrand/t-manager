@@ -33,6 +33,86 @@ const initialState = {
         },
         {
             keywordId: v4(),
+            keyword: 'Крутые какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Классные какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Крутые какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Классные какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Крутые какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Классные какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Крутые какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Классные какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Крутые какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Классные какашки',
+            ams: '1К-10К',
+            competition: 'Средняя',
+            lowRange: '42.12',
+            highRange: '285.78'
+        },
+        {
+            keywordId: v4(),
             keyword: 'Как покакать крутыми какашками клева крута четка покекал смотреть',
             ams: '1К-10К',
             competition: 'Средняя',
@@ -213,6 +293,237 @@ const initialState = {
             groupKeywords: [
                 {
                     keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку1',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }, 
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку2',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку3',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку4',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку5',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }
+            ]
+        }, 
+        {
+            groupId: v4(),
+            groupName: 'Group 3',
+            groupKeywords: [
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку1',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }, 
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку2',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку3',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку4',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку5',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }
+            ]
+        }, 
+        {
+            groupId: v4(),
+            groupName: 'Group 4',
+            groupKeywords: [
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку1',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }, 
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку2',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку3',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку4',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку5',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }
+            ]
+        }, 
+        {
+            groupId: v4(),
+            groupName: 'Group 5',
+            groupKeywords: [
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку1',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }, 
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку2',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку3',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку4',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку5',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }
+            ]
+        }, 
+        {
+            groupId: v4(),
+            groupName: 'Group 6',
+            groupKeywords: [
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку1',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }, 
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку2',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку3',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку4',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                },
+                {
+                    keywordId: v4(),
+                    keyword: 'Купить кал оптом в рассрочку5',
+                    ams: '1К-10К',
+                    competition: 'Средняя',
+                    lowRange: '42.12',
+                    highRange: '285.78'
+                }
+            ]
+        }, 
+        
+        {
+            groupId: v4(),
+            groupName: 'Group 7',
+            groupKeywords: [
+                {
+                    keywordId: v4(),
                     keyword: 'Купить кал оптом в рассрочку1'
                 }, 
                 {
@@ -243,6 +554,47 @@ const initialState = {
             keywordId: v4(),
             keyword: 'Почему все говорят о какашках2'
         },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках1'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках2'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках1'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках2'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках1'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках2'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках1'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках2'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках1'
+        },
+        {
+            keywordId: v4(),
+            keyword: 'Почему все говорят о какашках2'
+        },
+        
         {
             keywordId: v4(),
             keyword: 'Почему все говорят о какашках3'

@@ -4,8 +4,12 @@ import styled from 'styled-components'
 const Svg = styled.svg.attrs({
     xmlns: 'http://www.w3.org/2000/svg', 
     xmlnsXlink: 'http://www.w3.org/1999/xlink',
-})``
+})`
+`
 
+const Path = styled.path`
+    fill: ${props => props.fill};
+`
 
 export const Chevron = ({ width, height, color }) => {
     return (
@@ -44,14 +48,14 @@ export const Edit = ({ width, height, color }) => {
     )
 }
 
-export const AddIcon = ({width, height, color}) => {
+export const AddIcon = ({width, height, fill }) => {
     return (
             <Svg
                 width={width}
                 height={height}
-                viewBox={`0 0 ${width} ${height}`}
+                viewBox={`0 0 24 24`}
             >
-                <path d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill={color}/>
+                <Path d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill={fill} />
             </Svg>
     )
 };
@@ -59,9 +63,9 @@ export const AddIcon = ({width, height, color}) => {
 export const AddMinusPhrase = ({width, height, color}) => {
     return (
         <Svg
-            width={width + 'px'}
-            heigth={height + 'px'}
-            viewBox={`0 0 ${width} ${height}`}
+            width={width}
+            heigth={height}
+            viewBox={`0 0 24 24`}
         >
             <path d="M19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4ZM6 7V19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6ZM14 14V18H10V14H8L12 10L16 14H14Z" fill={color}/>
         </Svg>
@@ -131,9 +135,9 @@ export const LogOutLogo = ({width, height, color}) => {
 export const OpenAnalytics = ({width, height, color}) => {
     return (
         <Svg
-            width={width + 'px'}
-            heigth={height + 'px'}
-            viewBox={`0 0 ${width} ${height}`}
+            width={width}
+            heigth={height}
+            viewBox={`0 0 24 24`}
         >
             <path d="M10 20H14V4H10V20ZM4 20H8V12H4V20ZM16 9V20H20V9H16Z" fill={color}/>
         </Svg>

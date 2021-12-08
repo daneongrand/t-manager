@@ -1,7 +1,12 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 
-const DndDraggableItem = ({draggableId, index, children, className, isDraggingColor}) => {
+const DraggableItem = styled.li`
+    list-style-type: none;
+`
+
+const DndDraggableItem = ({draggableId, index, children, isDraggingColor}) => {
     return (
         <Draggable draggableId={draggableId} index={index}>
             {
@@ -9,8 +14,7 @@ const DndDraggableItem = ({draggableId, index, children, className, isDraggingCo
                 (provided, snapshot) => {
                     // console.log(snapshot)
                     return (
-                        <div
-                            className={className}
+                        <DraggableItem
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
@@ -20,7 +24,7 @@ const DndDraggableItem = ({draggableId, index, children, className, isDraggingCo
                             }}
                         >
                             {children}
-                        </div>
+                        </DraggableItem>
                     )
                 }
             }

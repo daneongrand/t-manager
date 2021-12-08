@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove } from '../../actions/constructorActions';
-import styled from 'styled-components';
-import {OpenAnalytics, AddIcon, AddMinusPhrase, DeleteKeyword} from '../UI/icons/Icons'
-import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import { Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
+import { AddMinusPhrase, DeleteKeyword, OpenAnalytics } from '../UI/icons/Icons';
 
 const Keyword = styled.li`
-    background-color: ${props => props.theme.colors.dark_blue};
+    background-color: rgba(24,29,49,1);
+    color: white;
+    font-size: 18px;
     border-radius: 10px;
     padding: 6px 18px;
     margin-bottom: 5px;
@@ -17,7 +16,7 @@ const Keyword = styled.li`
 
 const Header = styled.header`
     display: grid;
-    grid-template-columns: 1fr repeat(4, 24px);
+    grid-template-columns: 1fr repeat(3, 24px);
 `
 
 const Text = styled.p`
@@ -67,22 +66,23 @@ const BodyText = styled(Text)`
     font-size: 16px;
 `
 
-
 const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
-
+    
     const [ indicatorsIsOpen, setIndicatorsIsOpen ] = useState(false)
     
     const showIndicators = () => {
         setIndicatorsIsOpen(!indicatorsIsOpen)
     }
-
+    
+    
     return (
         <Draggable
             draggableId={keywordId}
             index={index}
         >
             {
-                (provided, snapshot) => (
+                (provided, snapshot) => {
+                    return (
                     <Keyword
                         ref={provided.innerRef}
                         {...provided.draggableProps}
@@ -95,11 +95,6 @@ const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, hig
                                 onClick={showIndicators}
                             >
                                 <OpenAnalytics width='100%' height='100%' color='white' />
-                            </Button>
-                            <Button
-                                fillHover="#00EEFD"
-                            >
-                                <AddIcon width='100%' height='100%' fill='white' />
                             </Button>
                             <Button
                                 fillHover="#00EEFD"
@@ -134,18 +129,10 @@ const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, hig
                             </Indicator>
                         </Body>
                     </Keyword>
-                )
+                )}
             }
         </Draggable>
     );
 };
 
-const MapDispatchToProps = {
-    selectKeyword,
-    deleteKeyword,
-    toggleModalMinusPhrases, 
-    toggleModalGroups,
-    selectKeywordForMove
-}
-
-export default connect(null, MapDispatchToProps)(KeywordItem);
+export default KeywordItem;
