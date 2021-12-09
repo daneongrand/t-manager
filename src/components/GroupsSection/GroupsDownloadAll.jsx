@@ -8,4 +8,4 @@ const GroupsDownloadAll = () => {
     );
 };
 
-export default GroupsDownloadAll;
+export default GroupsDownloadAll;   

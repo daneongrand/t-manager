@@ -10,7 +10,8 @@ import {
     TOGGLE_MODAL_GROUPS,
     TOGGLE_MODAL_MINUSPHRASES,
     SELECT_GROUP,
-    SELECT_KEYWORD_FOR_MOVE
+    SELECT_KEYWORD_FOR_MOVE,
+    TOGGLE_MODAL_ADD_KEYWORDS
 } from '../utils/constTypes'
 
 const initialState = {
@@ -617,6 +618,7 @@ const initialState = {
     deletedWords: [],
     modalMinusPhrasesIsOpen: false,
     modalGroupsIsOpen: false,
+    modalAddKeywordsIsOpen: false,
     selectedGroup: {}
 }
 
@@ -819,6 +821,13 @@ export const constructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 keywords: newKeywordsList
+            }
+        }
+
+        case TOGGLE_MODAL_ADD_KEYWORDS: {
+            return {
+                ...state,
+                modalAddKeywordsIsOpen: !state.modalAddKeywordsIsOpen
             }
         }
 

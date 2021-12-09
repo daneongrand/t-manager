@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import Modal from '../components/UI/modal/Modal';
 import KeywordModal from '../components/KeywordModal/KeywordModal';
 import GroupsModal from '../components/GroupsSection/GroupsModal';
+import AddKeywordsModal from '../components/Modals/AddKeywordsModal';
 
 
 
@@ -42,7 +43,7 @@ const ConstructorSection = styled(DndSection)`
 `
 
 
-const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor, toggleModalMinusPhrases, modalMinusPhrasesIsOpen, selectKeyword, selectedWords, modalGroupsIsOpen}) => {    
+const Constructor = ({modalAddKeywordsIsOpen, keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor, toggleModalMinusPhrases, modalMinusPhrasesIsOpen, selectKeyword, selectedWords, modalGroupsIsOpen}) => {    
     
     const handleOnDragEnd = result => {
         const {source, destination} = result
@@ -91,6 +92,11 @@ const Constructor = ({keywords, groups, minusPhrases, reorder, moveIntoGroup, sw
                     <GroupsModal groups={groups} />
                 </Modal>
             }
+            {
+                modalAddKeywordsIsOpen && <Modal>
+                    <AddKeywordsModal />
+                </Modal>
+            }
         </ConstructorMain>
     );
 }
@@ -102,6 +108,7 @@ const MapStateToProps = state => {
        minusPhrases: state.constructors.minusPhrases,
        modalMinusPhrasesIsOpen: state.constructors.modalMinusPhrasesIsOpen,
        modalGroupsIsOpen: state.constructors.modalGroupsIsOpen,
+       modalAddKeywordsIsOpen: state.constructors.modalAddKeywordsIsOpen,
        selectedWords: state.constructors.selectedWords
     }
 }

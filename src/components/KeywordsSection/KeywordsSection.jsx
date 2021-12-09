@@ -5,6 +5,7 @@ import KeywordItem from './KeywordItem';
 import { Section } from '../UI/section/Section';
 import { Droppable } from 'react-beautiful-dnd';
 import { AddIcon } from '../UI/icons/Icons';
+import { toggleModalAddKeywords } from '../../actions/constructorActions'
 
 const Header = styled.header`
     display: flex;
@@ -67,7 +68,7 @@ const Title = styled.h1`
 `
 
 
-const KeywordsSection = ({title, keywords, color}) => {
+const KeywordsSection = ({toggleModalAddKeywords, title, keywords, color}) => {
     
     return (
         <StyledSection
@@ -78,6 +79,9 @@ const KeywordsSection = ({title, keywords, color}) => {
                 <Title>Ключевые слова</Title>
                 <Button
                     fillHover="#00EEFD"
+                    onClick={() => {
+                        toggleModalAddKeywords()
+                    }}
                 >
                     <AddIcon width="100%" height="100%" fill="white" />
                 </Button>
@@ -121,4 +125,8 @@ const MapStateToProps = state => {
     }
 }
 
-export default connect(MapStateToProps, null)(KeywordsSection);
+const MapDispatchToProps = {
+    toggleModalAddKeywords
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(KeywordsSection);

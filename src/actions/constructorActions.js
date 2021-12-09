@@ -8,9 +8,11 @@ import {
     SELECT_GROUP, 
     SELECT_KEYWORD, 
     SELECT_KEYWORD_FOR_MOVE, 
+    TOGGLE_MODAL_ADD_KEYWORDS, 
     TOGGLE_MODAL_GROUPS, 
     TOGGLE_MODAL_MINUSPHRASES 
 } from "../utils/constTypes"
+
 
 export function reorder(source, destination) {
     return {
@@ -41,6 +43,12 @@ export function toggleModalMinusPhrases() {
 export function toggleModalGroups() {
     return {
         type: TOGGLE_MODAL_GROUPS
+    }
+}
+
+export function toggleModalAddKeywords() {
+    return {
+        type: TOGGLE_MODAL_ADD_KEYWORDS
     }
 }
 
