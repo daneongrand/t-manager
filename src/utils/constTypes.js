@@ -19,8 +19,13 @@ export const SIGNUP = 'user/signup'
 export const SIGNUP_ERROR = 'user/signup_error'
 export const LOGIN_ERROR = 'user/login_error'
 export const LOGOUT = 'user/logout'
+export const ADD_KEYWORDS = 'constructor/add_keywords'
+
 
 export const GET_ALL_CAMPAIGNS = 'campaign/getAll'
 export const RENAME_CAMPAIGN = 'campaign/rename_campaign'
 export const CREATE_CAMPAIGN = 'campaign/create_campaign'
 export const DELETE_CAMPAIGN = 'campaign/delete_campaign'
+
+export const UPLOAD_FILES = 'files/upload_files'
+export const UPLOAD_FILES_ERROR = 'files/upload_files_error'

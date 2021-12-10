@@ -1,30 +1,128 @@
 import React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PulseLoader from 'react-spinners/PulseLoader'
 import styled from 'styled-components';
-import { Section } from '../UI/section/Section';
+import { TOGGLE_MODAL_ADD_KEYWORDS } from '../../utils/constTypes';
+import { AddIcon, UploadFile } from '../UI/icons/Icons';
+import { BackgroundBlur, CloseButton } from '../UI/modal/Modal';
+import UploadFileSection from './UploadFileSection';
 
-const KeywordsContainer = styled(Section)`
+const AddKeywordsModalContainer = styled.section`
     width: 60%;
     height: 50%;
+    background: rgba(14, 14, 35, .9);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 30% 70%;
 `
 
-const Form = styled.form`
+const Aside = styled.div`
+    display: grid;
+    grid-template-rows: 40px 1fr;
 `
 
-const File = styled.input`
-
+const Tabs = styled.ul`
+    margin: 0;
+    padding: 0;
+    width: 100%;
 `
+
+const TabsItem = styled.li`
+    list-style-type: none;
+    width: 100%;
+`
+
+const TabButton = styled.button`
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    width: 100%;
+    border: 0;
+    padding: 10px 15px;
+    background-color: ${props => props.isActive ? 'rgba(29, 29, 48, .9)' : 'transparent'};
+    transition: .2s;
+    &:hover {
+        background-color: rgba(29, 29, 48, .9);
+    }
+`
+
+const TabName = styled.p`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    margin: 0;
+    font-size: 16px;
+    margin-left: 10px;
+    font-weight: ${props => props.isActive ? '600' : '400'};
+    color: ${props => props.isActive ? 'white' : props.theme.colors.blue};
+`
+
+const Header = styled.header`
+    align-self: center;
+    padding: 0px 15px;
+`
+
+const Article = styled.article`
+    border-radius: 0px 10px 10px 0px;
+    background-color: rgba(14, 14, 35, 1);
+`
+
 
 const AddKeywordsModal = () => {
-    return (
-        <KeywordsContainer>
-            <Form>
-                <File
-                    type="file"
-                >
 
-                </File>
-            </Form>
-        </KeywordsContainer>
+    const dispatch = useDispatch()
+    const [ activeTab, setActiveTab ] = useState('uploadFile')
+
+
+    console.log(activeTab)
+
+    return (
+        <BackgroundBlur>
+            <AddKeywordsModalContainer>
+                <Aside>
+                    <Header>
+                        <CloseButton 
+                            onClick={() => dispatch({ type: TOGGLE_MODAL_ADD_KEYWORDS })}
+                        />
+                    </Header>
+                    <Tabs>
+                        <TabsItem>
+                            <TabButton
+                                isActive={(activeTab === 'addKeyword')}
+                                onClick={() => setActiveTab('addKeyword')}
+                            >
+                                <AddIcon width='24' heigth='24' fill={(activeTab === 'addKeyword' ? 'white' : '#4255D4')} />
+                                <TabName
+                                    isActive={(activeTab === 'addKeyword')}
+                                >Добавить ключевое слово</TabName>
+                            </TabButton>
+                        </TabsItem>
+                        <TabsItem>
+                            <TabButton
+                                isActive={(activeTab === 'uploadFile')}
+                                onClick={() => setActiveTab('uploadFile')}
+                            >
+                                <UploadFile width='24' heigth='24' color={(activeTab === 'uploadFile' ? 'white' : '#4255D4')} />
+                                <TabName
+                                    isActive={(activeTab === 'uploadFile')}
+                                >Загрузить с компьютера</TabName>
+                            </TabButton>
+                        </TabsItem>
+                        
+                    </Tabs>
+                </Aside>
+                <Article>
+                    {
+                        (activeTab === 'uploadFile') && <UploadFileSection />
+                    }
+                    {
+                        (activeTab === 'addKeyword') && <PulseLoader radius='1px' color='white' />
+                    }
+                </Article>
+            </AddKeywordsModalContainer>
+        </BackgroundBlur>
     );
 };
 

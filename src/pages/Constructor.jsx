@@ -93,9 +93,7 @@ const Constructor = ({modalAddKeywordsIsOpen, keywords, groups, minusPhrases, re
                 </Modal>
             }
             {
-                modalAddKeywordsIsOpen && <Modal>
-                    <AddKeywordsModal />
-                </Modal>
+                modalAddKeywordsIsOpen && <AddKeywordsModal />
             }
         </ConstructorMain>
     );

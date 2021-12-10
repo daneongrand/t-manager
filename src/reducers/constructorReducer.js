@@ -11,235 +11,12 @@ import {
     TOGGLE_MODAL_MINUSPHRASES,
     SELECT_GROUP,
     SELECT_KEYWORD_FOR_MOVE,
-    TOGGLE_MODAL_ADD_KEYWORDS
+    TOGGLE_MODAL_ADD_KEYWORDS,
+    ADD_KEYWORDS
 } from '../utils/constTypes'
 
 const initialState = {
     keywords: [
-        {
-            keywordId: v4(),
-            keyword: 'Крутые какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Крутые какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Крутые какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Крутые какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Крутые какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Крутые какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Как покакать крутыми какашками клева крута четка покекал смотреть',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Невероятный успех какашек читать',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Почему все говорят о какашках',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Как покакать крутыми какашками',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Невероятный успех какашек читать',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Почему все говорят о какашках',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Классные какашки',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Как покакать крутыми какашками',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Невероятный успех какашек читать',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Почему все говорят о какашках',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Как покакать крутыми какашками',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Невероятный успех какашек читать',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Почему все говорят о какашках',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        },
-        {
-            keywordId: v4(),
-            keyword: 'Немножечко говнеца',
-            ams: '1К-10К',
-            competition: 'Средняя',
-            lowRange: '42.12',
-            highRange: '285.78'
-        }
     ],
     groups: [
         {
@@ -624,6 +401,18 @@ const initialState = {
 
 export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_KEYWORDS: {
+            const keywords = action.payload
+            console.log(keywords)
+            return {
+                ...state,
+                keywords: [
+                    ...keywords,
+                    ...state.keywords
+                ]
+            }
+        }
+
         case REORDER: {
             const { source, destination } = action.payload
             if ((source.droppableId === 'keywords') || (source.droppableId === 'groups') || (source.droppableId === 'minusPhrases') ) {

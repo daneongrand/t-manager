@@ -68,7 +68,7 @@ const BodyText = styled(Text)`
 `
 
 
-const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
+const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = 'Н/Д', lowRange = 'Н/Д', highRange = 'Н/Д', deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
 
     const [ indicatorsIsOpen, setIndicatorsIsOpen ] = useState(false)
     
@@ -118,19 +118,19 @@ const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, hig
                         >
                             <Indicator>
                                 <BodyText>Ср. число запросов:</BodyText>
-                                <BodyText>{ams}</BodyText>
+                                <BodyText>{(ams === '') ? 'Н/Д' : ams}</BodyText>
                             </Indicator>
                             <Indicator>
                                 <BodyText>Уровень конкуренции:</BodyText>
-                                <BodyText>{competition}</BodyText>
+                                <BodyText>{(competition === '') ? 'Н/Д' : competition}</BodyText>
                             </Indicator>
                             <Indicator>
                                 <BodyText>Минимальная ставка:</BodyText>
-                                <BodyText>{lowRange}</BodyText>
+                                <BodyText>{(lowRange === '') ? 'Н/Д' : lowRange}</BodyText>
                             </Indicator>
                             <Indicator>
                                 <BodyText>Максимальная ставка:</BodyText>
-                                <BodyText>{highRange}</BodyText>
+                                <BodyText>{(highRange === '') ? 'Н/Д' : highRange}</BodyText>
                             </Indicator>
                         </Body>
                     </Keyword>

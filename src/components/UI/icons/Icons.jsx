@@ -11,6 +11,31 @@ const Path = styled.path`
     fill: ${props => props.fill};
 `
 
+export const UploadFile = ({width, height, color}) => {
+    return (
+        <Svg 
+            width={width} 
+            height={height}  
+            viewBox="0 0 24 24"
+        >
+            <path d="M20 18C21.1 18 21.99 17.1 21.99 16L22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V16C2 17.1 2.9 18 4 18H0V20H24V18H20ZM4 6H20V16H4V6Z" fill={color}/>
+        </Svg>
+    )
+}
+
+
+export const UploadUrl = ({width, height, color}) => {
+    return (
+        <Svg 
+            width={width} 
+            height={height} 
+            viewBox="0 0 24 24"
+        >
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04ZM14 13V17H10V13H7L12 8L17 13H14Z" fill={color} />
+        </Svg>
+    )
+}
+
 export const Chevron = ({ width, height, color }) => {
     return (
         <Svg 

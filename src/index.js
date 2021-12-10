@@ -37,7 +37,8 @@ const theme = {
   colors: {
     dark_blue: "#0A1026",
     blue: "#4255D4",
-    danger: "#EB0000"
+    danger: "#EB0000",
+    closeBtn: "#FF2F23",
   },
   media: {
     tablet: "(max-width: 800px)",
