@@ -7,8 +7,11 @@ import { AddIcon } from '../UI/icons/Icons';
 import Groups from './Groups'
 import GroupsDownload from './GroupsDownload';
 import GroupsDownloadAll from './GroupsDownloadAll';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../UI/loader/Loader'
+import { useEffect } from 'react';
+import { getAll } from '../../actions/groupsActions';
+import { toggleModalAddGroups } from '../../actions/constructorActions';
 
 const StyledSection = styled(Section)`
     align-self: center;
@@ -51,18 +54,17 @@ const Footer = styled.footer`
     
 `
 
-const Loader = styled.section`
-    width: 100%;
-    heigth: 100%;
-`
+
 
 
 const GroupsSection = ({ title, groups }) => {
 
+    
     const isLoading = useSelector(state => state.groups.isLoading)
-    console.log(isLoading)
-
-    const [ toggleTabs, setToggleTabs ] = useState('download')
+    const dispatch = useDispatch()
+    
+    
+    const [ toggleTabs, setToggleTabs ] = useState('groups')
 
     return (
         <StyledSection 
@@ -73,6 +75,7 @@ const GroupsSection = ({ title, groups }) => {
                 <GroupsTabs>
                     <Button
                         fillHover="#00EEFD"
+                        onClick={() => dispatch(toggleModalAddGroups())}
                     >
                         <AddIcon width="100%" height="100%" fill="white" />
                     </Button>
@@ -116,9 +119,7 @@ const GroupsSection = ({ title, groups }) => {
                 footer
             </Footer>
             {
-                (isLoading) && <Loader>
-                    
-                </Loader>
+                (isLoading) && <Loader borderRadius='10px' />
             }
         </StyledSection>
     );

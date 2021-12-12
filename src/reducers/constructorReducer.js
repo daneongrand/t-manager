@@ -12,7 +12,12 @@ import {
     SELECT_GROUP,
     SELECT_KEYWORD_FOR_MOVE,
     TOGGLE_MODAL_ADD_KEYWORDS,
-    ADD_KEYWORDS
+    ADD_KEYWORDS,
+    GROUPS_LOADED,
+    TOGGLE_MODAL_ADD_GROUPS,
+    ADD_GROUP,
+    RENAME_GROUP,
+    DELETE_GROUP
 } from '../utils/constTypes'
 
 const initialState = {
@@ -396,11 +401,68 @@ const initialState = {
     modalMinusPhrasesIsOpen: false,
     modalGroupsIsOpen: false,
     modalAddKeywordsIsOpen: false,
+    modalAddGroupsIsOpen: false,
     selectedGroup: {}
 }
 
 export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case DELETE_GROUP: {
+            console.log(action.payload)
+            const { groupId } = action.payload
+            const groups = JSON.parse(JSON.stringify(state.groups))
+            const newGroups = groups.filter(item => item.groupId !== +groupId)
+            console.log(newGroups)
+            return {
+                ...state,
+                groups: [
+                    ...newGroups
+                ]
+            }
+        }
+
+        case ADD_GROUP: {
+            const group = action.payload
+            return {
+                ...state,
+                groups: [
+                    group,
+                    ...state.groups
+                ]
+            }
+        }
+
+        case RENAME_GROUP: {
+            const newGroup = action.payload
+            const newGroupsList = state.groups.filter(item => item.groupId !== newGroup.id)
+            // const newGroups 
+            return {
+                ...state,
+                groups: [
+                    newGroup,
+                    ...newGroupsList
+                ]
+            }
+        }
+
+        case TOGGLE_MODAL_ADD_GROUPS: {
+            return {
+                ...state,
+                modalAddGroupsIsOpen: !state.modalAddGroupsIsOpen
+            }
+        }
+
+        case GROUPS_LOADED: {
+            const groups = action.payload
+            return {
+                ...state,
+                groups: [
+                    ...groups
+                ]
+            }
+        }
+
         case ADD_KEYWORDS: {
             const keywords = action.payload
             console.log(keywords)

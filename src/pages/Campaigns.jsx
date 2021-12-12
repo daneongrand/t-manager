@@ -5,6 +5,7 @@ import CampaignsItem from '../components/CampaignsSection/CampaignsItem';
 import AddCampaign from '../components/CampaignsSection/AddCampaign';
 import AddCampaignForm from '../components/CampaignsSection/AddCampaignForm';
 import { useSelector, useDispatch } from 'react-redux';
+import Loader from '../components/UI/loader/Loader'
 
 const Main = styled.main`
     width: 100%;
@@ -13,6 +14,7 @@ const Main = styled.main`
     align-items: start;
     justify-content: center;
     grid-template-rows: 100px auto;
+    position: relative;
 `
 const CampaignsSection = styled.section`
     width: 500px;
@@ -27,7 +29,7 @@ const Campaigns = ({ }) => {
     
     useEffect(() => {
         console.log('render')
-        // dispatch(getAll())
+        dispatch(getAll())
     }, [])
     
     const handleAddCampaignToggle = () => {
@@ -47,7 +49,7 @@ const Campaigns = ({ }) => {
             }
             {
                 (isLoading)
-                    ? <h1> Loading </h1>
+                    ? <Loader />
                     : <CampaignsSection>
                         {
                             campaigns.map(item => (<CampaignsItem key={item.id} {...item} />))

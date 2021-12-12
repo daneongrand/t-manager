@@ -1,8 +1,14 @@
 import React from 'react';
+import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { DeleteKeyword, Edit } from '../UI/icons/Icons';
+import { spin } from '../UI/animation/animations';
+import { Check, DeleteKeyword, Edit } from '../UI/icons/Icons';
+import Loader from '../UI/loader/Loader';
 import KeywordsSection from './KeywordsSection';
+import { deleteGroup, renameGroup } from '../../actions/groupsActions';
+import { DELETE_GROUP } from '../../utils/constTypes';
 
 const StyledGroupItem = styled.li`
     list-style-type: none;
@@ -13,6 +19,7 @@ const StyledGroupItem = styled.li`
     display: grid;
     grid-template-rows: 30px 1fr;
     grid-row-gap: 10px;
+    position: relative;
 `
 
 const Header = styled.header`
@@ -46,10 +53,18 @@ const Button = styled.button`
     }
 `
 
+const GroupNameInput = styled.input`
+
+`
+
 const GroupItem = ({groupId, groupName, groupKeywords, index}) => {
+    const [ rename, setRename ] = useState(false)
+    const [ name, setName ] = useState(groupName)
+    const [ isRenaming, setIsRenaming ] = useState(false)
+    const dispatch = useDispatch()
     return (
         <Draggable
-            draggableId={groupId}
+            draggableId={`droppableGroup-${groupId}`}
             index={index}
         >
             {
@@ -60,15 +75,51 @@ const GroupItem = ({groupId, groupName, groupKeywords, index}) => {
                         {...provided.dragHandleProps}
                     >
                         <Header>
-                            {groupName}
-                            <Button>
-                                <Edit width="20" height="20" color="white" />
-                            </Button>
-                            <Button>
+                            {
+                                rename
+                                    ? <GroupNameInput
+                                        value={name}
+                                        onChange={e => setName(e.target.value)}
+                                    />
+                                    : name
+                            }
+                            {
+                                rename
+                                    ? <Button
+
+                                        onClick={() => {
+                                            setIsRenaming(true)
+                                            dispatch(renameGroup(groupId, name))
+                                                .then(() => {
+                                                    setRename(false)
+                                                    setIsRenaming(false)
+                                                })
+                                        }}
+                                    >
+                                        <Check width="100%" height="100%" color="white" />
+                                    </Button>
+                                    : <Button
+                                        onClick={() => setRename(true)}
+                                    >
+                                        <Edit width="20" height="20" color="white" />
+                                    </Button>
+                            }
+                            <Button
+                                onClick={() => {
+                                    dispatch(deleteGroup(groupId))
+                                        .then(data => dispatch({
+                                            type: DELETE_GROUP,
+                                            payload: data
+                                        }))
+                                }}
+                            >
                                 <DeleteKeyword width="100%" height="100%" color="white" />
                             </Button>
                         </Header>
-                        <KeywordsSection droppableId={groupId} groupKeywords={groupKeywords} />
+                        <KeywordsSection droppableId={`droppable-${groupId}`} groupKeywords={groupKeywords} />
+                        {
+                            isRenaming && <Loader borderRadius="10px" />
+                        }
                     </StyledGroupItem>
                 )
             }

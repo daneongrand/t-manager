@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 export const BackgroundBlur = styled.div`
@@ -18,8 +19,9 @@ export const BackgroundBlur = styled.div`
 `
 
 const ModalContainer = styled.section`
-    width: 60%;
-    height: 50%;
+    width: ${props => props.width};
+    height: ${props => props.height};
+    position: relative;
     display: grid;
     grid-template-rows: 40px 1fr;
     border-radius: 10px;
@@ -57,11 +59,15 @@ const ModalTitle = styled.h1`
     font-weight: 400;
 `
 
-const Modal = ({title, children, onClose}) => {
-
+const Modal = ({title, width='60%', height='50%', children, onClose = f => f}) => {
+    console.log(onClose)
+    const dispatch = useDispatch()
     return (
         <BackgroundBlur>
-            <ModalContainer>
+            <ModalContainer
+                width={width}
+                height={height}
+            >
                 <ModalHeader>
                     <CloseButton 
                         onClick={onClose}

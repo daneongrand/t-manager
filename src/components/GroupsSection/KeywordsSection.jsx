@@ -26,7 +26,7 @@ const KeywordsSection = ({ droppableId, groupKeywords }) => {
                         {
                             groupKeywords.map((item, index) => (
                                 <KeywordItem 
-                                    key={item.keywordId} 
+                                    key={item.id} 
                                     index={index} 
                                     {...item}  
                                 />

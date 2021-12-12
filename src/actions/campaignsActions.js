@@ -1,5 +1,5 @@
 import CampaignService from "../services/CampaignService"
-import { CAMPAIGN_HIDE_LOADER, CAMPAIGN_SHOW_LOADER, CREATE_CAMPAIGN, DELETE_CAMPAIGN, GET_ALL_CAMPAIGNS, HIDE_LOADER, RENAME_CAMPAIGN, SHOW_LOADER } from "../utils/constTypes"
+import { CAMPAIGN_HIDE_LOADER, CAMPAIGN_SHOW_LOADER, CAMPAIGN_TOGGLE_RENAMING, CREATE_CAMPAIGN, DELETE_CAMPAIGN, GET_ALL_CAMPAIGNS, HIDE_LOADER, RENAME_CAMPAIGN, SHOW_LOADER } from "../utils/constTypes"
 
 export function getAll () {
     return async dispatch => {
@@ -53,11 +53,24 @@ export function create (campaignName) {
 export function rename (campaignId, campaignName) {
     return async dispatch => {
         try {
+            dispatch({
+                type: CAMPAIGN_TOGGLE_RENAMING,
+                payload: {
+                    id: campaignId
+                }
+            })
             const { data } = await CampaignService.rename(campaignId, campaignName)
             dispatch({
                 type: RENAME_CAMPAIGN,
                 payload: data
             })
+            dispatch({
+                type: CAMPAIGN_TOGGLE_RENAMING,
+                payload: {
+                    id: null
+                }
+            })
+            return Promise.resolve()
         } catch (e) {
             
         }

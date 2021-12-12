@@ -10,7 +10,8 @@ import {
     SELECT_KEYWORD_FOR_MOVE, 
     TOGGLE_MODAL_ADD_KEYWORDS, 
     TOGGLE_MODAL_GROUPS, 
-    TOGGLE_MODAL_MINUSPHRASES 
+    TOGGLE_MODAL_MINUSPHRASES,
+    TOGGLE_MODAL_ADD_GROUPS
 } from "../utils/constTypes"
 
 
@@ -32,6 +33,12 @@ export function moveIntoGroup(source, destination) {
             source,
             destination
         }
+    }
+}
+
+export function toggleModalAddGroups() {
+    return {
+        type: TOGGLE_MODAL_ADD_GROUPS
     }
 }
 

@@ -11,7 +11,8 @@ import Modal from '../components/UI/modal/Modal';
 import KeywordModal from '../components/KeywordModal/KeywordModal';
 import GroupsModal from '../components/GroupsSection/GroupsModal';
 import AddKeywordsModal from '../components/Modals/AddKeywordsModal';
-
+import { getAll } from '../actions/groupsActions';
+import AddGroupsModal from '../components/GroupsSection/AddGroupsModal';
 
 
 const ConstructorMain = styled.main`
@@ -52,10 +53,12 @@ const Constructor = ({ reorder, moveIntoGroup, toggleModalMinusPhrases, selectKe
     const modalGroupsIsOpen = useSelector(state => state.constructors.modalGroupsIsOpen)
     const modalAddKeywordsIsOpen = useSelector(state => state.constructors.modalAddKeywordsIsOpen)
     const selectedWords = useSelector(state => state.constructors.selectedWords)
+    const modalAddGroupsIsOpen = useSelector(state => state.constructors.modalAddGroupsIsOpen)
     const match = useRouteMatch()
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(getAll(match.params.id))
         console.log(match.params.id)
     }, [])
 
@@ -63,15 +66,15 @@ const Constructor = ({ reorder, moveIntoGroup, toggleModalMinusPhrases, selectKe
         const {source, destination} = result
         if (!destination) return
 
-        if (source.droppableId === destination.droppableId) {
-            dispatch(reorder(source, destination))
-        } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
-            console.log(source, destination)
-            dispatch(moveIntoGroup(source, destination))
-        } else if ((source.droppableId !== 'minusPhrases' || source.droppableId === 'keywords') && destination.droppableId === 'minusPhrases') {
-            dispatch(selectKeyword(source))
-            dispatch(toggleModalMinusPhrases())
-        }
+        // if (source.droppableId === destination.droppableId) {
+        //     dispatch(reorder(source, destination))
+        // } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
+        //     console.log(source, destination)
+        //     dispatch(moveIntoGroup(source, destination))
+        // } else if ((source.droppableId !== 'minusPhrases' || source.droppableId === 'keywords') && destination.droppableId === 'minusPhrases') {
+        //     dispatch(selectKeyword(source))
+        //     dispatch(toggleModalMinusPhrases())
+        // }
 
     }
 
@@ -102,6 +105,9 @@ const Constructor = ({ reorder, moveIntoGroup, toggleModalMinusPhrases, selectKe
             }
             {
                 modalAddKeywordsIsOpen && <AddKeywordsModal />
+            }
+            {
+                modalAddGroupsIsOpen && <AddGroupsModal campaignId={match.params.id} />
             }
         </ConstructorMain>
     );
