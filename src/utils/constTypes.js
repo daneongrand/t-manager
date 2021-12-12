@@ -14,6 +14,9 @@ export const ADD_INTO_MINUSPHRASES = 'constructor/add_into_minusphrases'
 export const SELECT_KEYWORD_FOR_MOVE = 'constructor/select_keyword_for_move'
 export const SHOW_LOADER = 'app/show_loader'
 export const HIDE_LOADER = 'app/hide_loader'
+
+export const USER_SHOW_LOADER = 'user/show_loader'
+export const USER_HIDE_LOADER = 'user/hide_loader'
 export const LOGIN = 'user/login'
 export const SIGNUP = 'user/signup'
 export const SIGNUP_ERROR = 'user/signup_error'
@@ -21,7 +24,8 @@ export const LOGIN_ERROR = 'user/login_error'
 export const LOGOUT = 'user/logout'
 export const ADD_KEYWORDS = 'constructor/add_keywords'
 
-
+export const CAMPAIGN_SHOW_LOADER = 'campaign/show_loader'
+export const CAMPAIGN_HIDE_LOADER = 'campaign/hide_loader'
 export const GET_ALL_CAMPAIGNS = 'campaign/getAll'
 export const RENAME_CAMPAIGN = 'campaign/rename_campaign'
 export const CREATE_CAMPAIGN = 'campaign/create_campaign'
@@ -29,3 +33,8 @@ export const DELETE_CAMPAIGN = 'campaign/delete_campaign'
 
 export const UPLOAD_FILES = 'files/upload_files'
 export const UPLOAD_FILES_ERROR = 'files/upload_files_error'
+
+export const GET_ALL_GROUPS = 'groups/getAll'
+export const RENAME_GROUP = 'groups/rename_group'
+export const CREATE_GROUP = 'groups/create_group'
+export const DELETE_GROUP = 'groups/delete_group'

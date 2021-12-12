@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PulseLoader from 'react-spinners/PulseLoader'
 import { uploadFile } from '../../actions/filesActions';
 import styled from 'styled-components';
-import { UploadFile } from '../UI/icons/Icons';
-import { UPLOAD_FILES_ERROR, TOGGLE_MODAL_ADD_KEYWORDS } from '../../utils/constTypes';
+import { UPLOAD_FILES_ERROR } from '../../utils/constTypes';
+import Loader from '../UI/loader/Loader';
 
 const UploadFileContainer = styled.div`
     position: relative;
@@ -59,19 +58,7 @@ const UploadInput = styled.input.attrs({
     margin-top: 10px;
 `
 
-const Loader = styled.section`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(14, 14, 35, .9);
-    backdrop-filter: blur(5px);
-    border-radius: 0px 10px 10px 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
+
 
 const ErrorMessage = styled.p`
     color: ${props => props.theme.colors.danger};
@@ -115,9 +102,8 @@ const UploadFileSection = () => {
         } else {
             const formData = new FormData()
             formData.append('file', file)
-            dispatch(uploadFile(formData))
             setIsDragging(false)
-            dispatch({ type: TOGGLE_MODAL_ADD_KEYWORDS })
+            dispatch(uploadFile(formData))
         }
     }
 
@@ -154,9 +140,7 @@ const UploadFileSection = () => {
                     </UploadSection>
             }
             {
-                (isLoading) && <Loader>
-                    <PulseLoader color='white' />
-                </Loader>
+                (isLoading) && <Loader />
             }
         </UploadFileContainer>
     );

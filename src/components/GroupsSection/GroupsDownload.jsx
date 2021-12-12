@@ -45,7 +45,7 @@ const GroupItem = (props) => {
     return (
         <StyledGroupItem>
             <Header> { props.groupName } </Header>
-            <TextArea rows={array.length} value={value} />
+            <TextArea readOnly rows={array.length} value={value} />
         </StyledGroupItem>
     )
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { reorder, moveIntoGroup, toggleModalMinusPhrases, selectKeyword } from '../actions/constructorActions';
-import { switchColor } from '../actions/dndActions';
+import { useEffect } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components'
 import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';
 import MinusPhraseSection from '../components/MinusPhraseSection/MinusPhraseSection';
-import styled from 'styled-components'
 import Modal from '../components/UI/modal/Modal';
 import KeywordModal from '../components/KeywordModal/KeywordModal';
 import GroupsModal from '../components/GroupsSection/GroupsModal';
@@ -43,29 +43,38 @@ const ConstructorSection = styled(DndSection)`
 `
 
 
-const Constructor = ({modalAddKeywordsIsOpen, keywords, groups, minusPhrases, reorder, moveIntoGroup, switchColor, toggleModalMinusPhrases, modalMinusPhrasesIsOpen, selectKeyword, selectedWords, modalGroupsIsOpen}) => {    
+const Constructor = ({ reorder, moveIntoGroup, toggleModalMinusPhrases, selectKeyword }) => {    
     
+    const keywords = useSelector(state => state.constructors.keywords)
+    const groups = useSelector(state => state.constructors.groups)
+    const minusPhrases = useSelector(state => state.constructors.minusPhrases)
+    const modalMinusPhrasesIsOpen = useSelector(state => state.constructors.modalMinusPhrasesIsOpen)
+    const modalGroupsIsOpen = useSelector(state => state.constructors.modalGroupsIsOpen)
+    const modalAddKeywordsIsOpen = useSelector(state => state.constructors.modalAddKeywordsIsOpen)
+    const selectedWords = useSelector(state => state.constructors.selectedWords)
+    const match = useRouteMatch()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        console.log(match.params.id)
+    }, [])
+
     const handleOnDragEnd = result => {
         const {source, destination} = result
         if (!destination) return
 
         if (source.droppableId === destination.droppableId) {
-            reorder(source, destination)
+            dispatch(reorder(source, destination))
         } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
             console.log(source, destination)
-            moveIntoGroup(source, destination)
+            dispatch(moveIntoGroup(source, destination))
         } else if ((source.droppableId !== 'minusPhrases' || source.droppableId === 'keywords') && destination.droppableId === 'minusPhrases') {
-            selectKeyword(source)
-            toggleModalMinusPhrases()
+            dispatch(selectKeyword(source))
+            dispatch(toggleModalMinusPhrases())
         }
 
     }
 
-
-    const handleOnDragUpdate = result => {
-        const { destination } = result
-        switchColor(destination)         
-    }
 
 
     return (
@@ -76,7 +85,6 @@ const Constructor = ({modalAddKeywordsIsOpen, keywords, groups, minusPhrases, re
 
             <ConstructorSection
                 onDragEnd={handleOnDragEnd}
-                onDragUpdate={handleOnDragUpdate}
             >
                 <KeywordsSection title="Ключевые слова" keywords={keywords} />
                 <GroupsSection groups={groups} />
@@ -99,25 +107,4 @@ const Constructor = ({modalAddKeywordsIsOpen, keywords, groups, minusPhrases, re
     );
 }
 
-const MapStateToProps = state => {
-    return {
-       keywords: state.constructors.keywords,
-       groups: state.constructors.groups,
-       minusPhrases: state.constructors.minusPhrases,
-       modalMinusPhrasesIsOpen: state.constructors.modalMinusPhrasesIsOpen,
-       modalGroupsIsOpen: state.constructors.modalGroupsIsOpen,
-       modalAddKeywordsIsOpen: state.constructors.modalAddKeywordsIsOpen,
-       selectedWords: state.constructors.selectedWords
-    }
-}
-
-const MapDispatchToProps = {
-    reorder,
-    moveIntoGroup,
-    switchColor,
-    toggleModalMinusPhrases,
-    selectKeyword
-}
-
-
-export default connect(MapStateToProps, MapDispatchToProps)(Constructor);
+export default Constructor;

@@ -3,12 +3,14 @@ import {
     LOGIN_ERROR,
     LOGOUT,
     SIGNUP,
-    SIGNUP_ERROR 
+    SIGNUP_ERROR, 
+    USER_HIDE_LOADER, 
+    USER_SHOW_LOADER
 } from "../utils/constTypes"
 
 const initialState = {
     isAuth: false,
-    loading: false,
+    isLoading: false,
     loginError: '',
     signupError: ''
 }
@@ -16,6 +18,20 @@ const initialState = {
 export const userReducer = (state = initialState, action) => {
     switch(action.type) {
         
+        case USER_SHOW_LOADER: {
+            return {
+                ...state,
+                isLoading: true
+            }
+        }
+
+        case USER_HIDE_LOADER: {
+            return {
+                ...state,
+                isLoading: false
+            }
+        }
+
         case LOGIN: {
             console.log(action.payload)
             return {

@@ -1,11 +1,11 @@
 import CampaignService from "../services/CampaignService"
-import { CREATE_CAMPAIGN, DELETE_CAMPAIGN, GET_ALL_CAMPAIGNS, HIDE_LOADER, RENAME_CAMPAIGN, SHOW_LOADER } from "../utils/constTypes"
+import { CAMPAIGN_HIDE_LOADER, CAMPAIGN_SHOW_LOADER, CREATE_CAMPAIGN, DELETE_CAMPAIGN, GET_ALL_CAMPAIGNS, HIDE_LOADER, RENAME_CAMPAIGN, SHOW_LOADER } from "../utils/constTypes"
 
 export function getAll () {
     return async dispatch => {
         try {
             dispatch({
-                type: SHOW_LOADER
+                type: CAMPAIGN_SHOW_LOADER
             })
             const { data } = await CampaignService.getAll()
             const campaigns = data.campaigns
@@ -14,9 +14,12 @@ export function getAll () {
                 payload: campaigns
             })
             dispatch({
-                type: HIDE_LOADER
+                type: CAMPAIGN_HIDE_LOADER
             })
         } catch (e) {
+            dispatch({
+                type: CAMPAIGN_HIDE_LOADER
+            })
             return Promise.reject()
         }
     }

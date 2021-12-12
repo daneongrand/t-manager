@@ -1,5 +1,5 @@
 import FilesService from "../services/FilesService"
-import { ADD_KEYWORDS, HIDE_LOADER, SHOW_LOADER, UPLOAD_FILES_ERROR } from "../utils/constTypes"
+import { ADD_KEYWORDS, HIDE_LOADER, SHOW_LOADER, TOGGLE_MODAL_ADD_KEYWORDS, UPLOAD_FILES_ERROR } from "../utils/constTypes"
 
 export function uploadFile(dataForm) {
     return async dispatch => {
@@ -15,6 +15,9 @@ export function uploadFile(dataForm) {
             })
             dispatch({
                 type: HIDE_LOADER
+            })
+            dispatch({
+                type: TOGGLE_MODAL_ADD_KEYWORDS
             })
         } catch (e) {
             dispatch({

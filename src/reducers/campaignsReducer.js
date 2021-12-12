@@ -1,4 +1,6 @@
 import {
+    CAMPAIGN_HIDE_LOADER,
+    CAMPAIGN_SHOW_LOADER,
     CREATE_CAMPAIGN,
     DELETE_CAMPAIGN,
     GET_ALL_CAMPAIGNS, 
@@ -14,14 +16,14 @@ const initialState = {
 
 export const campaignsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SHOW_LOADER: {
+        case CAMPAIGN_SHOW_LOADER: {
             return {
                 ...state,
                 isLoading: true
             }
         }
 
-        case HIDE_LOADER: {
+        case CAMPAIGN_HIDE_LOADER: {
             return {
                 ...state,
                 isLoading: false

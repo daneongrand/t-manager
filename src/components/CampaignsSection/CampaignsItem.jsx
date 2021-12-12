@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { rename, deleteCampaign } from '../../actions/campaignsActions';
 import styled from 'styled-components';
 import { Check, Chevron, DeleteKeyword, Edit } from '../UI/icons/Icons';
+import { Link } from 'react-router-dom';
 
 const ItemAccordion = styled.article`
     width: 100%;
@@ -22,11 +23,12 @@ const ItemSummary = styled.div`
 `
 
 const ItemDetails = styled.div`
+    max-height: 0;
     overflow: hidden;
-    max-height: 0px;
-    &[aria-expanded='true'] {
-        transition: max-height 1s;
-        max-height: 100px;
+    transition: .6s;
+    &[aria-expanded="true"] {
+        height: auto;
+        max-height: 150px;
     }
 `
 
@@ -55,11 +57,21 @@ const Button = styled.button`
     border: 0;
 `
 
+const RedirectToConstructor = styled(Link)`
+
+`
+
 const CampaignsItem = ({ campaignName, id, rename, deleteCampaign }) => {
 
     const [ isChanging, setIsChanging ] = useState(false)
     const [ name, setName ] = useState(campaignName)
     const [ isOpen, setIsOpen ] = useState(false)
+
+    const showIndicators = () => {
+        console.log('click')
+        setIsOpen(!isOpen)
+    }
+
 
     return (
         <ItemAccordion>
@@ -89,7 +101,7 @@ const CampaignsItem = ({ campaignName, id, rename, deleteCampaign }) => {
                             <Edit width="18" height="18" color="white" />
                         </Button>
                 }
-                <Button onClick={() => setIsOpen(!isOpen)}>
+                <Button onClick={showIndicators}>
                     <Chevron width="24" height="24" color="white" />
                 </Button>
                 <Button
@@ -98,11 +110,13 @@ const CampaignsItem = ({ campaignName, id, rename, deleteCampaign }) => {
                     <DeleteKeyword width="24" height="24" color="white" />
                 </Button>
             </ItemSummary>
-            {
-                <ItemDetails aria-expanded={isOpen}>
-                    test
-                </ItemDetails>
-            }
+            <ItemDetails aria-expanded={isOpen}>
+                <RedirectToConstructor
+                    to={`/campaign/${id}/constructor`}
+                >
+                    Перейти в группу
+                </RedirectToConstructor>
+            </ItemDetails>
         </ItemAccordion>
     );
 };

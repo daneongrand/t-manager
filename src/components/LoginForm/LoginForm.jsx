@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { connect } from 'react-redux';
-import { login } from '../../actions/userActions';
+import { useSelector, useDispatch } from 'react-redux';
+import { authorization } from '../../actions/userActions';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CAMPAIGN_ROUTE } from '../../utils/constRoutes';
+import Loader from '../UI/loader/Loader';
 
 const Form = styled.form`
+    position: relative;
     width: 490px;
     display: flex;
     flex-direction: column;
@@ -122,22 +124,22 @@ const LoginError = styled.section`
 `
 
 
-const LoginForm = ({authorizate, loginError}) => {
 
-
+const LoginForm = ({}) => {
+    const isLoading = useSelector(state => state.user.isLoading)
+    console.log(isLoading)
+    const loginError = useSelector(state => state.user.loginError)
+    const dispatch = useDispatch()
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-
     const history = useHistory()
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault()
-        try {
-            await authorizate(login, password)
-            history.push(CAMPAIGN_ROUTE)
-        } catch (e) {
-
-        }
+        dispatch(authorization(login, password))
+            .then(() => {
+                history.push('/campaigns')
+            })
     }
 
     return (
@@ -170,19 +172,13 @@ const LoginForm = ({authorizate, loginError}) => {
                 <StyledParagraph>У вас нет аккаунта?</StyledParagraph>
                 <StyledLinkSignUp to='/signup'>Регистрация</StyledLinkSignUp>
             </ParagraphContainer>
+            {
+                (isLoading) && <Loader borderRadius="30px 30px 30px 0px" />
+            }
         </Form>
     );
 };
 
-const MapDispatchToProps = {
-    authorizate: login
-}
 
-const MapStateToProps = state => {
-    console.log(state)
-    return {
-        loginError: state.user.loginError
-    }
-}
 
-export default connect(MapStateToProps, MapDispatchToProps)(LoginForm);
+export default LoginForm;

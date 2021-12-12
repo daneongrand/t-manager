@@ -15,12 +15,12 @@ const Main = styled.main`
 `
 
 const Login = () => {
-
     return (
         <Main>
             <LoginForm />
         </Main>
-    );
+    )
+
 };
 
 

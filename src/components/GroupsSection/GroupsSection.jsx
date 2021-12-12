@@ -7,6 +7,7 @@ import { AddIcon } from '../UI/icons/Icons';
 import Groups from './Groups'
 import GroupsDownload from './GroupsDownload';
 import GroupsDownloadAll from './GroupsDownloadAll';
+import { useSelector } from 'react-redux';
 
 
 const StyledSection = styled(Section)`
@@ -50,8 +51,16 @@ const Footer = styled.footer`
     
 `
 
+const Loader = styled.section`
+    width: 100%;
+    heigth: 100%;
+`
+
 
 const GroupsSection = ({ title, groups }) => {
+
+    const isLoading = useSelector(state => state.groups.isLoading)
+    console.log(isLoading)
 
     const [ toggleTabs, setToggleTabs ] = useState('download')
 
@@ -106,7 +115,11 @@ const GroupsSection = ({ title, groups }) => {
             <Footer>
                 footer
             </Footer>
-
+            {
+                (isLoading) && <Loader>
+                    
+                </Loader>
+            }
         </StyledSection>
     );
 };

@@ -7,23 +7,34 @@ import {
     LOGIN_ERROR,
     LOGOUT,
     SIGNUP,
-    SIGNUP_ERROR 
+    SIGNUP_ERROR, 
+    USER_HIDE_LOADER, 
+    USER_SHOW_LOADER
 } from "../utils/constTypes"
 
-export function login(login, password) {
+export function authorization(login, password) {
     return async dispatch => {
         try {
+            dispatch({
+                type: USER_SHOW_LOADER
+            })
             const { data } = await AuthService.login(login, password)
             localStorage.setItem('accessToken', data.accessToken)
             dispatch({
                 type: LOGIN,
                 payload: data
             })
+            dispatch({
+                type: USER_HIDE_LOADER
+            })
             return Promise.resolve()            
         } catch (e) {
             dispatch({
                 type: LOGIN_ERROR,
                 payload: e.response
+            })
+            dispatch({
+                type: USER_HIDE_LOADER
             })
             return Promise.reject()
         }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { getAll, showLoader, hideLoader } from '../actions/campaignsActions';
+import { getAll } from '../actions/campaignsActions';
 import styled from 'styled-components';
 import CampaignsItem from '../components/CampaignsSection/CampaignsItem';
 import AddCampaign from '../components/CampaignsSection/AddCampaign';
 import AddCampaignForm from '../components/CampaignsSection/AddCampaignForm';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Main = styled.main`
     width: 100%;
@@ -19,17 +19,20 @@ const CampaignsSection = styled.section`
 `
 
 
-const Campaigns = ({ campaigns, getAll, isLoading }) => {
-
+const Campaigns = ({ }) => {
+    const isLoading = useSelector(state => state.campaigns.isLoading)
+    const campaigns = useSelector(state => state.campaigns.campaigns)
+    const dispatch = useDispatch()
     const [ addCampaignToggle, setAddCampaignToggle ] = useState(false)
-
+    
+    useEffect(() => {
+        console.log('render')
+        // dispatch(getAll())
+    }, [])
+    
     const handleAddCampaignToggle = () => {
         setAddCampaignToggle(!addCampaignToggle)
     }
-
-    useEffect(() => {
-        getAll()
-    }, [])
     
     return (
         <Main>
@@ -55,18 +58,6 @@ const Campaigns = ({ campaigns, getAll, isLoading }) => {
     );
 };
 
-const MapStateToProps = state => {
-    return {
-        isLoading: state.campaigns.isLoading,
-        campaigns: state.campaigns.campaigns
-    }
-}
 
-const MapDispatchToProps = {
-    getAll,
-    showLoader,
-    hideLoader,
 
-}
-
-export default connect(MapStateToProps, MapDispatchToProps)(Campaigns);
+export default Campaigns;
