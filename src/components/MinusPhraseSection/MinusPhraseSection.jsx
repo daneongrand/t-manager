@@ -6,6 +6,8 @@ import MinusPhrasesTabs from './MinusPhrasesTabs';
 import MinusPhrasesTabsItem from './MinusPhrasesTabsItem';
 import { AddIcon } from '../UI/icons/Icons';
 import MinusPhrases from './MinusPhrases';
+import { useSelector } from 'react-redux';
+import Loader from '../UI/loader/Loader';
 
 const StyledSection = styled(Section)`
     align-self: center;
@@ -23,6 +25,13 @@ const Header = styled.header`
     min-width: 100%;
     max-width: 100%;
     height: 35px;
+`
+
+const Footer = styled.footer`
+`
+
+const MinusPhrasesLengthParagraph = styled.p`
+    color: white;
 `
 
 const Button = styled.button`
@@ -44,8 +53,8 @@ const Button = styled.button`
     }
 `
 
-const MinusPhraseSection = ({minusPhrases}) => {
-
+const MinusPhraseSection = ({minusPhrases,minusPhrasesLength}) => {
+    const isLoading = useSelector(state => state.minusPhrases.isLoading)
     const [ toggleTabs, setToggleTabs ] = useState('minusPhrases')
 
     return (
@@ -75,20 +84,25 @@ const MinusPhraseSection = ({minusPhrases}) => {
                         Выгрузить все
                     </MinusPhrasesTabsItem>
                 </MinusPhrasesTabs>
+
             </Header>
 
             {
                 (toggleTabs === "minusPhrases") && <MinusPhrases minusPhrases={minusPhrases} />
             }
+
+            {
+                (isLoading) && <Loader borderRadius="10px" />
+            }
+
+            <Footer>
+                <MinusPhrasesLengthParagraph>Минус-слов: {minusPhrasesLength} </MinusPhrasesLengthParagraph>
+            </Footer>
         
         </StyledSection>
     );
 };
 
-const MapStateToProps = state => {
-    return {
-        color: state.dnd.color
-    }
-}
 
-export default connect(MapStateToProps, null)(MinusPhraseSection);
+
+export default MinusPhraseSection;

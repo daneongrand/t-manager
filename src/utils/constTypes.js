@@ -16,10 +16,14 @@ export const SELECT_KEYWORD_FOR_MOVE = 'constructor/select_keyword_for_move'
 export const SHOW_LOADER = 'app/show_loader'
 export const HIDE_LOADER = 'app/hide_loader'
 export const GROUPS_LOADED = 'constructor/groups_loaded'
+export const KEYWORDS_LOADED = 'constructor/keywords_loaded'
+export const MINUS_PHRASES_LOADED = 'constructor/minus_phrases_loaded'
 export const ADD_GROUP = 'constructor/add_group'
+export const CLEAR_KEYWORDS = 'constructor/clear_keywords'
+export const CLEAR_GROUPS = 'constructor/clear_groups'
+export const CLEAR_MINUS_PHRASES = 'constructor/clear_minus_phrases'
 
-
-//USER ACTIONS TYPE
+// USER ACTIONS TYPE
 export const USER_SHOW_LOADER = 'user/show_loader'
 export const USER_HIDE_LOADER = 'user/hide_loader'
 export const LOGIN = 'user/login'
@@ -36,6 +40,16 @@ export const GROUPS_MODAL_SHOW_LOADER = 'groups/modal_show_loader'
 export const GROUPS_MODAL_HIDE_LOADER = 'groups/modal_hide_loader'
 export const GROUPS_RENAMING = 'groups/renaming'
 export const GROUPS_DELETING = 'groups/deleting'
+
+// KEYWORDS ACTIONS TYPE
+export const KEYWORDS_SHOW_LOADER = 'keywords/show_loader'
+export const KEYWORDS_HIDE_LOADER = 'keywords/hide_loader'
+
+
+// MINUSPHRASES ACTION TYPE
+export const MINUS_PHRASES_SHOW_LOADER = 'minusPhrases/show_loader'
+export const MINUS_PHRASES_HIDE_LOADER = 'minusPhrases/hide_loader'
+
 
 // CAMPAIGNS ACTIONS TYPE
 export const CAMPAIGN_SHOW_LOADER = 'campaign/show_loader'

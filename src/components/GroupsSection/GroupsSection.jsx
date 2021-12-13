@@ -54,10 +54,13 @@ const Footer = styled.footer`
     
 `
 
+const GroupsLengthParagraph = styled.p`
+    color: white;
+`
 
 
 
-const GroupsSection = ({ title, groups }) => {
+const GroupsSection = ({ groups, groupLength, keywordLength }) => {
 
     
     const isLoading = useSelector(state => state.groups.isLoading)
@@ -116,7 +119,7 @@ const GroupsSection = ({ title, groups }) => {
             }
 
             <Footer>
-                footer
+                <GroupsLengthParagraph>Групп: {groupLength} Ключевых слов: {keywordLength} </GroupsLengthParagraph>
             </Footer>
             {
                 (isLoading) && <Loader borderRadius='10px' />

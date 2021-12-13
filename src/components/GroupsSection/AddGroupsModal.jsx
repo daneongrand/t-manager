@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { toggleModalAddGroups } from '../../actions/constructorActions';
 import Loader from '../UI/loader/Loader';
 import Modal from '../UI/modal/Modal';
-import { create } from '../../actions/groupsActions';
+import { createGroup } from '../../actions/groupsActions';
 import { TOGGLE_MODAL_ADD_GROUPS, TOGGLE_MODAL_ADD_KEYWORDS } from '../../utils/constTypes';
 
 const Form = styled.form`
@@ -86,7 +86,7 @@ const AddGroupsModal = ({ campaignId }) => {
             <Form
                 onSubmit={e => {
                     e.preventDefault()
-                    dispatch(create(campaignId, groupName))
+                    dispatch(createGroup(campaignId, groupName))
                         .then(() => dispatch({ type: TOGGLE_MODAL_ADD_GROUPS }))
                 }}
             >

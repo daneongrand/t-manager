@@ -76,9 +76,11 @@ const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = '�
         setIndicatorsIsOpen(!indicatorsIsOpen)
     }
 
+
+
     return (
         <Draggable
-            draggableId={keywordId}
+            draggableId={`keywordId-${keywordId}`}
             index={index}
         >
             {

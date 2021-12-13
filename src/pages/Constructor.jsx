@@ -11,8 +11,12 @@ import Modal from '../components/UI/modal/Modal';
 import KeywordModal from '../components/KeywordModal/KeywordModal';
 import GroupsModal from '../components/GroupsSection/GroupsModal';
 import AddKeywordsModal from '../components/Modals/AddKeywordsModal';
-import { getAll } from '../actions/groupsActions';
+import { getAllGroup } from '../actions/groupsActions';
 import AddGroupsModal from '../components/GroupsSection/AddGroupsModal';
+import { getAllKeywords } from '../actions/keywordsActions';
+import { getAllMinusPhrases } from '../actions/minusPhrasesActions';
+import { CLEAR_GROUPS, CLEAR_KEYWORDS, CLEAR_MINUS_PHRASES } from '../utils/constTypes';
+import { reorder } from '../actions/constructorActions';
 
 
 const ConstructorMain = styled.main`
@@ -44,7 +48,7 @@ const ConstructorSection = styled(DndSection)`
 `
 
 
-const Constructor = ({ reorder, moveIntoGroup, toggleModalMinusPhrases, selectKeyword }) => {    
+const Constructor = ({}) => {    
     
     const keywords = useSelector(state => state.constructors.keywords)
     const groups = useSelector(state => state.constructors.groups)
@@ -58,14 +62,24 @@ const Constructor = ({ reorder, moveIntoGroup, toggleModalMinusPhrases, selectKe
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getAll(match.params.id))
         console.log(match.params.id)
+        dispatch(getAllKeywords(match.params.id))
+        dispatch(getAllGroup(match.params.id))
+        dispatch(getAllMinusPhrases(match.params.id))
+        return () => {
+            dispatch({ type: CLEAR_KEYWORDS })
+            dispatch({ type: CLEAR_GROUPS })
+            dispatch({ type: CLEAR_MINUS_PHRASES })
+        }
     }, [])
 
     const handleOnDragEnd = result => {
         const {source, destination} = result
         if (!destination) return
-
+        console.log(source, destination)
+        if (source.droppableId === destination.droppableId) {
+            dispatch(reorder(source, destination))
+        }
         // if (source.droppableId === destination.droppableId) {
         //     dispatch(reorder(source, destination))
         // } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
@@ -89,9 +103,9 @@ const Constructor = ({ reorder, moveIntoGroup, toggleModalMinusPhrases, selectKe
             <ConstructorSection
                 onDragEnd={handleOnDragEnd}
             >
-                <KeywordsSection title="Ключевые слова" keywords={keywords} />
-                <GroupsSection groups={groups} />
-                <MinusPhraseSection minusPhrases={minusPhrases} />
+                <KeywordsSection title="Ключевые слова" keywords={keywords} keywordsLength={keywords.length}/>
+                <GroupsSection groups={groups} groupLength={groups.length} keywordLength={groups.reduce((acc, item) => acc += item.groupKeywords.length , 0)}/>
+                <MinusPhraseSection minusPhrases={minusPhrases} minusPhrasesLength={minusPhrases.length}/>
             </ConstructorSection>
             {
                 modalMinusPhrasesIsOpen && <Modal>

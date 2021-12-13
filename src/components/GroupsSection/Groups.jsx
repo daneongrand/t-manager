@@ -35,7 +35,7 @@ const Groups = ({groups}) => {
                         {
                             groups.map((item, index) => (
                                 <GroupItem 
-                                    key={item.groupId}
+                                    key={'group' + item.groupId}
                                     index={index} 
                                     {...item} 
                                 />

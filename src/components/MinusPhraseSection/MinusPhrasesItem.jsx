@@ -23,7 +23,7 @@ const Text = styled.p`
 const MinusPhrasesItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
     return (
         <Draggable
-            draggableId={keywordId}
+            draggableId={'keywordId' + keywordId}
             index={index}
         >
             {

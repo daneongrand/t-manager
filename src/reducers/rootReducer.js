@@ -5,7 +5,8 @@ import { dndReducer } from "./dndReducer";
 import { filesReducer } from "./filesReducer";
 import { groupsReducer } from "./groupsReducer";
 import { userReducer } from "./userReducer";
-
+import { keywordsReducer } from './keywordsReducer'
+import { minusPhrasesReducer } from './minusPhrasesReducer'
 
 export const rootReducer = combineReducers({
     constructors: constructorReducer,
@@ -13,5 +14,7 @@ export const rootReducer = combineReducers({
     user: userReducer,
     campaigns: campaignsReducer,
     files: filesReducer,
-    groups: groupsReducer
+    groups: groupsReducer,
+    keywords: keywordsReducer,
+    minusPhrases: minusPhrasesReducer
 })

@@ -19,7 +19,7 @@ const StyledMinusPhrases = styled.ul`
     }
 `  
 
-const MinusPhrases = ({ minusPhrases }) => {
+const MinusPhrases = ({ minusPhrases,  }) => {
     return (
         <Droppable
                 droppableId="minusPhrases"
@@ -34,7 +34,7 @@ const MinusPhrases = ({ minusPhrases }) => {
                             {
                                 minusPhrases.map((item, index) => (
                                     <MinusPhrasesItem 
-                                        key={item.keywordId} 
+                                        key={'keywordId' + item.keywordId} 
                                         index={index} 
                                         {...item}  
                                     />

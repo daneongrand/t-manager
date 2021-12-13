@@ -64,7 +64,7 @@ const GroupItem = ({groupId, groupName, groupKeywords, index}) => {
     const dispatch = useDispatch()
     return (
         <Draggable
-            draggableId={`droppableGroup-${groupId}`}
+            draggableId={`draggableId-${groupId}`}
             index={index}
         >
             {
@@ -116,7 +116,7 @@ const GroupItem = ({groupId, groupName, groupKeywords, index}) => {
                                 <DeleteKeyword width="100%" height="100%" color="white" />
                             </Button>
                         </Header>
-                        <KeywordsSection droppableId={`droppable-${groupId}`} groupKeywords={groupKeywords} />
+                        <KeywordsSection droppableId={`group-${groupId}`} groupKeywords={groupKeywords} />
                         {
                             isRenaming && <Loader borderRadius="10px" />
                         }

@@ -66,7 +66,7 @@ const BodyText = styled(Text)`
     font-size: 16px;
 `
 
-const KeywordItem = ({index, id, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
+const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
     
     const [ indicatorsIsOpen, setIndicatorsIsOpen ] = useState(false)
     
@@ -77,7 +77,7 @@ const KeywordItem = ({index, id, keyword, ams, competition, lowRange, highRange,
     
     return (
         <Draggable
-            draggableId={`draggble-${id}`}
+            draggableId={'keywordId-' + keywordId}
             index={index}
         >
             {

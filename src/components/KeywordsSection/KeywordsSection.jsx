@@ -6,6 +6,8 @@ import { Section } from '../UI/section/Section';
 import { Droppable } from 'react-beautiful-dnd';
 import { AddIcon } from '../UI/icons/Icons';
 import { toggleModalAddKeywords } from '../../actions/constructorActions'
+import { useSelector } from 'react-redux';
+import Loader from '../UI/loader/Loader';
 
 const Header = styled.header`
     display: flex;
@@ -14,6 +16,10 @@ const Header = styled.header`
 `
 
 const Footer = styled.footer`
+`
+
+const KeywordsLengthParagraph = styled.p`
+    color: white;
 `
 
 const StyledSection = styled(Section)`
@@ -25,6 +31,7 @@ const StyledSection = styled(Section)`
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 40px 1fr 30px;
+    position: relative;
 `
 
 
@@ -68,8 +75,9 @@ const Title = styled.h1`
 `
 
 
-const KeywordsSection = ({toggleModalAddKeywords, title, keywords, color}) => {
-    
+const KeywordsSection = ({toggleModalAddKeywords, keywords, keywordsLength}) => {
+    const isLoading = useSelector(state => state.keywords.isLoading)
+
     return (
         <StyledSection
             as="article"
@@ -100,7 +108,7 @@ const KeywordsSection = ({toggleModalAddKeywords, title, keywords, color}) => {
                             {
                                 keywords.map((item, index) => (
                                     <KeywordItem 
-                                        key={item.keywordId} 
+                                        key={'keywordId-' + item.keywordId} 
                                         index={index} 
                                         {...item} 
                                     />
@@ -112,21 +120,13 @@ const KeywordsSection = ({toggleModalAddKeywords, title, keywords, color}) => {
             </Droppable>
             
             <Footer>
-                footer
+                <KeywordsLengthParagraph>Ключевых слов: {keywordsLength}</KeywordsLengthParagraph>
             </Footer>
-
+            {
+                (isLoading) && <Loader borderRadius="10px" />
+            }
         </StyledSection>
     );
 };
 
-const MapStateToProps = state => {
-    return {
-        color: state.dnd.color
-    }
-}
-
-const MapDispatchToProps = {
-    toggleModalAddKeywords
-}
-
-export default connect(MapStateToProps, MapDispatchToProps)(KeywordsSection);
+export default KeywordsSection;

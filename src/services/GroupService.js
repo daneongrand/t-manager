@@ -1,19 +1,19 @@
 import $api from "../http";
 
 export default class GroupService {
-    static async getAll(campaignId) {
+    static async getAllGroup(campaignId) {
         return $api.get(`/group/${campaignId}`)
     }
 
-    static async create(campaignId, groupName) {
+    static async createGroup(campaignId, groupName) {
         return $api.post(`/group/${campaignId}`, { groupName })
     }
 
-    static async rename(groupId, groupName) {
+    static async renameGroup(groupId, groupName) {
         return $api.put(`/group/${groupId}`, { groupName })
     }
 
-    static async delete(groupId) {
+    static async deleteGroup(groupId) {
         return $api.delete(`/group/${groupId}`)
     }
 
