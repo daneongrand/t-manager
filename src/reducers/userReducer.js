@@ -9,7 +9,7 @@ import {
 } from "../utils/constTypes"
 
 const initialState = {
-    isAuth: false,
+    isAuth: true,
     isLoading: false,
     loginError: '',
     signupError: ''

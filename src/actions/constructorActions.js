@@ -9,9 +9,10 @@ import {
     SELECT_KEYWORD, 
     SELECT_KEYWORD_FOR_MOVE, 
     TOGGLE_MODAL_ADD_KEYWORDS, 
-    TOGGLE_MODAL_GROUPS, 
-    TOGGLE_MODAL_MINUSPHRASES,
-    TOGGLE_MODAL_ADD_GROUPS
+    TOGGLE_MODAL_INTO_GROUPS, 
+    TOGGLE_MODAL_INTO_MINUSPHRASES,
+    TOGGLE_MODAL_ADD_GROUPS,
+    MOVE_ITEM
 } from "../utils/constTypes"
 
 
@@ -21,6 +22,16 @@ export function reorder(source, destination) {
         type: REORDER,
         payload: {
             source, 
+            destination
+        }
+    }
+}
+
+export function moveItem(source, destination) {
+    return {
+        type: MOVE_ITEM,
+        payload: {
+            source,
             destination
         }
     }
@@ -44,13 +55,13 @@ export function toggleModalAddGroups() {
 
 export function toggleModalMinusPhrases() {
     return {
-        type: TOGGLE_MODAL_MINUSPHRASES
+        type: TOGGLE_MODAL_INTO_MINUSPHRASES
     }
 }
 
 export function toggleModalGroups() {
     return {
-        type: TOGGLE_MODAL_GROUPS
+        type: TOGGLE_MODAL_INTO_GROUPS
     }
 }
 

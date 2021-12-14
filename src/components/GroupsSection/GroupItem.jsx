@@ -116,7 +116,7 @@ const GroupItem = ({groupId, groupName, groupKeywords, index}) => {
                                 <DeleteKeyword width="100%" height="100%" color="white" />
                             </Button>
                         </Header>
-                        <KeywordsSection droppableId={`group-${groupId}`} groupKeywords={groupKeywords} />
+                        <KeywordsSection groupId={groupId} groupKeywords={groupKeywords} />
                         {
                             isRenaming && <Loader borderRadius="10px" />
                         }

@@ -16,7 +16,7 @@ import AddGroupsModal from '../components/GroupsSection/AddGroupsModal';
 import { getAllKeywords } from '../actions/keywordsActions';
 import { getAllMinusPhrases } from '../actions/minusPhrasesActions';
 import { CLEAR_GROUPS, CLEAR_KEYWORDS, CLEAR_MINUS_PHRASES } from '../utils/constTypes';
-import { reorder } from '../actions/constructorActions';
+import { moveItem, reorder } from '../actions/constructorActions';
 
 
 const ConstructorMain = styled.main`
@@ -63,14 +63,14 @@ const Constructor = ({}) => {
 
     useEffect(() => {
         console.log(match.params.id)
-        dispatch(getAllKeywords(match.params.id))
-        dispatch(getAllGroup(match.params.id))
-        dispatch(getAllMinusPhrases(match.params.id))
-        return () => {
-            dispatch({ type: CLEAR_KEYWORDS })
-            dispatch({ type: CLEAR_GROUPS })
-            dispatch({ type: CLEAR_MINUS_PHRASES })
-        }
+        // dispatch(getAllKeywords(match.params.id))
+        // dispatch(getAllGroup(match.params.id))
+        // dispatch(getAllMinusPhrases(match.params.id))
+        // return () => {
+        //     dispatch({ type: CLEAR_KEYWORDS })
+        //     dispatch({ type: CLEAR_GROUPS })
+        //     dispatch({ type: CLEAR_MINUS_PHRASES })
+        // }
     }, [])
 
     const handleOnDragEnd = result => {
@@ -79,6 +79,8 @@ const Constructor = ({}) => {
         console.log(source, destination)
         if (source.droppableId === destination.droppableId) {
             dispatch(reorder(source, destination))
+        } else {
+            dispatch(moveItem(source, destination))
         }
         // if (source.droppableId === destination.droppableId) {
         //     dispatch(reorder(source, destination))
@@ -102,6 +104,7 @@ const Constructor = ({}) => {
 
             <ConstructorSection
                 onDragEnd={handleOnDragEnd}
+                
             >
                 <KeywordsSection title="Ключевые слова" keywords={keywords} keywordsLength={keywords.length}/>
                 <GroupsSection groups={groups} groupLength={groups.length} keywordLength={groups.reduce((acc, item) => acc += item.groupKeywords.length , 0)}/>

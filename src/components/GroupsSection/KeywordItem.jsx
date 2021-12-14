@@ -77,7 +77,7 @@ const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, hig
     
     return (
         <Draggable
-            draggableId={'keywordId-' + keywordId}
+            draggableId={'keywordIdIntoGroup-' + keywordId}
             index={index}
         >
             {
