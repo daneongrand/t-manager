@@ -153,7 +153,7 @@ const CampaignsItem = ({ campaignName, id }) => {
             </ItemSummary>
             <ItemDetails aria-expanded={isOpen}>
                 <RedirectToConstructor
-                    to={`/campaign/${id}/constructor`}
+                    to={`/campaign_${id}/constructor`}
                 >
                     Перейти в группу
                 </RedirectToConstructor>

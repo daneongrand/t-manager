@@ -60,8 +60,6 @@ const ModalTitle = styled.h1`
 `
 
 const Modal = ({title, width='60%', height='50%', children, onClose = f => f}) => {
-    console.log(onClose)
-    const dispatch = useDispatch()
     return (
         <BackgroundBlur>
             <ModalContainer

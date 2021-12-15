@@ -8,6 +8,7 @@ import { AddIcon } from '../UI/icons/Icons';
 import MinusPhrases from './MinusPhrases';
 import { useSelector } from 'react-redux';
 import Loader from '../UI/loader/Loader';
+import MinusPhrasesDownloadAll from './MinusPhrasesDownloadAll';
 
 const StyledSection = styled(Section)`
     align-self: center;
@@ -89,6 +90,10 @@ const MinusPhraseSection = ({minusPhrases,minusPhrasesLength}) => {
 
             {
                 (toggleTabs === "minusPhrases") && <MinusPhrases minusPhrases={minusPhrases} />
+            }
+
+            {
+                (toggleTabs === 'downloadAll') && <MinusPhrasesDownloadAll minusPhrases={minusPhrases} />
             }
 
             {

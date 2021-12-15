@@ -16,7 +16,9 @@ import AddGroupsModal from '../components/GroupsSection/AddGroupsModal';
 import { getAllKeywords } from '../actions/keywordsActions';
 import { getAllMinusPhrases } from '../actions/minusPhrasesActions';
 import { CLEAR_GROUPS, CLEAR_KEYWORDS, CLEAR_MINUS_PHRASES } from '../utils/constTypes';
-import { moveItem, reorder } from '../actions/constructorActions';
+import { moveItem, reorder, selectKeyword, toggleModalMinusPhrases } from '../actions/constructorActions';
+import MoveIntoMinusPhrases from '../components/Modals/MoveIntoMinusPhrases';
+import MoveIntoGroup from '../components/Modals/MoveIntoGroup';
 
 
 const ConstructorMain = styled.main`
@@ -53,9 +55,10 @@ const Constructor = ({}) => {
     const keywords = useSelector(state => state.constructors.keywords)
     const groups = useSelector(state => state.constructors.groups)
     const minusPhrases = useSelector(state => state.constructors.minusPhrases)
-    const modalMinusPhrasesIsOpen = useSelector(state => state.constructors.modalMinusPhrasesIsOpen)
-    const modalGroupsIsOpen = useSelector(state => state.constructors.modalGroupsIsOpen)
+    const modalMoveIntoMinusPhraseIsOpen = useSelector(state => state.constructors.modalMoveIntoMinusPhraseIsOpen)
+    const modalMoveIntoGroupIsOpen = useSelector(state => state.constructors.modalMoveIntoGroupIsOpen)
     const modalAddKeywordsIsOpen = useSelector(state => state.constructors.modalAddKeywordsIsOpen)
+    // const modalMinusPhrasesIsOpen = useSelector(state => state.constructors.modalMinusPhrasesIsOpen)
     const selectedWords = useSelector(state => state.constructors.selectedWords)
     const modalAddGroupsIsOpen = useSelector(state => state.constructors.modalAddGroupsIsOpen)
     const match = useRouteMatch()
@@ -63,14 +66,14 @@ const Constructor = ({}) => {
 
     useEffect(() => {
         console.log(match.params.id)
-        // dispatch(getAllKeywords(match.params.id))
-        // dispatch(getAllGroup(match.params.id))
-        // dispatch(getAllMinusPhrases(match.params.id))
-        // return () => {
-        //     dispatch({ type: CLEAR_KEYWORDS })
-        //     dispatch({ type: CLEAR_GROUPS })
-        //     dispatch({ type: CLEAR_MINUS_PHRASES })
-        // }
+        dispatch(getAllKeywords(match.params.id))
+        dispatch(getAllGroup(match.params.id))
+        dispatch(getAllMinusPhrases(match.params.id))
+        return () => {
+            dispatch({ type: CLEAR_KEYWORDS })
+            dispatch({ type: CLEAR_GROUPS })
+            dispatch({ type: CLEAR_MINUS_PHRASES })
+        }
     }, [])
 
     const handleOnDragEnd = result => {
@@ -79,8 +82,12 @@ const Constructor = ({}) => {
         console.log(source, destination)
         if (source.droppableId === destination.droppableId) {
             dispatch(reorder(source, destination))
-        } else {
-            dispatch(moveItem(source, destination))
+        } else if (destination.droppableId === 'minusPhrases') {
+            console.log('into to minus phrase')
+            dispatch(selectKeyword(source))
+            dispatch(toggleModalMinusPhrases(source, destination))
+        } else if (destination.droppableId.includes('group-')) {
+            console.log('into group')
         }
         // if (source.droppableId === destination.droppableId) {
         //     dispatch(reorder(source, destination))
@@ -111,14 +118,10 @@ const Constructor = ({}) => {
                 <MinusPhraseSection minusPhrases={minusPhrases} minusPhrasesLength={minusPhrases.length}/>
             </ConstructorSection>
             {
-                modalMinusPhrasesIsOpen && <Modal>
-                    <KeywordModal words={selectedWords} />
-                </Modal>
+                modalMoveIntoMinusPhraseIsOpen && <MoveIntoMinusPhrases title='Выбор дополнительных минус-слов' />
             }
             {
-                modalGroupsIsOpen && <Modal>
-                    <GroupsModal groups={groups} />
-                </Modal>
+                modalMoveIntoGroupIsOpen && <MoveIntoGroup title='Выбор группы' />
             }
             {
                 modalAddKeywordsIsOpen && <AddKeywordsModal />

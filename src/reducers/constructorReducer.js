@@ -23,236 +23,22 @@ import {
     CLEAR_KEYWORDS,
     CLEAR_GROUPS,
     CLEAR_MINUS_PHRASES,
-    MOVE_ITEM
+    MOVE_ITEM,
+    TOGGLE_MODAL_INTO_MINUSPHRASES,
+    TOGGLE_MODAL_INTO_GROUPS
 } from '../utils/constTypes'
 
 const initialState = {
-    keywords: [
-        {
-            "keywordId": 4,
-            "keyword": "keyword 1",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": false,
-            "createdAt": "2021-12-14T15:00:00.879Z",
-            "updatedAt": "2021-12-14T15:00:00.879Z",
-            "campaignId": 1,
-            "groupId": null
-        },
-        {
-            "keywordId": 5,
-            "keyword": "keyword 2",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": false,
-            "createdAt": "2021-12-14T15:00:03.981Z",
-            "updatedAt": "2021-12-14T15:00:03.981Z",
-            "campaignId": 1,
-            "groupId": null
-        },
-        {
-            "keywordId": 6,
-            "keyword": "keyword 3",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": false,
-            "createdAt": "2021-12-14T15:00:06.488Z",
-            "updatedAt": "2021-12-14T15:00:06.488Z",
-            "campaignId": 1,
-            "groupId": null
-        },
-        {
-            "keywordId": 7,
-            "keyword": "keyword 4",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": false,
-            "createdAt": "2021-12-14T15:00:09.049Z",
-            "updatedAt": "2021-12-14T15:00:09.049Z",
-            "campaignId": 1,
-            "groupId": null
-        },
-        {
-            "keywordId": 8,
-            "keyword": "keyword 5",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": false,
-            "createdAt": "2021-12-14T15:00:11.892Z",
-            "updatedAt": "2021-12-14T15:00:11.892Z",
-            "campaignId": 1,
-            "groupId": null
-        }
-    ],
-    groups: [
-        {
-            "groupId": 1,
-            "groupName": "group 1",
-            "campaignId": 1,
-            "groupKeywords": [
-                {
-                    "keywordId": 9,
-                    "keyword": "keyword 6",
-                    "ams": null,
-                    "competition": null,
-                    "lowRange": null,
-                    "highRange": null,
-                    "currency": null,
-                    "isMinusPhrase": false,
-                    "createdAt": "2021-12-14T15:00:18.602Z",
-                    "updatedAt": "2021-12-14T15:00:18.602Z",
-                    "campaignId": 1,
-                    "groupId": 1
-                },
-                {
-                    "keywordId": 10,
-                    "keyword": "keyword 7",
-                    "ams": null,
-                    "competition": null,
-                    "lowRange": null,
-                    "highRange": null,
-                    "currency": null,
-                    "isMinusPhrase": false,
-                    "createdAt": "2021-12-14T15:00:21.674Z",
-                    "updatedAt": "2021-12-14T15:00:21.674Z",
-                    "campaignId": 1,
-                    "groupId": 1
-                },
-                {
-                    "keywordId": 11,
-                    "keyword": "keyword 8",
-                    "ams": null,
-                    "competition": null,
-                    "lowRange": null,
-                    "highRange": null,
-                    "currency": null,
-                    "isMinusPhrase": false,
-                    "createdAt": "2021-12-14T15:00:24.416Z",
-                    "updatedAt": "2021-12-14T15:00:24.416Z",
-                    "campaignId": 1,
-                    "groupId": 1
-                }
-            ]
-        },
-        {
-            "groupId": 2,
-            "groupName": "group 2",
-            "campaignId": 1,
-            "groupKeywords": [
-                {
-                    "keywordId": 12,
-                    "keyword": "keyword 9",
-                    "ams": null,
-                    "competition": null,
-                    "lowRange": null,
-                    "highRange": null,
-                    "currency": null,
-                    "isMinusPhrase": false,
-                    "createdAt": "2021-12-14T15:00:29.080Z",
-                    "updatedAt": "2021-12-14T15:00:29.080Z",
-                    "campaignId": 1,
-                    "groupId": 2
-                },
-                {
-                    "keywordId": 13,
-                    "keyword": "keyword 10",
-                    "ams": null,
-                    "competition": null,
-                    "lowRange": null,
-                    "highRange": null,
-                    "currency": null,
-                    "isMinusPhrase": false,
-                    "createdAt": "2021-12-14T15:00:32.123Z",
-                    "updatedAt": "2021-12-14T15:00:32.123Z",
-                    "campaignId": 1,
-                    "groupId": 2
-                },
-                {
-                    "keywordId": 14,
-                    "keyword": "keyword 11",
-                    "ams": null,
-                    "competition": null,
-                    "lowRange": null,
-                    "highRange": null,
-                    "currency": null,
-                    "isMinusPhrase": false,
-                    "createdAt": "2021-12-14T15:00:35.009Z",
-                    "updatedAt": "2021-12-14T15:00:35.009Z",
-                    "campaignId": 1,
-                    "groupId": 2
-                }
-            ]
-        },
-        {
-            "groupId": 3,
-            "groupName": "group 3",
-            "campaignId": 1,
-            "groupKeywords": []
-        }
-    ],
-    minusPhrases: [
-        {
-            "keywordId": 1,
-            "keyword": "minusPhrase 1",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": true,
-            "createdAt": "2021-12-14T14:52:00.080Z",
-            "updatedAt": "2021-12-14T14:52:00.080Z",
-            "campaignId": 1,
-            "groupId": null
-        },
-        {
-            "keywordId": 2,
-            "keyword": "minusPhrase 2",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": true,
-            "createdAt": "2021-12-14T14:52:04.371Z",
-            "updatedAt": "2021-12-14T14:52:04.371Z",
-            "campaignId": 1,
-            "groupId": null
-        },
-        {
-            "keywordId": 3,
-            "keyword": "minusPhrase 3",
-            "ams": null,
-            "competition": null,
-            "lowRange": null,
-            "highRange": null,
-            "currency": null,
-            "isMinusPhrase": true,
-            "createdAt": "2021-12-14T14:52:07.636Z",
-            "updatedAt": "2021-12-14T14:52:07.636Z",
-            "campaignId": 1,
-            "groupId": null
-        }
-    ],
+    keywords: [],
+    groups: [],
+    minusPhrases: [],
+    selectedKeyword: [],
     modalMoveIntoGroupIsOpen: false,
     modalMoveIntoMinusPhraseIsOpen: false,
     modalDeleteGroupIsOpen: false,
-    modalDeleteKeywordIsOpen: false
+    modalDeleteKeywordIsOpen: false,
+    modalAddKeywordsIsOpen: false,
+    modalPayload: {},
     // selectedKeyword: {
     //     isGroup: false,
     //     keyword: null,
@@ -369,6 +155,63 @@ export const constructorReducer = (state = initialState, action) => {
             destinationList.splice(destination.index, 0, removed)
 
             return state
+        }
+
+        case TOGGLE_MODAL_INTO_MINUSPHRASES: {
+            
+            return {
+                ...state,
+                modalPayload: action.payload,
+                modalMoveIntoMinusPhraseIsOpen: !state.modalMoveIntoMinusPhraseIsOpen
+            }
+        }
+
+        case TOGGLE_MODAL_INTO_GROUPS: {
+            if (state.modalMoveIntoGroupIsOpen) {
+                return {
+                    ...state,
+                    selectedKeyword: {},
+                    modalMoveIntoGroupIsOpen: false
+                }
+            } else {
+                const keyword = action.payload
+                return {
+                    ...state,
+                    selectedKeyword: keyword,
+                    modalMoveIntoGroupIsOpen: true
+                }
+            }
+        }
+
+
+        case SELECT_KEYWORD: {
+            console.log(action.payload)
+            const { source } = action.payload
+            if (source.droppableId.includes('group-')) {
+                const sourceGroupId = source.droppableId.split('-')[1]
+                const groups = JSON.parse(JSON.stringify(state.groups))
+                const [ sourceGroup ] = groups.filter(item => String(item.groupId) === String(sourceGroupId))
+                const sourceList = sourceGroup.groupKeywords
+                const keyword = sourceList[source.index]
+                return {
+                    ...state,
+                    selectedKeyword: keyword
+                }
+            } else {
+                const keywordList = JSON.parse(JSON.stringify(state[source.droppableId]))
+                const keyword = keywordList[source.index]
+                return {
+                    ...state,
+                    selectedKeyword: keyword
+                }
+            }
+        }
+
+        case TOGGLE_MODAL_ADD_KEYWORDS: {
+            return {
+                ...state,
+                modalAddKeywordsIsOpen: !state.modalAddKeywordsIsOpen
+            }
         }
 
 

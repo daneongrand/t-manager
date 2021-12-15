@@ -8,6 +8,7 @@ import { AddIcon } from '../UI/icons/Icons';
 import { toggleModalAddKeywords } from '../../actions/constructorActions'
 import { useSelector } from 'react-redux';
 import Loader from '../UI/loader/Loader';
+import { useDispatch } from 'react-redux';
 
 const Header = styled.header`
     display: flex;
@@ -75,8 +76,9 @@ const Title = styled.h1`
 `
 
 
-const KeywordsSection = ({toggleModalAddKeywords, keywords, keywordsLength}) => {
+const KeywordsSection = ({ keywords, keywordsLength}) => {
     const isLoading = useSelector(state => state.keywords.isLoading)
+    const dispatch = useDispatch()
 
     return (
         <StyledSection
@@ -87,9 +89,7 @@ const KeywordsSection = ({toggleModalAddKeywords, keywords, keywordsLength}) => 
                 <Title>Ключевые слова</Title>
                 <Button
                     fillHover="#00EEFD"
-                    onClick={() => {
-                        toggleModalAddKeywords()
-                    }}
+                    onClick={() => dispatch(toggleModalAddKeywords())}
                 >
                     <AddIcon width="100%" height="100%" fill="white" />
                 </Button>

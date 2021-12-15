@@ -19,7 +19,7 @@ const KeywordsSection = ({groupId, groupKeywords }) => {
         >
             {
                 (provided, snapshot) => {
-                    console.log(snapshot)
+                    
                     return(
                     <StyledKeywordsSection
                         ref={provided.innerRef}

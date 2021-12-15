@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const GroupsDownloadAllContainer = styled.div`
+const MinusPhrasesDownloadAllContainer = styled.div`
     width: 100%;
-    heigth: 100%;
+    height: 100%;
 `
 
 const TextArea = styled.textarea`
@@ -28,19 +28,13 @@ const TextArea = styled.textarea`
     }
 `
 
-const GroupsDownloadAll = ({groups}) => {
-    console.log(groups)
-    const list = groups.map(item => item.groupKeywords.map(i => i.keyword))
-    console.log(list)
-    const keywordsList = list.map(item => item.join('\n'))
-    console.log(keywordsList)
-    const keywordList = keywordsList.join('\n\n')
-    console.log(keywordList)
+const MinusPhrasesDownloadAll = ({ minusPhrases }) => {
+    const minusPhrasesList = minusPhrases.map(item => item.keyword).join('\n')
     return (
-        <GroupsDownloadAllContainer>
-            <TextArea readOnly value={keywordList} />
-        </GroupsDownloadAllContainer>
+        <MinusPhrasesDownloadAllContainer>
+            <TextArea readOnly value={minusPhrasesList} />
+        </MinusPhrasesDownloadAllContainer>
     );
 };
 
-export default GroupsDownloadAll;   
+export default MinusPhrasesDownloadAll;

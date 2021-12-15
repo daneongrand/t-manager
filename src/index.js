@@ -37,6 +37,7 @@ const theme = {
   colors: {
     dark_blue: "#0A1026",
     blue: "#4255D4",
+    green: '#05EB00',
     danger: "#EB0000",
     closeBtn: "#FF2F23",
   },

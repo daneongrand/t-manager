@@ -53,21 +53,28 @@ export function toggleModalAddGroups() {
     }
 }
 
-export function toggleModalMinusPhrases() {
+export function toggleModalMinusPhrases(source, destination) {
     return {
-        type: TOGGLE_MODAL_INTO_MINUSPHRASES
+        type: TOGGLE_MODAL_INTO_MINUSPHRASES,
+        payload: {
+            source,
+            destination
+        }
     }
 }
 
-export function toggleModalGroups() {
+export function toggleModalGroups(keyword) {
     return {
-        type: TOGGLE_MODAL_INTO_GROUPS
+        type: TOGGLE_MODAL_INTO_GROUPS,
+        payload: {
+            keyword
+        }
     }
 }
 
 export function toggleModalAddKeywords() {
     return {
-        type: TOGGLE_MODAL_ADD_KEYWORDS
+        type: TOGGLE_MODAL_ADD_KEYWORDS,
     }
 }
 

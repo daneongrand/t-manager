@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove } from '../../actions/constructorActions';
+import { toggleModalGroups } from '../../actions/constructorActions';
 import styled from 'styled-components';
 import {OpenAnalytics, AddIcon, AddMinusPhrase, DeleteKeyword} from '../UI/icons/Icons'
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import { Draggable } from 'react-beautiful-dnd';
+import { useDispatch } from 'react-redux';
+
 
 const Keyword = styled.li`
     background-color: ${props => props.theme.colors.dark_blue};
@@ -68,10 +70,12 @@ const BodyText = styled(Text)`
 `
 
 
-const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = 'Н/Д', lowRange = 'Н/Д', highRange = 'Н/Д', deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
+const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = 'Н/Д', lowRange = 'Н/Д', highRange = 'Н/Д'}) => {
 
     const [ indicatorsIsOpen, setIndicatorsIsOpen ] = useState(false)
-    
+    const dispatch = useDispatch()
+
+
     const showIndicators = () => {
         setIndicatorsIsOpen(!indicatorsIsOpen)
     }
@@ -100,6 +104,9 @@ const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = '�
                             </Button>
                             <Button
                                 fillHover="#00EEFD"
+                                onClick={() => {
+                                    dispatch(toggleModalGroups({droppableId: 'keywords', index: index}))
+                                }}
                             >
                                 <AddIcon width='100%' height='100%' fill='white' />
                             </Button>
@@ -142,12 +149,4 @@ const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = '�
     );
 };
 
-const MapDispatchToProps = {
-    selectKeyword,
-    deleteKeyword,
-    toggleModalMinusPhrases, 
-    toggleModalGroups,
-    selectKeywordForMove
-}
-
-export default connect(null, MapDispatchToProps)(KeywordItem);
+export default KeywordItem;

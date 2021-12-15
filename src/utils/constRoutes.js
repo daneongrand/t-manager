@@ -1,5 +1,5 @@
 // AUTH ROUTES
-export const CONSTRUCTOR_ROUTE = `/constructor`
+export const CONSTRUCTOR_ROUTE = `/campaign_:id/constructor`
 export const CAMPAIGN_ROUTE = '/campaigns'
 export const ANALYTICS_ROUTE = '/analytics'
 export const PROFILE_ROUTE = '/profile'
