@@ -14,4 +14,8 @@ export default class KeywordsService {
         return $api.delete(`/keyword/${keywordId}`)
     }
 
+    static async editKeyword(keywordId, groupId, isMinusPhrase) {
+        return $api.put(`/keyword/${keywordId}`, { groupId, isMinusPhrase })
+    }
+
 }

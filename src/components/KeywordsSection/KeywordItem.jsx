@@ -6,6 +6,7 @@ import {OpenAnalytics, AddIcon, AddMinusPhrase, DeleteKeyword} from '../UI/icons
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
+import { deleteKeyword } from '../../actions/keywordsActions';
 
 
 const Keyword = styled.li`
@@ -15,6 +16,7 @@ const Keyword = styled.li`
     margin-bottom: 5px;
     box-sizing: border-box;
     list-style-type: none;
+    border: ${props => props.isDeleting ? `2px solid ${props.theme.colors.danger}` : 'none'};
 `
 
 const Header = styled.header`
@@ -24,12 +26,12 @@ const Header = styled.header`
 
 const Text = styled.p`
     font-size: 18px;
-    color: white;
+    color: ${props => props.isDeleting ? props.theme.colors.danger : 'white'};
     margin: 5px 0px;
 `
 
 const Button = styled.button`
-    cursor: pointer;
+    cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
     align-self: center;
     background-color: transparent;
     margin: 0;
@@ -73,6 +75,7 @@ const BodyText = styled(Text)`
 const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = 'Н/Д', lowRange = 'Н/Д', highRange = 'Н/Д'}) => {
 
     const [ indicatorsIsOpen, setIndicatorsIsOpen ] = useState(false)
+    const [ isDeleting, setIsDeleting ] = useState(true)
     const dispatch = useDispatch()
 
 
@@ -90,35 +93,44 @@ const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = '�
             {
                 (provided, snapshot) => (
                     <Keyword
+                        isDeleting
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
                         <Header>
-                            <Text>{keyword}</Text>
+                            <Text isDeleting>{keyword}</Text>
                             <Button
-                                fillHover="#00EEFD"
+                                fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
+                                disabled={isDeleting}
                                 onClick={showIndicators}
                             >
-                                <OpenAnalytics width='100%' height='100%' color='white' />
+                                <OpenAnalytics width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                             <Button
-                                fillHover="#00EEFD"
+                                fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
+                                disabled={isDeleting}
                                 onClick={() => {
                                     dispatch(toggleModalGroups({droppableId: 'keywords', index: index}))
                                 }}
                             >
-                                <AddIcon width='100%' height='100%' fill='white' />
+                                <AddIcon width='100%' height='100%' fill={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                             <Button
-                                fillHover="#00EEFD"
+                                disabled={isDeleting}
+                                fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
                             >
-                                <AddMinusPhrase width='100%' height='100%' color='white' />
+                                <AddMinusPhrase width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                             <Button
-                                fillHover="#00EEFD"
+                                disabled={isDeleting}
+                                fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
+                                onClick={() => {
+                                    setIsDeleting(true)
+                                    
+                                }}
                             >
-                                <DeleteKeyword width='100%' height='100%' color='white' />
+                                <DeleteKeyword width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                         </Header>
 

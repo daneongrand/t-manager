@@ -21,3 +21,51 @@ export function getAllKeywords(campaignId) {
 
     }
 }
+
+
+
+export function moveIntoGroup (source, destination) {
+    return async dispatch => {
+        try {
+
+        } catch (e) {
+
+        }
+    }
+}
+
+
+export function createKeyword(campaignId, groupId, keyword, ams = 'н/д', competition = 'н/д', lowRange = 'н/д', highRange = 'н/д', currency = 'RUB') {
+    return async dispatch => {
+        try {
+            const { data } = await KeywordsService.createKeyword(campaignId, groupId, keyword, ams, competition, lowRange, highRange, currency)
+            return Promise.resolve(data)
+        } catch(e) {
+
+        }
+    }
+}
+
+
+export function editKeyword(keywordId, groupId, isMinusPhrase) {
+    return async dispatch => {
+        try {
+            const { data } = await KeywordsService.editKeyword(keywordId, groupId, isMinusPhrase)
+            return Promise.resolve(data)
+        } catch (e) {
+
+        }
+    }
+}
+
+
+export function deleteKeyword(keywordId) {
+    return async dispatch => {
+        try {
+            const { data } = await KeywordsService.deleteKeyword(keywordId)
+            return Promise.resolve()
+        } catch (e) {
+
+        }
+    }
+}

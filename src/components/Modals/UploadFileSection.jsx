@@ -5,6 +5,7 @@ import { uploadFile } from '../../actions/filesActions';
 import styled from 'styled-components';
 import { UPLOAD_FILES_ERROR } from '../../utils/constTypes';
 import Loader from '../UI/loader/Loader';
+import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 
 const UploadFileContainer = styled.div`
     position: relative;
@@ -71,9 +72,8 @@ const UploadFileSection = () => {
     const isLoading = useSelector(state => state.files.isLoading)
     const errorMessage = useSelector(state => state.files.errorMessage)
     const dispatch = useDispatch()
-
-    console.log(isLoading)
-
+    const match = useRouteMatch()
+    const campaignId = match.params.id
     const [ isDragging, setIsDragging ] = useState(false)
 
     const dragStartHandler = e => {
@@ -103,7 +103,7 @@ const UploadFileSection = () => {
             const formData = new FormData()
             formData.append('file', file)
             setIsDragging(false)
-            dispatch(uploadFile(formData))
+            dispatch(uploadFile(formData, campaignId))
         }
     }
 

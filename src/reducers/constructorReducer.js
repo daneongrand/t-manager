@@ -33,6 +33,7 @@ const initialState = {
     groups: [],
     minusPhrases: [],
     selectedKeyword: [],
+    selectedGroup: [],
     modalMoveIntoGroupIsOpen: false,
     modalMoveIntoMinusPhraseIsOpen: false,
     modalDeleteGroupIsOpen: false,
@@ -58,6 +59,7 @@ export const constructorReducer = (state = initialState, action) => {
 
         case KEYWORDS_LOADED: {
             const keywords = action.payload
+            console.log(keywords)
             return {
                 ...state,
                 keywords: [
@@ -204,6 +206,17 @@ export const constructorReducer = (state = initialState, action) => {
                     ...state,
                     selectedKeyword: keyword
                 }
+            }
+        }
+
+        case SELECT_GROUP: {
+            const { destination } = action.payload
+            const destinationGroupId = destination.droppableId.split('-')[1]
+            const groups = JSON.parse(JSON.stringify(state.groups))
+            const [ sourceGroup ] = groups.filter(item => String(item.groupId) === String(destinationGroupId))
+            return {
+                ...state,
+                selectedGroup: sourceGroup
             }
         }
 

@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import Loader from '../UI/loader/Loader';
 import { useDispatch } from 'react-redux';
 
+
 const Header = styled.header`
     display: flex;
     justify-content: space-between;
@@ -85,6 +86,7 @@ const KeywordsSection = ({ keywords, keywordsLength}) => {
             as="article"
             borderColor="linear-gradient(var(--rotate), #020050 0%, rgba(22, 82, 238, 0.823221) 26.62%, rgba(2, 87, 250, 0.702993) 46.57%, rgba(0, 126, 181, 0.849966) 73.52%, #00A0FA 100%)"
         >
+            
             <Header>
                 <Title>Ключевые слова</Title>
                 <Button

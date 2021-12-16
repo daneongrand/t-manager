@@ -7,6 +7,11 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { Cancel } from '../UI/buttons/Cancel';
 import { Add } from '../UI/buttons/Add';
+import Loader from '../UI/loader/Loader';
+import { createKeyword, editKeyword } from '../../actions/keywordsActions';
+import { useRouteMatch } from 'react-router-dom';
+import { createMinusPhrase } from '../../actions/minusPhrasesActions';
+import { MINUS_PHRASES_LOADED } from '../../utils/constTypes';
 
 const Form = styled.form`
     padding: 0px 30px 30px;
@@ -45,9 +50,11 @@ const MoveIntoMinusPhrases = ({title}) => {
     const selectedKeyword = useSelector(state => state.constructors.selectedKeyword)
     const modalPayload = useSelector(state => state.constructors.modalPayload)
     const singleWords = selectedKeyword.keyword.split(' ')
+    const [ isLoading, setIsLoading ] = useState(false)
     const [ selectedWord, setSelectedWord ] = useState([]) 
-
-    console.log(modalPayload)
+    const match = useRouteMatch()
+    console.log(selectedKeyword)
+    console.log(match.params.id)
 
     const onSelectWord = e => {
         const res = selectedWord.filter(item => item === e.target.innerHTML)
@@ -67,11 +74,29 @@ const MoveIntoMinusPhrases = ({title}) => {
         }
     }
 
-    const onAddMinusPhrase = e => {
+    const onAddMinusPhrase = async (e) => {
         e.preventDefault()
-        dispatch(moveItem(modalPayload.source, modalPayload.destination))
-        dispatch(toggleModalMinusPhrases())
-        console.log('add')
+        setIsLoading(true)
+        dispatch(editKeyword(selectedKeyword.keywordId, 'null', true))
+            .then(() => {
+                dispatch(moveItem(modalPayload.source, modalPayload.destination))
+                if (selectedWord.length !== 0) {
+                    Promise.all(selectedWord.map(async (item) => {
+                        const newMinusPhrase = dispatch(createMinusPhrase(match.params.id, item))
+                        return newMinusPhrase
+                    })).then(data => {
+                        dispatch({
+                            type: MINUS_PHRASES_LOADED,
+                            payload: data
+                        })
+                        dispatch(toggleModalMinusPhrases())
+                        setIsLoading(false)
+                    })
+                } else {
+                    dispatch(toggleModalMinusPhrases())
+                    setIsLoading(false)
+                }
+            })
     }
 
 
@@ -104,6 +129,9 @@ const MoveIntoMinusPhrases = ({title}) => {
                     >Отмена</Cancel>
                 </ButtonsContainer>
             </Form>
+            {
+                isLoading && <Loader borderRadius="10px" />
+            }
         </Modal>
     );
 };

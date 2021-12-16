@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { TOGGLE_MODAL_ADD_KEYWORDS } from '../../utils/constTypes';
 import { AddIcon, UploadFile } from '../UI/icons/Icons';
 import { BackgroundBlur, CloseButton } from '../UI/modal/Modal';
+import AddKeywordsSection from './AddKeywordsSection';
 import UploadFileSection from './UploadFileSection';
 
 const AddKeywordsModalContainer = styled.section`
@@ -118,7 +119,7 @@ const AddKeywordsModal = () => {
                         (activeTab === 'uploadFile') && <UploadFileSection />
                     }
                     {
-                        (activeTab === 'addKeyword') && <PulseLoader radius='1px' color='white' />
+                        (activeTab === 'addKeyword') && <AddKeywordsSection />
                     }
                 </Article>
             </AddKeywordsModalContainer>

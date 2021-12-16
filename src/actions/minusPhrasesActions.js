@@ -20,3 +20,14 @@ export function getAllMinusPhrases(campaignId) {
         }
     }
 }
+
+export function createMinusPhrase(campaignId, keyword, ams = 'н/д', competition = 'н/д', lowRange = 'н/д', highRange = 'н/д', currency = 'RUB') {
+    return async dispatch => {
+        try {
+            const { data } = await MinusPhrasesService.createMinusPhrases(campaignId, keyword, ams, competition, lowRange, highRange, currency)
+            return Promise.resolve(data)
+        } catch(e) {
+
+        }
+    }
+}

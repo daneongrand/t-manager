@@ -13,10 +13,10 @@ import GroupsModal from '../components/GroupsSection/GroupsModal';
 import AddKeywordsModal from '../components/Modals/AddKeywordsModal';
 import { getAllGroup } from '../actions/groupsActions';
 import AddGroupsModal from '../components/GroupsSection/AddGroupsModal';
-import { getAllKeywords } from '../actions/keywordsActions';
+import { editKeyword, getAllKeywords } from '../actions/keywordsActions';
 import { getAllMinusPhrases } from '../actions/minusPhrasesActions';
 import { CLEAR_GROUPS, CLEAR_KEYWORDS, CLEAR_MINUS_PHRASES } from '../utils/constTypes';
-import { moveItem, reorder, selectKeyword, toggleModalMinusPhrases } from '../actions/constructorActions';
+import { moveItem, reorder, selectGroup, selectKeyword, toggleModalMinusPhrases } from '../actions/constructorActions';
 import MoveIntoMinusPhrases from '../components/Modals/MoveIntoMinusPhrases';
 import MoveIntoGroup from '../components/Modals/MoveIntoGroup';
 
@@ -58,6 +58,8 @@ const Constructor = ({}) => {
     const modalMoveIntoMinusPhraseIsOpen = useSelector(state => state.constructors.modalMoveIntoMinusPhraseIsOpen)
     const modalMoveIntoGroupIsOpen = useSelector(state => state.constructors.modalMoveIntoGroupIsOpen)
     const modalAddKeywordsIsOpen = useSelector(state => state.constructors.modalAddKeywordsIsOpen)
+    const selectedGroup = useSelector(state => state.constructors.selectedGroup)
+    const selectedKeyword = useSelector(state => state.constructors.selectedKeyword)
     // const modalMinusPhrasesIsOpen = useSelector(state => state.constructors.modalMinusPhrasesIsOpen)
     const selectedWords = useSelector(state => state.constructors.selectedWords)
     const modalAddGroupsIsOpen = useSelector(state => state.constructors.modalAddGroupsIsOpen)
@@ -76,6 +78,25 @@ const Constructor = ({}) => {
         }
     }, [])
 
+    const moveIntoGroup = async (source, destination) => {
+        console.log(selectedKeyword)
+        dispatch(editKeyword(selectedKeyword.keywordId, selectedGroup.groupId, false)).then(data => console.log(data))
+
+
+    }
+
+    const handleOnDragUpdate = result => {
+        console.log(result.destination)
+        // console.log(result)
+        // if (result.destination?.droppableId.include('group-')) {
+        //     dispatch(selectGroup(result.destination))
+        // } 
+    }
+
+    const handleOnDragStart = result => {
+        dispatch(selectKeyword(result.source))
+    }
+
     const handleOnDragEnd = result => {
         const {source, destination} = result
         if (!destination) return
@@ -87,7 +108,12 @@ const Constructor = ({}) => {
             dispatch(selectKeyword(source))
             dispatch(toggleModalMinusPhrases(source, destination))
         } else if (destination.droppableId.includes('group-')) {
-            console.log('into group')
+            const groupId = destination.droppableId.split('-')[1]
+            dispatch(editKeyword(selectedKeyword.keywordId, groupId, false))
+            dispatch(moveItem(source, destination))
+        } else {
+            dispatch(editKeyword(selectedKeyword.keywordId, null, false))
+            dispatch(moveItem(source, destination))
         }
         // if (source.droppableId === destination.droppableId) {
         //     dispatch(reorder(source, destination))
@@ -111,7 +137,8 @@ const Constructor = ({}) => {
 
             <ConstructorSection
                 onDragEnd={handleOnDragEnd}
-                
+                onDragStart={handleOnDragStart}
+                onDragUpdate={handleOnDragUpdate}
             >
                 <KeywordsSection title="Ключевые слова" keywords={keywords} keywordsLength={keywords.length}/>
                 <GroupsSection groups={groups} groupLength={groups.length} keywordLength={groups.reduce((acc, item) => acc += item.groupKeywords.length , 0)}/>

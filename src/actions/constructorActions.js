@@ -17,6 +17,14 @@ import {
 
 
 
+// export function moveIntoGroup() {
+//     return dispatch => {
+        
+//     }
+// }
+
+
+
 export function reorder(source, destination) {
     return {
         type: REORDER,
@@ -87,6 +95,15 @@ export function selectKeyword(source) {
     }
 }
 
+export function selectGroup(destination) {
+    return {
+        type: SELECT_GROUP,
+        payload: {
+            destination
+        }
+    }
+}
+
 export function addWord(word) {
     return {
         type: ADD_WORD,
@@ -120,14 +137,6 @@ export function deleteKeyword(keywordId) {
     }
 }
 
-export function selectGroup(group) {
-    return {
-        type: SELECT_GROUP,
-        payload: {
-            group
-        }
-    }
-}
 
 export function selectKeywordForMove (source) {
     return {

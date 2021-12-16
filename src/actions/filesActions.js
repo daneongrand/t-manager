@@ -1,17 +1,16 @@
 import FilesService from "../services/FilesService"
-import { ADD_KEYWORDS, HIDE_LOADER, SHOW_LOADER, TOGGLE_MODAL_ADD_KEYWORDS, UPLOAD_FILES_ERROR } from "../utils/constTypes"
+import { ADD_KEYWORDS, HIDE_LOADER, KEYWORDS_LOADED, SHOW_LOADER, TOGGLE_MODAL_ADD_KEYWORDS, UPLOAD_FILES_ERROR } from "../utils/constTypes"
 
-export function uploadFile(dataForm) {
+export function uploadFile(dataForm, campaignId) {
     return async dispatch => {
         try {
             dispatch({
                 type: SHOW_LOADER
             })
-            const { data } = await FilesService.uploadFiles(dataForm)
-            const { keywords } = data
+            const { data } = await FilesService.uploadFiles(dataForm, campaignId)
             dispatch({
-                type: ADD_KEYWORDS,
-                payload: keywords
+                type: KEYWORDS_LOADED,
+                payload: data
             })
             dispatch({
                 type: HIDE_LOADER
