@@ -92,6 +92,17 @@ export function deleteCampaign (campaignId) {
     }
 }
 
+export function getOneCampaign (campaignId) {
+    return async dispatch => {
+        try {
+            const { data } = await CampaignService.getOne(campaignId)
+            return Promise.resolve(data)
+        } catch (e) {
+
+        }
+    }
+}
+
 
 export function showLoader () {
     return {

@@ -9,7 +9,7 @@ import { toggleModalAddKeywords } from '../../actions/constructorActions'
 import { useSelector } from 'react-redux';
 import Loader from '../UI/loader/Loader';
 import { useDispatch } from 'react-redux';
-
+import FlatList from 'flatlist-react'
 
 const Header = styled.header`
     display: flex;
@@ -107,15 +107,12 @@ const KeywordsSection = ({ keywords, keywordsLength}) => {
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {
-                                keywords.map((item, index) => (
-                                    <KeywordItem 
-                                        key={'keywordId-' + item.keywordId} 
-                                        index={index} 
-                                        {...item} 
-                                    />
-                                ))
-                            }
+                            <FlatList
+                                renderOnScroll
+                                list={keywords}
+                                renderItem={(item, index) => (<KeywordItem key={'keywordId-' + item.keywordId} index={index} {...item} />)}
+                                
+                            />
                         </KeywordsList>
                     )
                 }

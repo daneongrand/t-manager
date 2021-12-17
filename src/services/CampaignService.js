@@ -18,4 +18,8 @@ export default class CampaignService {
         return $api.delete(`campaign/${campaignId}`)
     }
 
+    static async getOne(campaignId) {
+        return $api.get(`campaign/${campaignId}`)
+    }
+
 }

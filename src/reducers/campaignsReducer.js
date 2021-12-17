@@ -26,7 +26,7 @@ const initialState = {
         id: null,
         isDeleting: false
     },
-    campaigns: []
+    campaigns: [],
 }
 
 export const campaignsReducer = (state = initialState, action) => {

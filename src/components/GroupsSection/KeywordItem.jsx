@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { AddMinusPhrase, DeleteKeyword, OpenAnalytics } from '../UI/icons/Icons';
-
+import { deleteKeyword } from '../../actions/keywordsActions';
+import { deletedKeyword, selectKeyword, toggleModalMinusPhrases } from '../../actions/constructorActions';
 const Keyword = styled.li`
     background-color: rgba(24,29,49,1);
     color: white;
@@ -12,6 +14,7 @@ const Keyword = styled.li`
     margin-bottom: 5px;
     box-sizing: border-box;
     list-style-type: none;
+    border: ${props => props.isDeleting ? `2px solid ${props.theme.colors.danger}` : 'none'};
 `
 
 const Header = styled.header`
@@ -23,10 +26,11 @@ const Text = styled.p`
     font-size: 18px;
     color: white;
     margin: 5px 0px;
+    color: ${props => props.isDeleting ? props.theme.colors.danger : 'white'};
 `
 
 const Button = styled.button`
-    cursor: pointer;
+    cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
     align-self: center;
     background-color: transparent;
     margin: 0;
@@ -66,12 +70,28 @@ const BodyText = styled(Text)`
     font-size: 16px;
 `
 
-const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, highRange, deleteKeyword, selectKeyword, toggleModalMinusPhrases, toggleModalGroups, selectKeywordForMove}) => {
+const KeywordItem = ({groupId, index, keywordId, keyword, ams, competition, lowRange, highRange}) => {
     
     const [ indicatorsIsOpen, setIndicatorsIsOpen ] = useState(false)
-    
+    const [ isDeleting, setIsDeleting ] = useState(false)
+    const dispatch = useDispatch()
+
     const showIndicators = () => {
         setIndicatorsIsOpen(!indicatorsIsOpen)
+    }
+
+    const onMoveIntoMinusPhrase = (index, groupId) => {
+        dispatch(selectKeyword({
+            droppableId: `group-${groupId}`,
+            index: index
+        }))
+        dispatch(toggleModalMinusPhrases({
+            droppableId: `group-${groupId}`,
+            index: index
+        }, {
+            droppableId: 'minusPhrases',
+            index: 0
+        }))
     }
     
     
@@ -84,27 +104,37 @@ const KeywordItem = ({index, keywordId, keyword, ams, competition, lowRange, hig
                 (provided, snapshot) => {
                     return (
                     <Keyword
+                        isDeleting={isDeleting}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
                         <Header>
-                            <Text>{keyword}</Text>
+                            <Text isDeleting={isDeleting}>{keyword}</Text>
                             <Button
-                                fillHover="#00EEFD"
+                                disabled={isDeleting}
+                                fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
                                 onClick={showIndicators}
                             >
-                                <OpenAnalytics width='100%' height='100%' color='white' />
+                                <OpenAnalytics width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                             <Button
-                                fillHover="#00EEFD"
+                                disabled={isDeleting}
+                                fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
+                                onClick={() => onMoveIntoMinusPhrase(index, groupId)}
                             >
-                                <AddMinusPhrase width='100%' height='100%' color='white' />
+                                <AddMinusPhrase width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                             <Button
-                                fillHover="#00EEFD"
+                                disabled={isDeleting}
+                                fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
+                                onClick={() => {
+                                    setIsDeleting(true)
+                                    dispatch(deleteKeyword(keywordId))
+                                        .then(() => dispatch(deletedKeyword(`group-${groupId}`, index)))
+                                }}
                             >
-                                <DeleteKeyword width='100%' height='100%' color='white' />
+                                <DeleteKeyword width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                         </Header>
 

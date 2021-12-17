@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { toggleModalGroups } from '../../actions/constructorActions';
+import { deletedKeyword, selectKeyword, toggleModalGroups, toggleModalMinusPhrases } from '../../actions/constructorActions';
 import styled from 'styled-components';
 import {OpenAnalytics, AddIcon, AddMinusPhrase, DeleteKeyword} from '../UI/icons/Icons'
 import DndDraggableItem from '../UI/dnd/DndDraggableItem';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
 import { deleteKeyword } from '../../actions/keywordsActions';
+import { DELETE_KEYWORD } from '../../utils/constTypes';
 
 
 const Keyword = styled.li`
@@ -75,9 +76,29 @@ const BodyText = styled(Text)`
 const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = 'Н/Д', lowRange = 'Н/Д', highRange = 'Н/Д'}) => {
 
     const [ indicatorsIsOpen, setIndicatorsIsOpen ] = useState(false)
-    const [ isDeleting, setIsDeleting ] = useState(true)
+    const [ isDeleting, setIsDeleting ] = useState(false)
     const dispatch = useDispatch()
 
+
+    const onDeleteKeyword = (keywordId, index) => {
+        setIsDeleting(true)
+        dispatch(deleteKeyword(keywordId))
+            .then(() => dispatch(deletedKeyword('keywords', index)))
+    }
+
+    const onMoveIntoMinusPhrase = (index) => {
+        dispatch(selectKeyword({
+            droppableId: 'keywords',
+            index: index
+        }))
+        dispatch(toggleModalMinusPhrases({
+            droppableId: 'keywords',
+            index: index
+        }, {
+            droppableId: 'minusPhrases',
+            index: 0
+        }))
+    }
 
     const showIndicators = () => {
         setIndicatorsIsOpen(!indicatorsIsOpen)
@@ -93,13 +114,13 @@ const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = '�
             {
                 (provided, snapshot) => (
                     <Keyword
-                        isDeleting
+                        isDeleting={isDeleting}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
                         <Header>
-                            <Text isDeleting>{keyword}</Text>
+                            <Text isDeleting={isDeleting}>{keyword}</Text>
                             <Button
                                 fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
                                 disabled={isDeleting}
@@ -119,16 +140,14 @@ const KeywordItem = ({index, keywordId, keyword, ams = 'Н/Д', competition = '�
                             <Button
                                 disabled={isDeleting}
                                 fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
+                                onClick={() => onMoveIntoMinusPhrase(index)}
                             >
                                 <AddMinusPhrase width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>
                             <Button
                                 disabled={isDeleting}
                                 fillHover={isDeleting ? '#EB0000' : '#00EEFD'}
-                                onClick={() => {
-                                    setIsDeleting(true)
-                                    
-                                }}
+                                onClick={() => onDeleteKeyword(keywordId, index)}
                             >
                                 <DeleteKeyword width='100%' height='100%' color={isDeleting ? '#EB0000' : 'white'} />
                             </Button>

@@ -9,6 +9,7 @@ import Loader from '../UI/loader/Loader';
 import KeywordsSection from './KeywordsSection';
 import { deleteGroup, renameGroup } from '../../actions/groupsActions';
 import { DELETE_GROUP } from '../../utils/constTypes';
+import { selectGroup, toggleModalDeleteGroup } from '../../actions/constructorActions';
 
 const StyledGroupItem = styled.li`
     list-style-type: none;
@@ -106,11 +107,8 @@ const GroupItem = ({groupId, groupName, groupKeywords, index}) => {
                             }
                             <Button
                                 onClick={() => {
-                                    dispatch(deleteGroup(groupId))
-                                        .then(data => dispatch({
-                                            type: DELETE_GROUP,
-                                            payload: data
-                                        }))
+                                    dispatch(selectGroup({ droppableId: `group-${groupId}`, index: index }))
+                                    dispatch(toggleModalDeleteGroup())
                                 }}
                             >
                                 <DeleteKeyword width="100%" height="100%" color="white" />

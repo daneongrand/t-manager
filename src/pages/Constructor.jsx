@@ -7,34 +7,36 @@ import KeywordsSection from '../components/KeywordsSection/KeywordsSection';
 import GroupsSection from '../components/GroupsSection/GroupsSection';
 import DndSection from '../components/UI/dnd/DndSection';
 import MinusPhraseSection from '../components/MinusPhraseSection/MinusPhraseSection';
-import Modal from '../components/UI/modal/Modal';
-import KeywordModal from '../components/KeywordModal/KeywordModal';
-import GroupsModal from '../components/GroupsSection/GroupsModal';
 import AddKeywordsModal from '../components/Modals/AddKeywordsModal';
 import { getAllGroup } from '../actions/groupsActions';
 import AddGroupsModal from '../components/GroupsSection/AddGroupsModal';
 import { editKeyword, getAllKeywords } from '../actions/keywordsActions';
 import { getAllMinusPhrases } from '../actions/minusPhrasesActions';
 import { CLEAR_GROUPS, CLEAR_KEYWORDS, CLEAR_MINUS_PHRASES } from '../utils/constTypes';
-import { moveItem, reorder, selectGroup, selectKeyword, toggleModalMinusPhrases } from '../actions/constructorActions';
+import { moveItem, reorder, selectKeyword, toggleModalMinusPhrases } from '../actions/constructorActions';
 import MoveIntoMinusPhrases from '../components/Modals/MoveIntoMinusPhrases';
 import MoveIntoGroup from '../components/Modals/MoveIntoGroup';
-
+import DeleteGroup from '../components/Modals/DeleteGroup';
+import { useState } from 'react';
+import { getOneCampaign, rename } from '../actions/campaignsActions';
+import { Check, Edit } from '../components/UI/icons/Icons';
 
 const ConstructorMain = styled.main`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 10vh 90vh;
+    grid-template-rows: 7vh 93vh;
     @media ${props => props.theme.media.tablet} {
         grid-template-rows: 10vh repeat(3, 90vh);   
     }
 `
 
 const ConstructorHeader = styled.header`
+    padding: 0px 30px;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid red;
+    display: grid;
+    grid-template-columns: auto 1fr;
 `
 
 const ConstructorSection = styled(DndSection)`
@@ -49,6 +51,36 @@ const ConstructorSection = styled(DndSection)`
     }
 `
 
+const CampaignNameContainer = styled.div`
+    align-self: center;
+    display: grid;
+    grid-template-columns: 1fr 24px;
+    grid-column-gap: 10px;
+`
+
+const CampaignName = styled.p`
+    color: white;
+    margin: 0;
+    font-size: 22px;
+`
+
+const CampaignNameInput = styled.input`
+    font-size: 22px;
+    border: 0;
+    background-color: transparent;
+    color: white;
+    border-bottom: 2px solid ${props => props.theme.colors.blue};
+    outline: none;
+`
+
+const Button = styled.button`
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+`
 
 const Constructor = ({}) => {    
     
@@ -58,40 +90,27 @@ const Constructor = ({}) => {
     const modalMoveIntoMinusPhraseIsOpen = useSelector(state => state.constructors.modalMoveIntoMinusPhraseIsOpen)
     const modalMoveIntoGroupIsOpen = useSelector(state => state.constructors.modalMoveIntoGroupIsOpen)
     const modalAddKeywordsIsOpen = useSelector(state => state.constructors.modalAddKeywordsIsOpen)
-    const selectedGroup = useSelector(state => state.constructors.selectedGroup)
     const selectedKeyword = useSelector(state => state.constructors.selectedKeyword)
-    // const modalMinusPhrasesIsOpen = useSelector(state => state.constructors.modalMinusPhrasesIsOpen)
-    const selectedWords = useSelector(state => state.constructors.selectedWords)
     const modalAddGroupsIsOpen = useSelector(state => state.constructors.modalAddGroupsIsOpen)
+    const modalDeleteGroupIsOpen = useSelector(state => state.constructors.modalDeleteGroupIsOpen)
     const match = useRouteMatch()
     const dispatch = useDispatch()
+    const [ campaignName, setCampaignName ] = useState('')
+    const [ campaignNameIsEdit, setCampaignNameIsEdit ] = useState(false) 
 
     useEffect(() => {
         console.log(match.params.id)
         dispatch(getAllKeywords(match.params.id))
         dispatch(getAllGroup(match.params.id))
         dispatch(getAllMinusPhrases(match.params.id))
+        dispatch(getOneCampaign(match.params.id))
+            .then(({ campaign }) => setCampaignName(campaign.campaignName))
         return () => {
             dispatch({ type: CLEAR_KEYWORDS })
             dispatch({ type: CLEAR_GROUPS })
             dispatch({ type: CLEAR_MINUS_PHRASES })
         }
     }, [])
-
-    const moveIntoGroup = async (source, destination) => {
-        console.log(selectedKeyword)
-        dispatch(editKeyword(selectedKeyword.keywordId, selectedGroup.groupId, false)).then(data => console.log(data))
-
-
-    }
-
-    const handleOnDragUpdate = result => {
-        console.log(result.destination)
-        // console.log(result)
-        // if (result.destination?.droppableId.include('group-')) {
-        //     dispatch(selectGroup(result.destination))
-        // } 
-    }
 
     const handleOnDragStart = result => {
         dispatch(selectKeyword(result.source))
@@ -115,33 +134,46 @@ const Constructor = ({}) => {
             dispatch(editKeyword(selectedKeyword.keywordId, null, false))
             dispatch(moveItem(source, destination))
         }
-        // if (source.droppableId === destination.droppableId) {
-        //     dispatch(reorder(source, destination))
-        // } else if (source.droppableId === 'keywords' && destination.droppableId !== 'minusPhrases') {
-        //     console.log(source, destination)
-        //     dispatch(moveIntoGroup(source, destination))
-        // } else if ((source.droppableId !== 'minusPhrases' || source.droppableId === 'keywords') && destination.droppableId === 'minusPhrases') {
-        //     dispatch(selectKeyword(source))
-        //     dispatch(toggleModalMinusPhrases())
-        // }
-
     }
-
 
 
     return (
         <ConstructorMain>
             <ConstructorHeader>
-
+                <CampaignNameContainer>
+                    {
+                        (campaignNameIsEdit)
+                            ? <CampaignNameInput 
+                                value={campaignName} 
+                                onChange={e => setCampaignName(e.target.value)}
+                            /> 
+                            : <CampaignName>{campaignName}</CampaignName>
+                    }
+                    {
+                        (campaignNameIsEdit)
+                            ? <Button
+                                onClick={() => {
+                                    dispatch(rename(match.params.id, campaignName))
+                                        .then(() => setCampaignNameIsEdit(false)) 
+                                }}
+                            >
+                                <Check width="100%" height="100%" color='white' />
+                            </Button>
+                            : <Button
+                                onClick={() => setCampaignNameIsEdit(true)}
+                            >
+                                <Edit width="100%" height="100%" color='white' />
+                            </Button>
+                    }
+                </CampaignNameContainer>
             </ConstructorHeader>
 
             <ConstructorSection
                 onDragEnd={handleOnDragEnd}
                 onDragStart={handleOnDragStart}
-                onDragUpdate={handleOnDragUpdate}
             >
                 <KeywordsSection title="Ключевые слова" keywords={keywords} keywordsLength={keywords.length}/>
-                <GroupsSection groups={groups} groupLength={groups.length} keywordLength={groups.reduce((acc, item) => acc += item.groupKeywords.length , 0)}/>
+                <GroupsSection groups={groups} groupLength={groups.length} keywordLength={groups.reduce((acc, item) => acc += item.groupKeywords.length, 0)}/>
                 <MinusPhraseSection minusPhrases={minusPhrases} minusPhrasesLength={minusPhrases.length}/>
             </ConstructorSection>
             {
@@ -155,6 +187,9 @@ const Constructor = ({}) => {
             }
             {
                 modalAddGroupsIsOpen && <AddGroupsModal campaignId={match.params.id} />
+            }
+            {
+                modalDeleteGroupIsOpen && <DeleteGroup />
             }
         </ConstructorMain>
     );

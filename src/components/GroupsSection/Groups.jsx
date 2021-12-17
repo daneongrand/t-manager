@@ -2,6 +2,7 @@ import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import GroupItem from './GroupItem';
+import FlatList from 'flatlist-react'
 
 const GroupsList = styled.ul`
     margin: 0;
@@ -32,15 +33,11 @@ const Groups = ({groups}) => {
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                     >
-                        {
-                            groups.map((item, index) => (
-                                <GroupItem 
-                                    key={'group' + item.groupId}
-                                    index={index} 
-                                    {...item} 
-                                />
-                            ))
-                        }
+                        <FlatList 
+                            renderOnScroll
+                            list={groups}
+                            renderItem={(item, index) => (<GroupItem key={'group' + item.groupId} index={index} {...item} />)}
+                        />
                     </GroupsList>
                 )
             }

@@ -1,14 +1,14 @@
 export const MOVE_COLOR = 'constructor/move_color'
 export const ADD_WORD = 'constructor/select_word'
 export const DELETE_WORD = 'constructor/delete_word'
-export const DELETE_KEYWORD = 'constructor/delete_keyword'
 export const ADD_INTO_MINUSPHRASES = 'constructor/add_into_minusphrases'
 export const SELECT_KEYWORD_FOR_MOVE = 'constructor/select_keyword_for_move'
 export const SHOW_LOADER = 'app/show_loader'
 export const HIDE_LOADER = 'app/hide_loader'
 
 
-
+export const DELETING_GROUP = 'constructor/deleting_group'
+export const DELETE_KEYWORD = 'constructor/delete_keyword'
 export const MOVE_INTO_KEYWORD = 'constructor/move_into_keyword'
 export const MOVE_INTO_MINUSPHRASE = 'constructor/move_into_minusphrase'
 export const MOVE_INTO_GROUP = 'constructor/move_into_group'
@@ -27,7 +27,6 @@ export const TOGGLE_MODAL_INTO_MINUSPHRASES = 'constructor/toggle_modal_into_min
 export const TOGGLE_MODAL_INTO_GROUPS = 'constructor/toggle_modal_into_groups'
 export const TOGGLE_MODAL_DELETE_GROUP = 'constructor/toggle_modal_delete_group'
 export const TOGGLE_MODAL_DELETE_KEYWORD = 'constructor/toggle_modal_delete_keyword'
-
 export const TOGGLE_MODAL_ADD_KEYWORDS = 'constructor/toggle_modal_add_keywords'
 export const TOGGLE_MODAL_ADD_GROUPS = 'constructor/toggle_modal_add_groups'
 

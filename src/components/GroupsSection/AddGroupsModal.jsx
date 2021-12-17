@@ -6,7 +6,7 @@ import { toggleModalAddGroups } from '../../actions/constructorActions';
 import Loader from '../UI/loader/Loader';
 import Modal from '../UI/modal/Modal';
 import { createGroup } from '../../actions/groupsActions';
-import { TOGGLE_MODAL_ADD_GROUPS, TOGGLE_MODAL_ADD_KEYWORDS } from '../../utils/constTypes';
+import { GROUPS_LOADED, TOGGLE_MODAL_ADD_GROUPS, TOGGLE_MODAL_ADD_KEYWORDS } from '../../utils/constTypes';
 
 const Form = styled.form`
     box-sizing: border-box;
@@ -87,7 +87,15 @@ const AddGroupsModal = ({ campaignId }) => {
                 onSubmit={e => {
                     e.preventDefault()
                     dispatch(createGroup(campaignId, groupName))
-                        .then(() => dispatch({ type: TOGGLE_MODAL_ADD_GROUPS }))
+                        .then((data) => {
+                            dispatch({
+                                type: GROUPS_LOADED,
+                                payload: [ data ]
+                            })
+                            dispatch({
+                                type: TOGGLE_MODAL_ADD_GROUPS
+                            })
+                        })
                 }}
             >
                 <InputNameGroup

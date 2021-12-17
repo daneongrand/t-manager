@@ -12,7 +12,8 @@ import {
     TOGGLE_MODAL_INTO_GROUPS, 
     TOGGLE_MODAL_INTO_MINUSPHRASES,
     TOGGLE_MODAL_ADD_GROUPS,
-    MOVE_ITEM
+    MOVE_ITEM,
+    TOGGLE_MODAL_DELETE_GROUP
 } from "../utils/constTypes"
 
 
@@ -86,6 +87,12 @@ export function toggleModalAddKeywords() {
     }
 }
 
+export function toggleModalDeleteGroup() {
+    return {
+        type: TOGGLE_MODAL_DELETE_GROUP
+    }
+}
+
 export function selectKeyword(source) {
     return {
         type: SELECT_KEYWORD,
@@ -128,11 +135,12 @@ export function addIntoMinusPhrases() {
     }
 }
 
-export function deleteKeyword(keywordId) {
+export function deletedKeyword(droppableId, index) {
     return {
         type: DELETE_KEYWORD,
         payload: {
-            keywordId
+            droppableId: droppableId,
+            index: index
         }
     }
 }

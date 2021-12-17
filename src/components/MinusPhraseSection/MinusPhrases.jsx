@@ -2,7 +2,7 @@ import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import MinusPhrasesItem from './MinusPhrasesItem';
-
+import FlatList from 'flatlist-react'
 
 const StyledMinusPhrases = styled.ul`
     overflow: scroll;
@@ -31,15 +31,12 @@ const MinusPhrases = ({ minusPhrases,  }) => {
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {
-                                minusPhrases.map((item, index) => (
-                                    <MinusPhrasesItem 
-                                        key={'keywordId' + item.keywordId} 
-                                        index={index} 
-                                        {...item}  
-                                    />
-                                ))
-                            }
+                            <FlatList 
+                                renderOnScroll
+                                list={minusPhrases}
+                                renderItem={(item, index) => (<MinusPhrasesItem key={'keywordId' + item.keywordId} index={index} {...item} />)}
+                            />
+                            
                         </StyledMinusPhrases>
                     )
                 }

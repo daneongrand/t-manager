@@ -30,13 +30,9 @@ export function createGroup(campaignId, groupName) {
             })
             const { data } = await GroupService.createGroup(campaignId, groupName)
             dispatch({
-                type: ADD_GROUP,
-                payload: data
-            })
-            dispatch({
                 type: GROUPS_MODAL_HIDE_LOADER
             })
-            return Promise.resolve()
+            return Promise.resolve(data)
         } catch (e) {
 
         }
