@@ -32,7 +32,34 @@ const NavigationItem = styled(Link)`
     padding: 8px;
     border: 1px solid transparent;
     transition: .4s;
-`
+    position: relative;
+    box-sizing: border-box;
+
+    &:hover {
+        &:after {
+            width: auto;
+            max-width: 180px;
+            padding: 4px 18px;
+            border: 2px solid rgba(12, 12, 14, 0.7);
+        }
+    }
+    &:after {
+        z-index: 1;
+        font-weight: 500;
+        font-size: 20px;
+        max-width: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: absolute;
+        content: '${props => props.content}';
+        left: 50px;
+        border-radius: 5px;
+        background: rgba(24, 29, 49, 1);
+        transition: .5s;
+    }
+    
+`   
+
 
 const ProfileContainer = styled.div`
     display: flex;
@@ -88,27 +115,27 @@ const Navigation = ({logout}) => {
     return (
         <NavigationContainer>
             <ProfileContainer>
-                    <NavigationItem to='/profile'>
+                    <NavigationItem content="Профиль" to='/profile'>
                         <ProfileLogo {...iconConfig} />
                     </NavigationItem>
             </ProfileContainer>
             <ToolsContainer>  
-                    <NavigationItem to='/constructor'>
+                    <NavigationItem content="Конструктор" to='/constructor'>
                         <ConstructorLogo {...iconConfig} />
                     </NavigationItem>
-                    <NavigationItem to='/campaigns'>
+                    <NavigationItem content="Кампании" to='/campaigns'>
                         <CampaignsLogo {...iconConfig} />
                     </NavigationItem>
-                    <NavigationItem to='/analytics'>
+                    <NavigationItem content="Аналитика" to='/analytics'>
                         <AnalyticsLogo {...iconConfig} />
                     </NavigationItem>
                 
             </ToolsContainer>
             <SettingsContainer>
-                    <NavigationItem to='/settings'>
+                    <NavigationItem content="Настройки" to='/settings'>
                         <SettingsLogo {...iconConfig} />
                     </NavigationItem>
-                    <NavigationItem onClick={logout} to='/login'>
+                    <NavigationItem content="Выйти" onClick={logout} to='/login'>
                         <LogOutLogo {...iconConfig} />
                     </NavigationItem>
                 

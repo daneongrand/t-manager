@@ -17,7 +17,6 @@ const Form = styled.form`
     background-color: ${props => props.theme.colors.dark_blue};
     border-radius: 30px 30px 30px 0px;
     box-shadow: 0px 0px 20px ${props => props.theme.colors.dark_blue};
-    
     @media ${props => props.theme.media.tablet} {
         width: 100%;
         box-sizing: border-box;

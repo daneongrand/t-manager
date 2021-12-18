@@ -40,8 +40,8 @@ const ModalArticle = styled.article`
 
 export const CloseButton = styled.button`
     cursor: pointer;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     border: 0;
     border-radius: 50%;
     background-color: ${props => props.theme.colors.closeBtn};

@@ -19,7 +19,7 @@ const StyledMinusPhrases = styled.ul`
     }
 `  
 
-const MinusPhrases = ({ minusPhrases,  }) => {
+const MinusPhrases = ({ minusPhrases }) => {
     return (
         <Droppable
                 droppableId="minusPhrases"

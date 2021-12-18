@@ -42,6 +42,7 @@ const theme = {
     closeBtn: "#FF2F23",
   },
   media: {
+    desktop_small: "(max-width: 1240px)",
     tablet: "(max-width: 800px)",
     mobile: "(max-width: 420px)"
   }
@@ -51,7 +52,8 @@ const theme = {
 ReactDOM.render(
   <ThemeProvider theme={theme}>    
     <Helmet>
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet"></link>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
     </Helmet>
     <GlobalStyled />
     <Provider store={store}>
