@@ -74,7 +74,7 @@ export function logout() {
 
 export function checkAuth() {
     return async dispatch => {
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/user/refresh`, {withCredentials: true})
+        const { data } = await AuthService.refresh()
         localStorage.setItem('accessToken', data.accessToken)
         dispatch({
             type: LOGIN,

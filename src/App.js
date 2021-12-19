@@ -42,11 +42,11 @@ function App() {
   const isAuth = useSelector(state => state.user.isAuth)
   const dispatch = useDispatch()
   
-  // useEffect(() => {
-  //   if (localStorage.getItem('accessToken')) {
-  //     dispatch(checkAuth())
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) {
+      dispatch(checkAuth())
+    }
+  }, [])
 
   return (
     <Router>

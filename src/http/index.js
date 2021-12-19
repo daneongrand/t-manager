@@ -1,4 +1,5 @@
 import axios from "axios";
+import AuthService from "../services/AuthService";
 
 
 
@@ -12,5 +13,20 @@ $api.interceptors.request.use(config => {
     return config
 })
 
+$api.interceptors.response.use(config => {
+    return config
+}, async (error) => {
+    if (error.response.status === 401) {
+        try {
+            const originalRequest = error.request
+            const response = await AuthService.refresh()
+            console.log(response)
+            localStorage.setItem('accessToken', response.data.accessToken)
+            return $api.request(originalRequest)
+        } catch(e) {
+            console.log('401')
+        }
+    }
+})
 
 export default $api
