@@ -42,10 +42,10 @@ export function authorization(login, password) {
     }
 }
 
-export function signup(firstName, lastName, nickName, email, password) {
+export function signup(formData) {
     return async dispatch => {
         try {
-            const { data } = await AuthService.signup(firstName, lastName, nickName, email, password)
+            const { data } = await AuthService.signup(formData)
             localStorage.setItem('accessToken', data.accessToken)
             dispatch({
                 type: SIGNUP,
