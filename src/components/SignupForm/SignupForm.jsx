@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { DeleteKeyword, ProfileLogo, UploadPhoto } from '../UI/icons/Icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/constRoutes';
 import { useDispatch } from 'react-redux';
 import { signup } from '../../actions/userActions';
@@ -18,7 +18,11 @@ const Form = styled.form`
     grid-column-gap: 20px;
     justify-content: center;
     padding: 0px 20px 40px;
-
+    @media ${props => props.theme.media.desktop_small} {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 150px 0px;
+    }
 `
 
 const UploadAvatarContainer = styled.div`
@@ -115,7 +119,9 @@ const AvatarUploadError = styled.p`
 
 const Label = styled.label`
     grid-column: ${props => props.rows ? '1/3' : ''};
-
+    @media ${props => props.theme.media.tablet} {
+        grid-column: 1/3;
+    }
 `
 
 const LabelParagraph = styled.p`
@@ -163,9 +169,10 @@ const PrivacyPolicyContainer = styled.div`
     align-items: center;
     justify-content: center;
     padding: 15px 0;
+    
 `
 
-const PrivacyPolicyParagraph = styled.p`
+const PrivacyPolicyParagraph = styled.span`
     margin: 0;
     margin-left: 10px;
     color: white;
@@ -212,14 +219,23 @@ const RedirectToLogin = styled(Link)`
     align-self: center;
     justify-self: center;
     color: ${props => props.theme.colors.blue};
+    box-sizing: border-box;
+    text-align: center;
     padding: 10px 20px;
     border-radius: 15px;
     &:focus-visible {
-        
         border: 2px solid ${props => props.theme.colors.blue};
         outline: none;
         box-shadow: 0px -2px 10px  ${props => props.theme.colors.blue};
     }
+    @media ${props => props.theme.media.tablet} {
+        grid-column: 1/3;
+        
+    }
+    @media ${props => props.theme.media.mobile} {
+        width: 100%;
+    }
+
 `
 
 const SubmitButton = styled.input.attrs({
@@ -250,6 +266,14 @@ const SubmitButton = styled.input.attrs({
         outline: none;
         box-shadow: 0px 0px 10px 1px ${props => props.theme.colors.blue};
     }
+
+    @media ${props => props.theme.media.tablet} {
+        grid-column: 1/3;
+    }
+
+    @media ${props => props.theme.media.mobile} {
+        width: 100%;
+    }
     
 `
 
@@ -273,6 +297,14 @@ const PasswordInput = styled(Input).attrs({
     }
 `
 
+const NickNameInput = styled(Input)`
+    font-size: 22px;
+    border: 2px solid ${props => props.nickNameIsValidate ? props.theme.colors.blue : props.theme.colors.danger};
+    &:focus-visible {
+        box-shadow: 0px 0px 10px 1px ${props => props.nickNameIsValidate ? props.theme.colors.blue : props.theme.colors.danger};
+    }
+`
+
 const ConfirmButtonInput = styled(Input).attrs({
     type: "password"
 })`
@@ -290,6 +322,8 @@ const ErrorParagraph = styled.p`
 `
 
 
+
+
 const SignUpForm = ({}) => {
 
     const [ avatar, setAvatar ] = useState(null)
@@ -299,8 +333,11 @@ const SignUpForm = ({}) => {
     const [ firstName, setFirstName ] = useState('')
     const [ lastName, setLastName ] = useState('')
     const [ nickName, setNickName ] = useState('')
+    const [ nickNameIsValidate, setNickNameIsValidate ] = useState(true)
+    const [ nickNameValidateError, setNickNameValidateError ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ emailIsValidate, setEmailIsValidate ] = useState(false)
+    const [ emailValidateError, setEmailValidateError ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ passwordIsValidate, setPasswordIsValidate ] = useState(false)
     const [ confirmPassword, setConfirmPassword ] = useState('')
@@ -308,6 +345,7 @@ const SignUpForm = ({}) => {
     const [ formValidate, setFormValidate ] = useState(false)
     
     const dispatch = useDispatch()
+    const history = useHistory()
 
     useEffect(() => {
         if ((email && emailIsValidate) && (password && passwordIsValidate) && (confirmPassword && confirmPasswordIsValidate) && (nickName) && (isChecked)) {
@@ -319,15 +357,24 @@ const SignUpForm = ({}) => {
         }
     }, [nickName, isChecked, email, emailIsValidate, password, passwordIsValidate, confirmPassword, confirmPasswordIsValidate])
 
+
+    useEffect(() => {
+        setNickNameIsValidate(true)
+        setNickNameValidateError('')
+    }, [nickName])
+
     useEffect(() => {
         if (email) {
             if (email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
                 setEmailIsValidate(true)
+                setEmailValidateError('')
             } else {
+                setEmailValidateError('Введите настоящий email')
                 setEmailIsValidate(false)
             }
         } else {
             setEmailIsValidate(true)
+            setEmailValidateError('')
         }
     }, [email])
 
@@ -373,18 +420,33 @@ const SignUpForm = ({}) => {
         }
     }
 
-    const submitForm = e => {
+    const submitForm = async (e) => {
         e.preventDefault()
         const formData = new FormData()
-        formData.append('avatar', avatar)
-        formData.append('firstName', firstName)
-        formData.append('lastName', lastName)
-        formData.append('nickName', nickName)
-        formData.append('email', email)
-        formData.append('password', password)
-        dispatch(signup(formData))
-            .then(data => console.log(data))
-            .catch(err => console.log(err))   
+        if (avatar) {
+            formData.append('avatar', avatar)
+        }
+        dispatch(signup(formData, firstName, lastName, nickName, email, password))
+            .then(() => {
+                history.push('/campaigns')
+            })
+            .catch(({errors}) => {
+                console.log(errors)
+                for(let err of errors) {
+                    if (err.errCode === 1) {
+                        setFormValidate(false)
+                        setEmailIsValidate(false)
+                        setEmailValidateError('Данный email уже используется')
+                    }
+
+                    if (err.errCode === 2) {
+                        setFormValidate(false)
+                        setNickNameIsValidate(false)
+                        setNickNameValidateError('Данный никнейм уже существует')
+                    }
+                    console.log(err)
+                }
+            })
     }
 
 
@@ -442,7 +504,10 @@ const SignUpForm = ({}) => {
                 <LabelParagraph>
                     Ваш никнейм*
                 </LabelParagraph>
-                <Input value={nickName} onChange={e => setNickName(e.target.value)} />
+                <NickNameInput nickNameIsValidate={nickNameIsValidate} value={nickName} onChange={e => setNickName(e.target.value)} />
+                {
+                    nickNameValidateError && <ErrorParagraph> { nickNameValidateError } </ErrorParagraph>
+                }
             </Label>
             <Label rows >
                 <LabelParagraph>
@@ -450,7 +515,7 @@ const SignUpForm = ({}) => {
                 </LabelParagraph>
                 <EmailInput emailIsValidate={emailIsValidate} onChange={e => setEmail(e.target.value)} />
                 {
-                    !emailIsValidate && <ErrorParagraph> Введите настоящий e-mail </ErrorParagraph>
+                    emailValidateError && <ErrorParagraph> {emailValidateError} </ErrorParagraph>
                 }
             </Label>
             <Label>

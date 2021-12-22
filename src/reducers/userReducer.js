@@ -9,6 +9,9 @@ import {
 } from "../utils/constTypes"
 
 const initialState = {
+    currentUser: {
+
+    },
     isAuth: false,
     isLoading: false,
     loginError: '',
@@ -37,7 +40,10 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loginError: '',
-                isAuth: true
+                isAuth: true,
+                currentUser: {
+                    ...action.payload
+                }
             }
         }
 
@@ -45,7 +51,7 @@ export const userReducer = (state = initialState, action) => {
             console.log(action.payload)
             return {
                 ...state,
-                loginError: action.payload.data.message
+                loginError: action.payload
             }
         }
 
@@ -54,7 +60,10 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 signupError: '',
-                isAuth: true
+                isAuth: true,
+                currentUser: {
+                    ...action.payload
+                }
             }
         }
 

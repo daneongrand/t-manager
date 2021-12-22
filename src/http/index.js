@@ -14,6 +14,7 @@ $api.interceptors.request.use(config => {
 })
 
 $api.interceptors.response.use(config => {
+    console.log(config)
     return config
 }, async (error) => {
     if (error.response.status === 401) {
@@ -26,6 +27,8 @@ $api.interceptors.response.use(config => {
         } catch(e) {
             console.log('401')
         }
+    } else {
+        return Promise.reject(error);
     }
 })
 

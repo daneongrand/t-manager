@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { logout } from '../../actions/userActions';
 import { Link } from 'react-router-dom'
 import {ProfileLogo, ConstructorLogo, CampaignsLogo, AnalyticsLogo, SettingsLogo, LogOutLogo} from '../UI/icons/Icons'
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const NavigationContainer = styled.nav`
     display: grid;
@@ -100,10 +102,15 @@ const SettingsContainer = styled.div`
     }
 `
 
+const Avatar = styled.img`
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+`
 
 
 
-const Navigation = ({logout}) => {
+const Navigation = () => {
 
     const iconConfig = {
         width: "24",
@@ -111,12 +118,22 @@ const Navigation = ({logout}) => {
         color: "#fff"
     }
 
+    const avatarSmall = useSelector(state => state.user.currentUser.avatarSmallName)
+    console.log(avatarSmall)
+
+    const dispatch = useDispatch()
+
+    console.log(process.env.REACT_APP_API_URL_STATIC + '/' + avatarSmall)
 
     return (
         <NavigationContainer>
             <ProfileContainer>
                     <NavigationItem content="Профиль" to='/profile'>
-                        <ProfileLogo {...iconConfig} />
+                        {
+                            (avatarSmall)
+                                ? <Avatar src={process.env.REACT_APP_API_URL_STATIC + '/' + avatarSmall} />
+                                : <ProfileLogo {...iconConfig} />
+                        }
                     </NavigationItem>
             </ProfileContainer>
             <ToolsContainer>  
@@ -135,7 +152,7 @@ const Navigation = ({logout}) => {
                     <NavigationItem content="Настройки" to='/settings'>
                         <SettingsLogo {...iconConfig} />
                     </NavigationItem>
-                    <NavigationItem content="Выйти" onClick={logout} to='/login'>
+                    <NavigationItem content="Выйти" onClick={() => dispatch(logout())} to='/login'>
                         <LogOutLogo {...iconConfig} />
                     </NavigationItem>
                 
@@ -144,8 +161,6 @@ const Navigation = ({logout}) => {
     );
 };
 
-const MapDispatchToProps = {
-    logout
-}
 
-export default connect(null, MapDispatchToProps)(Navigation);
+
+export default Navigation;

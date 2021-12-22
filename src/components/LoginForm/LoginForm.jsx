@@ -139,6 +139,9 @@ const LoginForm = ({}) => {
             .then(() => {
                 history.push('/campaigns')
             })
+            .catch((err) => {
+                
+            })
     }
 
     return (

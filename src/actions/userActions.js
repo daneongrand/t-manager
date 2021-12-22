@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useHistory } from "react-router"
 import AuthService from "../services/AuthService"
+import FilesService from "../services/FilesService"
 import { CAMPAIGN_ROUTE } from "../utils/constRoutes"
 import {
     LOGIN,
@@ -28,36 +29,39 @@ export function authorization(login, password) {
                 type: USER_HIDE_LOADER
             })
             return Promise.resolve()            
-        } catch (e) {
+        } catch (error) {
+            // console.log(error.response)
+
             dispatch({
                 type: LOGIN_ERROR,
-                payload: e.response
+                payload: error.response.data.message
             })
             dispatch({
                 type: USER_HIDE_LOADER
             })
-            return Promise.reject()
         }
 
     }
 }
 
-export function signup(formData) {
+export function signup(formData, firstName, lastName, nickName, email, password) {
     return async dispatch => {
         try {
-            const { data } = await AuthService.signup(formData)
-            localStorage.setItem('accessToken', data.accessToken)
+            
+            const authResponse = await AuthService.signup(firstName, lastName, nickName, email, password)
+            localStorage.setItem('accessToken', authResponse.data.accessToken)
+            const avatarResponse = await FilesService.uploadAvatar(formData)
             dispatch({
                 type: SIGNUP,
-                payload: data
+                payload: {
+                    ...authResponse.data,
+                    ...avatarResponse.data
+                }
             })
             return Promise.resolve()
-        } catch (e) {
-            dispatch({
-                type: SIGNUP_ERROR,
-                payload: e.response
-            })
-            return Promise.reject()
+        } catch (err) {
+            const data = err.response.data
+            return Promise.reject(data)
         }
     }
 }
