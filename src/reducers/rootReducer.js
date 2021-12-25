@@ -7,7 +7,8 @@ import { groupsReducer } from "./groupsReducer";
 import { userReducer } from "./userReducer";
 import { keywordsReducer } from './keywordsReducer'
 import { minusPhrasesReducer } from './minusPhrasesReducer'
-
+import { historyPostReducer } from './historyPostReducer'
+ 
 export const rootReducer = combineReducers({
     constructors: constructorReducer,
     dnd: dndReducer,
@@ -16,5 +17,6 @@ export const rootReducer = combineReducers({
     files: filesReducer,
     groups: groupsReducer,
     keywords: keywordsReducer,
-    minusPhrases: minusPhrasesReducer
+    minusPhrases: minusPhrasesReducer,
+    historyPost: historyPostReducer
 })

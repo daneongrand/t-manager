@@ -36,6 +36,7 @@ const ButtonsContainer = styled.div`
     margin-top: 20px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 `
 
 const Add = styled.input.attrs({
@@ -78,8 +79,8 @@ const AddGroupsModal = ({ campaignId }) => {
     const [ groupName, setGroupName ] = useState('')
     return (
         <Modal
-            width='30%'
-            height='180px'
+            width='500px'
+            height='auto'
             onClose={() => dispatch(toggleModalAddGroups())}
             title='Создание новой группы'
         >

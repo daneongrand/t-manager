@@ -3,9 +3,10 @@ import { connect, useDispatch } from 'react-redux';
 import { rename, deleteCampaign } from '../../actions/campaignsActions';
 import styled from 'styled-components';
 import { Check, Chevron, DeleteKeyword, Edit } from '../UI/icons/Icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { spin } from '../UI/animation/animations';
 import { useSelector } from 'react-redux';
+import Button from '../UI/buttons/Button';
 
 const ItemAccordion = styled.article`
     @property --rotate {
@@ -82,7 +83,7 @@ const Input = styled.input`
     color: white;
 `
 
-const Button = styled.button`
+const StyledButton = styled.button`
     padding: 0px;
     display: flex;
     justify-content: center;
@@ -94,7 +95,7 @@ const Button = styled.button`
     border: 0;
 `
 
-const RedirectToConstructor = styled(Link)`
+const RedirectToConstructor = styled(Button)`
 
 `
 
@@ -106,6 +107,7 @@ const CampaignsItem = ({ campaignName, id }) => {
     const [ isChanging, setIsChanging ] = useState(false)
     const [ name, setName ] = useState(campaignName)
     const [ isOpen, setIsOpen ] = useState(false)
+    const history = useHistory()
 
     const showIndicators = () => {
         console.log('click')
@@ -128,35 +130,37 @@ const CampaignsItem = ({ campaignName, id }) => {
                 }
                 {
                     (isChanging)
-                        ? <Button
+                        ? <StyledButton
                             disabled={(isRenaming.isRenaming && isRenaming.id === id)}
                             onClick={() => {
                                 dispatch(rename(id, name)).then(() => setIsChanging(!isChanging))
                             }}
                         >
                             <Check width="24" height="24" color="white" />
-                        </Button>
-                        : <Button
+                        </StyledButton>
+                        : <StyledButton
                         onClick={() => setIsChanging(!isChanging)}
                         >
                             <Edit width="18" height="18" color="white" />
-                        </Button>
+                        </StyledButton>
                 }
-                <Button onClick={showIndicators}>
+                <StyledButton onClick={showIndicators}>
                     <Chevron width="24" height="24" color="white" />
-                </Button>
-                <Button
+                </StyledButton>
+                <StyledButton
                     onClick={() => dispatch(deleteCampaign(id))}
                 >
                     <DeleteKeyword width="24" height="24" color="white" />
-                </Button>
+                </StyledButton>
             </ItemSummary>
             <ItemDetails aria-expanded={isOpen}>
-                <RedirectToConstructor
-                    to={`/campaign_${id}/constructor`}
+                <Button
+                    size="sm"
+                    color="primary"
+                    onClicked={() => history.push(`/campaign_${id}/constructor`)}
                 >
                     Перейти в группу
-                </RedirectToConstructor>
+                </Button>
             </ItemDetails>
         </ItemAccordion>
     );

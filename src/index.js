@@ -31,15 +31,27 @@ const GlobalStyled = createGlobalStyle`
       margin: 0;
       padding: 0;
   }
+
+  &::-webkit-scrollbar {
+      width: 5px;
+      height: 100%;
+  }
+  &::-webkit-scrollbar-thumb {
+      background: rgba(24, 29, 49, 1);
+      border-radius: 9em;
+      box-shadow: inset 1px 1px 10px #f3faf7;
+}
 `
 
 const theme = {
   colors: {
     dark_blue: "#0A1026",
     blue: "#4255D4",
+    blueLight: "#47BDEF",
     green: '#05EB00',
     danger: "#EB0000",
     closeBtn: "#FF2F23",
+    disabled: "#6E6D70",
   },
   media: {
     desktop_small: "(max-width: 1240px)",

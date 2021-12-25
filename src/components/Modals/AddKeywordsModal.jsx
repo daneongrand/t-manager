@@ -16,11 +16,27 @@ const AddKeywordsModalContainer = styled.section`
     border-radius: 10px;
     display: grid;
     grid-template-columns: 30% 70%;
+    @media ${props => props.theme.media.desktop_small} {
+        width: 80%;
+        height: 70%;
+    }
+    @media ${props => props.theme.media.tablet} {
+        width: 80vw;
+        height: 80vh;
+        grid-template-columns: 50px 1fr;
+    }
+    @media ${props => props.theme.media.mobile} {
+        width: 90vw;
+        height: 90vh;
+    }
 `
 
 const Aside = styled.div`
     display: grid;
     grid-template-rows: 40px 1fr;
+    @media ${props => props.theme.media.tablet} {
+        width: 100%;
+    }
 `
 
 const Tabs = styled.ul`
@@ -46,6 +62,9 @@ const TabButton = styled.button`
     &:hover {
         background-color: rgba(29, 29, 48, .9);
     }
+    @media ${props => props.theme.media.tablet} {
+        grid-template-columns: 24px 0;
+    }
 `
 
 const TabName = styled.p`
@@ -58,16 +77,28 @@ const TabName = styled.p`
     margin-left: 10px;
     font-weight: ${props => props.isActive ? '600' : '400'};
     color: ${props => props.isActive ? 'white' : props.theme.colors.blue};
+    @media ${props => props.theme.media.tablet} {
+        display: none;
+    }
 `
 
 const Header = styled.header`
     align-self: center;
     padding: 0px 15px;
+    @media ${props => props.theme.media.tablet} {
+        width: 100%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
 `
 
 const Article = styled.article`
     border-radius: 0px 10px 10px 0px;
     background-color: rgba(14, 14, 35, 1);
+    @media ${props => props.theme.media.tablet} {
+        width: 100%;
+    }
 `
 
 

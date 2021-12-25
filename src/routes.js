@@ -7,6 +7,7 @@ import Main from "./pages/Main"
 import { ANALYTICS_ROUTE, CAMPAIGN_ROUTE, CONSTRUCTOR_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, SIGNUP_ROUTE } from "./utils/constRoutes"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import Page_404 from "./pages/Page_404"
 
 export const authRoutes = [
 

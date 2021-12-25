@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { UPLOAD_FILES_ERROR } from '../../utils/constTypes';
 import Loader from '../UI/loader/Loader';
 import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
+import { Upload } from '../UI/icons/Icons'
 
 const UploadFileContainer = styled.div`
     position: relative;
@@ -57,9 +58,13 @@ const UploadInput = styled.input.attrs({
     type: 'file'
 })`
     margin-top: 10px;
+    display: none;
 `
 
-
+const UploadFile = styled.div`
+    width: 50px;
+    height: 50px;
+`
 
 const ErrorMessage = styled.p`
     color: ${props => props.theme.colors.danger};
@@ -130,6 +135,9 @@ const UploadFileSection = () => {
                                 <UploadInput
                                     onChange={e => postFile(e.target.files[0])}
                                 />
+                                <UploadFile>
+                                    <Upload width="100%" height="100%" color="white" />
+                                </UploadFile>
                             </UploadLabel>
                             {
                                 (errorMessage) && <ErrorMessage>

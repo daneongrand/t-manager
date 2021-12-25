@@ -27,9 +27,13 @@ const ModalContainer = styled.section`
     border-radius: 10px;
     background: rgba(14, 14, 35, .9);
     padding: 0px 15px;
+    @media ${props => props.theme.media.tablet} {
+        width: 80%;
+    }
 `
 
 const ModalHeader = styled.header`
+    width: 100%;
     display: grid;
     grid-template-columns: 22px 1fr 22px;
     align-items: center;
@@ -57,6 +61,9 @@ const ModalTitle = styled.h1`
     text-align: center;
     font-size: 22px;
     font-weight: 400;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
 `
 
 const Modal = ({title, width='60%', height='50%', children, onClose = f => f}) => {

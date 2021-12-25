@@ -8,6 +8,7 @@ import { authRoutes, publicRoutes } from './routes';
 import Navigation from './components/Navigation/Navigation';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import Page_404 from './pages/Page_404';
 
 const AppContainerAuth = styled.div`
   width: 100%;
@@ -70,6 +71,7 @@ function App() {
               {
                 publicRoutes.map(({ path, component }) => <Route key={path} path={path} component={component} exact/>)
               }
+              
             </AppContainerNotAuth>
         }
       </Switch>

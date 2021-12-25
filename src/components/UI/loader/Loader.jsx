@@ -8,17 +8,21 @@ const LoaderContainer = styled.section`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(14, 14, 35, .9);
-    backdrop-filter: blur(5px);
+    background: ${props => props.backgroundColor};
+    backdrop-filter: ${props => props.backdropFilter};
     border-radius: ${props => props.borderRadius};
     display: flex;
     justify-content: center;
     align-items: center;
 `
 
-const Loader = ({ color='white', borderRadius }) => {
+const Loader = ({ color='white', borderRadius, backgroundColor="rgba(14, 14, 35, .9)", backdropFilter="blur(5px)" }) => {
     return (
-        <LoaderContainer borderRadius={borderRadius}>
+        <LoaderContainer 
+            borderRadius={borderRadius} 
+            backgroundColor={backgroundColor} 
+            backdropFilter={backdropFilter}
+        >
             <PulseLoader color={color} />
         </LoaderContainer>
     );

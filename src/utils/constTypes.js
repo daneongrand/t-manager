@@ -79,3 +79,10 @@ export const GET_ALL_GROUPS = 'groups/getAll'
 export const RENAME_GROUP = 'groups/rename_group'
 export const CREATE_GROUP = 'groups/create_group'
 export const DELETE_GROUP = 'groups/delete_group'
+
+
+// HISTORY POST ACTIONS TYPE 
+export const HISTORY_POST_SHOW_LOADER = 'history_post/show_loader'
+export const HISTORY_POST_HIDE_LOADER = 'history_post/hide_loader'
+export const HISTORY_POST_LOADED = 'history_post/loaded'
+export const HISTORY_POST_SET_COUNT = 'history_post/set_count'

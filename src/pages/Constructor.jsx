@@ -9,7 +9,7 @@ import DndSection from '../components/UI/dnd/DndSection';
 import MinusPhraseSection from '../components/MinusPhraseSection/MinusPhraseSection';
 import AddKeywordsModal from '../components/Modals/AddKeywordsModal';
 import { getAllGroup } from '../actions/groupsActions';
-import AddGroupsModal from '../components/GroupsSection/AddGroupsModal';
+import AddGroupsModal from '../components/Modals/AddGroupsModal';
 import { editKeyword, getAllKeywords } from '../actions/keywordsActions';
 import { getAllMinusPhrases } from '../actions/minusPhrasesActions';
 import { CLEAR_GROUPS, CLEAR_KEYWORDS, CLEAR_MINUS_PHRASES } from '../utils/constTypes';
