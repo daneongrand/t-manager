@@ -3,9 +3,12 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
+import useConfirmPassword from '../../hooks/useConfirmPassword';
+import useInput from '../../hooks/useInput';
 import { LOGIN_ROUTE } from '../../utils/constRoutes';
 import Avatar from '../UI/avatar/Avatar'
 import Checkbox from '../UI/checkbox/Checkbox';
+import { ErrorParagraph } from '../UI/errors/errorParagraph';
 import { Input } from '../UI/input/Input';
 import { LabelParagraph } from '../UI/label/labelParagraph';
 import EmailInput from './EmailInput';
@@ -92,73 +95,103 @@ const PrivacyPolicyParagraph = styled.span`
 
 
 const SignUpForm = () => {
-
+                
     const [ avatar, setAvatar ] = useState(null)
-    const [ firstName, setFirstName ] = useState('')
-    const [ lastName, setLastName ] = useState('')
-    const [ nickName, setNickName ] = useState('')
-    const [ nickNameIsValid, setNickNameIsValid ] = useState(true)
-    const [ email, setEmail ] = useState('')
-    const [ emailIsValid, setEmailIsValid ] = useState(true)
-    const [ password, setPassword ] = useState('')
-    const [ passwordIsValid, setPasswordIsValid ] = useState(true)
-    const [ confirmPassword, setConfirmPassword ] = useState('')
-    const [ confirmPasswordIsValid, setConfirmPasswordIsValid ] = useState(true)
-    const [ acceptedPrivacy, setAcceptedPrivacy ] = useState(false)
-    const [ validForm, setValidForm ] = useState(false)
+    const firstName = useInput('')
+    const lastName = useInput('')
+    const nickName = useInput('', { isEmpty: true })
+    const email = useInput('', { isEmail: true })
+    const password = useInput('', { isPassword: true })
+    const confirmPassword = useConfirmPassword('', password.value)
+    const [checkbox, setCheckbox] = useState(false)
+    const [formValid, setFormValid] = useState(false)
 
 
     useEffect(() => {
-        if (nickName && nickNameIsValid && email && emailIsValid && password && passwordIsValid && confirmPassword && confirmPasswordIsValid && acceptedPrivacy ) {
-            setValidForm(true)
-        } else {
-            setValidForm(false)
-        }
-    }, [nickName, nickNameIsValid, email, emailIsValid, password, passwordIsValid, confirmPassword, confirmPasswordIsValid, acceptedPrivacy])
+        console.log(nickName.inputValid)
+    }, [nickName.value, email.value, password.value, confirmPassword.value])
 
     return (
         <Form>
-            <Avatar style={{ top: "-100px", gridColumn: "1/3" }} onUploadAvatar={file => setAvatar(file)} />
+            <Avatar 
+                style={{ top: "-100px", gridColumn: "1/3" }} 
+                onUploadAvatar={file => setAvatar(file)} 
+            />
             <Title>Регистрация</Title>
             <Label>
-                <LabelParagraph>Ваше имя</LabelParagraph>
-                <Input value={firstName} onChange={e => setFirstName(e.target.value)} />
+                <LabelParagraph>Имя</LabelParagraph>
+                <Input 
+                    value={firstName.value} 
+                    onChange={e => firstName.onChange(e)} 
+                />
             </Label>
             <Label>
-                <LabelParagraph>Ваша фамилия</LabelParagraph>
-                <Input value={lastName} onChange={e => setLastName(e.target.value)} />
-            </Label>
-            <Label rows>
-                <NickNameInput 
-                    value={nickName} 
-                    validate={nickNameIsValid}
-                    onChangeNickName={value => setNickName(value)} 
+                <LabelParagraph>Фамилия</LabelParagraph>
+                <Input 
+                    value={lastName.value} 
+                    onChange={e => lastName.onChange(e)} 
                 />
             </Label>
             <Label rows>
-                <EmailInput 
-                    value={email} 
-                    validate={emailIsValid}
-                    onChangeEmail={value => setEmail(value)} 
-                    onValidate={value => setEmailIsValid(value)}
+                <LabelParagraph isValid={!(nickName.isDirty && !nickName.isEmpty)}>Никнейм *</LabelParagraph>
+                <Input 
+                    value={nickName.value} 
+                    onChange={e => nickName.onChange(e)} 
+                    onBlur={e => nickName.onBlur(e)}
+                    isValid={!(nickName.isDirty && !nickName.isEmpty)}
                 />
+                {
+                    (nickName.isDirty && !nickName.isEmpty) && <ErrorParagraph> Это обязательное поле </ErrorParagraph>
+                }
             </Label>
-            <PasswordInputBlock
-                valuePassword={password} 
-                valueConfirmPassword={confirmPassword} 
-                onChangePassword={value => setPassword(value)} 
-                onChangeConfirmPassword={value => setConfirmPassword(value)} 
-                onValidatePassword={value => setPasswordIsValid(value)}
-                onValidateConfirmPassword={value => setConfirmPasswordIsValid(value)}
-            />
-            <PrivacyPolicyContainer>
-                <Checkbox value={acceptedPrivacy} onChecked={value => setAcceptedPrivacy(value)} />
+            <Label rows>
+                <LabelParagraph isValid={!(email.isDirty && !email.isEmail)}>E-mail *</LabelParagraph>
+                <Input
+                    type="email"
+                    value={email.value} 
+                    onBlur={e => email.onBlur(e)}    
+                    onChange={e => email.onChange(e)} 
+                    isValid={!(email.isDirty && !email.isEmail)}
+                />
+                {
+                    (email.isDirty && !email.isEmail) && <ErrorParagraph> Введите корректный e-mail </ErrorParagraph> 
+                }
+            </Label>
+            <Label>
+                <LabelParagraph isValid={!((password.isDirty && !password.isPassword))}>Пароль *</LabelParagraph>
+                <Input 
+                    value={password.value} 
+                    onChange={e => password.onChange(e)} 
+                    onBlur={e => password.onBlur(e)}
+                    isValid={!((password.isDirty && !password.isPassword))}
+                />
+                {
+                    (password.isDirty && !password.isPassword) && <ErrorParagraph> Введите корректный пароль </ErrorParagraph>
+                }
+            </Label>
+            <Label>
+                <LabelParagraph isValid={confirmPassword.passwordsMatched}>Подтвердите пароль *</LabelParagraph>
+                <Input 
+                    value={confirmPassword.value} 
+                    onChange={e => confirmPassword.onChange(e)} 
+                    onBlur={e => confirmPassword.onBlur(e)}
+                    isValid={confirmPassword.passwordsMatched}
+                />
+                {
+                    (!confirmPassword.passwordsMatched) && <ErrorParagraph> Пароли не совпадают </ErrorParagraph>
+                }
+            </Label>
+            <PrivacyPolicyParagraph>
+                <Checkbox 
+                    value={checkbox}
+                    onChecked={value => setCheckbox(value)}
+                />
                 <PrivacyPolicyParagraph>
                     Я согласен с политикой конфиденциальности
                 </PrivacyPolicyParagraph>
-            </PrivacyPolicyContainer>
+            </PrivacyPolicyParagraph>
             <RedirectToLogin to={LOGIN_ROUTE}>У вас уже есть аккаунт?</RedirectToLogin>
-            <SubmitButton disabled={validForm} formValidate={validForm} />
+            <SubmitButton disabled={formValid} formValidate={formValid} />
         </Form>
     );
 };
