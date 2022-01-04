@@ -44,18 +44,15 @@ export function authorization(login, password) {
     }
 }
 
-export function signup(formData, firstName, lastName, nickName, email, password) {
+export function signup(formData) {
     return async dispatch => {
         try {
-            
-            const authResponse = await AuthService.signup(firstName, lastName, nickName, email, password)
+            const authResponse = await AuthService.signup(formData)
             localStorage.setItem('accessToken', authResponse.data.accessToken)
-            const avatarResponse = await FilesService.uploadAvatar(formData)
             dispatch({
                 type: SIGNUP,
                 payload: {
                     ...authResponse.data,
-                    ...avatarResponse.data
                 }
             })
             return Promise.resolve()

@@ -132,7 +132,6 @@ const Avatar = ({ onUploadAvatar = f => f, style}) => {
     }
 
     const uploadFile = e => {
-        
         onUploadAvatar(e.target.files[0])
     }
 

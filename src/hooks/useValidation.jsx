@@ -3,23 +3,23 @@ import { useState, useEffect } from 'react';
 const useValidation = (value, validations) => {
 
     const [isEmpty, setIsEmpty] = useState(true)
-    const [isEmail, setIsEmail] = useState(false)
-    const [isPassword, setIsPassword] = useState(false)
+    const [emailError, setEmailError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
     const [inputValid, setInputValid] = useState(false)
 
     useEffect(() => {
         for (let validation in validations) {
             switch(validation) {
                 case 'isEmpty': {
-                    value ? setIsEmpty(true) : setIsEmpty(false)
+                    value ? setIsEmpty(false) : setIsEmpty(true)
                     break
                 }
                 case 'isEmail': {
-                    (value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) ? setIsEmail(true) : setIsEmail(false)
+                    (value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) ? setEmailError(false) : setEmailError(true)
                     break
                 }
                 case 'isPassword': {
-                    (value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/)) ? setIsPassword(true) : setIsPassword(false)
+                    (value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/)) ? setPasswordError(false) : setPasswordError(true)
                     break
                 }
             }
@@ -27,13 +27,13 @@ const useValidation = (value, validations) => {
     }, [value])
 
     useEffect(() => {
-        (isEmpty || !isEmail || !isPassword) ? setInputValid(false) : setInputValid(true)
-    }, [isEmpty, isEmail, isPassword])
+        (isEmpty || emailError || passwordError) ? setInputValid(false) : setInputValid(true)
+    }, [isEmpty, emailError, passwordError])
 
     return {
         isEmpty,
-        isEmail,
-        isPassword,
+        emailError,
+        passwordError,
         inputValid
     }
 };

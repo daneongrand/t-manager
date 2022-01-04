@@ -19,4 +19,7 @@ export const Input = styled.input`
     &:focus-visible {
         box-shadow: 0px 0px 10px 1px ${props => (props.isValid || props.isValid === undefined)  ? props.theme.colors.blue : props.theme.colors.danger};
     }
+    @media ${props => props.theme.media.mobile} {
+        
+    }
 `
