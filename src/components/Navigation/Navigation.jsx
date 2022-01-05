@@ -13,7 +13,6 @@ const NavigationContainer = styled.nav`
     width: 50px;
     height: 100%;
     background: rgba(24, 29, 49);
-    
     @media ${props => props.theme.media.tablet} {
         position: fixed;
         bottom: 0;
@@ -119,11 +118,8 @@ const Navigation = () => {
     }
 
     const avatarSmall = useSelector(state => state.user.currentUser.avatarSmallName)
-    console.log(avatarSmall)
-
     const dispatch = useDispatch()
-
-    console.log(process.env.REACT_APP_API_URL_STATIC + '/' + avatarSmall)
+    
 
     return (
         <NavigationContainer>

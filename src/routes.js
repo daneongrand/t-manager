@@ -39,12 +39,7 @@ export const authRoutes = [
 ]
 
 export const publicRoutes = [
-    
-    {
-        path: MAIN_ROUTE,
-        component: Main
-    },
-    
+        
     {
         path: LOGIN_ROUTE,
         component: Login
@@ -53,6 +48,11 @@ export const publicRoutes = [
     {
         path: SIGNUP_ROUTE,
         component: Signup
-    }
+    },
+    
+    {
+        path: MAIN_ROUTE,
+        component: Main
+    },
     
 ]

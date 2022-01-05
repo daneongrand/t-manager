@@ -16,29 +16,16 @@ import {
 export function authorization(login, password) {
     return async dispatch => {
         try {
-            dispatch({
-                type: USER_SHOW_LOADER
-            })
             const { data } = await AuthService.login(login, password)
             localStorage.setItem('accessToken', data.accessToken)
             dispatch({
                 type: LOGIN,
                 payload: data
             })
-            dispatch({
-                type: USER_HIDE_LOADER
-            })
             return Promise.resolve()            
-        } catch (error) {
-            // console.log(error.response)
-
-            dispatch({
-                type: LOGIN_ERROR,
-                payload: error.response.data.message
-            })
-            dispatch({
-                type: USER_HIDE_LOADER
-            })
+        } catch (err) {
+            const data = err.response.data
+            return Promise.reject(data)
         }
 
     }

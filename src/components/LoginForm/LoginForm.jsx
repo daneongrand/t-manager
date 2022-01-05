@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { authorization } from '../../actions/userActions';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { CAMPAIGN_ROUTE } from '../../utils/constRoutes';
+import { CAMPAIGN_ROUTE, LOGIN_ROUTE } from '../../utils/constRoutes';
 import Loader from '../UI/loader/Loader';
+import { ErrorParagraph } from '../UI/errors/errorParagraph';
 
 const Form = styled.form`
     position: relative;
@@ -125,22 +126,32 @@ const LoginError = styled.section`
 
 
 const LoginForm = ({}) => {
-    const isLoading = useSelector(state => state.user.isLoading)
+    const [isLoading, setIsLoading] = useState(false)
     console.log(isLoading)
     const loginError = useSelector(state => state.user.loginError)
     const dispatch = useDispatch()
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const history = useHistory()
+    const [loginErr, setLoginErr] = useState('')
+    const [passwordErr, setPasswordErr] = useState('')
+
+
 
     const handleLogin = (e) => {
         e.preventDefault()
         dispatch(authorization(login, password))
             .then(() => {
-                history.push('/campaigns')
+                history.push(CAMPAIGN_ROUTE)
             })
-            .catch((err) => {
-                
+            .catch(({ errors }) => {
+                if (errors.errCode === 3) {
+                    setLoginErr(errors.errName)
+                }
+                if (errors.errCode === 4) {
+                    setPasswordErr(errors.errName)
+                }
+                setIsLoading(false)
             })
     }
 
@@ -158,17 +169,33 @@ const LoginForm = ({}) => {
                 type="text" 
                 placeholder="Ваш nickname или email"
                 value={login}
-                onChange={e => setLogin(e.target.value)}
+                onChange={e => {
+                    setLogin(e.target.value)
+                    if (loginErr) {
+                        setLoginErr('')
+                    }
+                }}
             />
+            {
+                (loginErr) && <ErrorParagraph>{loginErr}</ErrorParagraph>
+            }
             <Input 
                 type="password" 
                 placeholder="Ваш пароль"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={e => {
+                    setPassword(e.target.value)
+                    if (passwordErr) {
+                        setPasswordErr('')
+                    }
+                }}
             />
+            {
+                (passwordErr) && <ErrorParagraph>{passwordErr}</ErrorParagraph>
+            }
             <SubmitContainer>
                 <Submit />
-                <StyledLink>Забыли пароль?</StyledLink>
+                <StyledLink to={LOGIN_ROUTE}>Забыли пароль?</StyledLink>
             </SubmitContainer>
             <ParagraphContainer>
                 <StyledParagraph>У вас нет аккаунта?</StyledParagraph>

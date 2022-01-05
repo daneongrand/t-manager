@@ -2,13 +2,13 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { signup } from '../../actions/userActions';
 import useConfirmPassword from '../../hooks/useConfirmPassword';
 import useInput from '../../hooks/useInput';
 import AuthService from '../../services/AuthService';
-import { LOGIN_ROUTE } from '../../utils/constRoutes';
+import { CAMPAIGN_ROUTE, LOGIN_ROUTE } from '../../utils/constRoutes';
 import Avatar from '../UI/avatar/Avatar'
 import Checkbox from '../UI/checkbox/Checkbox';
 import { ErrorParagraph } from '../UI/errors/errorParagraph';
@@ -118,6 +118,7 @@ const SignUpForm = () => {
     const [emailError, setEmailError] = useState('')
     const [nickNameError, setNickNameError] = useState('')
 
+    const history = useHistory()
     const dispatch = useDispatch()
 
     const resetEmailError = () => setEmailError('')
@@ -141,6 +142,7 @@ const SignUpForm = () => {
             dispatch(signup(formData))
                 .then(data => {
                     setIsLoading(false)
+                    history.push(CAMPAIGN_ROUTE)
                 })
                 .catch(({ errors }) => {
                     for(let err of errors) {

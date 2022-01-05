@@ -25,6 +25,9 @@ const ProfileAvatarContainer = styled.div`
     width: 200px;
     height: 200px;
     grid-row: 1/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     border-radius: 50%;
     border: 3px solid ${props => props.theme.colors.blue};
@@ -35,7 +38,9 @@ const ProfileAvatarContainer = styled.div`
 `
 
 const ProfileAvatar = styled.img`
-
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 50%;
 `
 
 const NickName = styled.p`
@@ -58,12 +63,13 @@ const FullName = styled.p`
 
 const ProfileInformation = () => {
     const currentUser = useSelector(state => state.user.currentUser)
+    console.log(currentUser)
     return (
         <ProfileInformationContainer>
             <ProfileAvatarContainer>
                 {
                     (currentUser.avatarOriginalName)
-                        ? <ProfileAvatar />
+                        ? <ProfileAvatar src={process.env.REACT_APP_API_URL_STATIC + '/' + currentUser.avatarOriginalName}/>
                         : <ProfileLogo width="100%" height="100%" color="rgba(14, 14, 35, 1)"  />
                 }
             </ProfileAvatarContainer>

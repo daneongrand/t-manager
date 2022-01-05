@@ -114,6 +114,11 @@ const CampaignsItem = ({ campaignName, id }) => {
         setIsOpen(!isOpen)
     }
 
+    const addHistoryCampaign = (id) => {
+        console.log(id)
+        localStorage.setItem('historyCampaign', id)
+    }
+
 
     return (
         <ItemAccordion isRenaming={(isRenaming.isRenaming && isRenaming.id === id)}>
@@ -157,7 +162,10 @@ const CampaignsItem = ({ campaignName, id }) => {
                 <Button
                     size="sm"
                     color="primary"
-                    onClicked={() => history.push(`/campaign_${id}/constructor`)}
+                    onClicked={() => {
+                        addHistoryCampaign(id)
+                        history.push(`/campaign_${id}/constructor`)
+                    }}
                 >
                     Перейти в группу
                 </Button>

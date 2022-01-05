@@ -19,10 +19,7 @@ const Main = styled.main`
 const Analytics = () => {
     return (
         <Main>
-            <Button size="xl" color="primary">Button 1</Button>
-            <Button>Button 2</Button>
-            <Button size="sm" disabled>Button 3</Button>
-            {/* <DevelopmentSection /> */}
+            <DevelopmentSection />
         </Main>
     );
 };
